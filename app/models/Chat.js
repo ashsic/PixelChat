@@ -11,12 +11,11 @@ const chatSchema = new mongoose.Schema({
     default: this.participants
   },
 
-  messages: {
+  messages: [{
     sender: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User' 
     },
-
     text: {
       type: String,
       required: function() {
@@ -29,18 +28,26 @@ const chatSchema = new mongoose.Schema({
         message: 'Message must meet the length requirements.'
       }
     },
-
     image: {
       type: Image, //?
       required: function() {
           return !this.text; 
       }
     },
-
     likes: {
       type: Number,
       required: true,
       default: 0
     },
-  },
+    timestamp: {
+      type: Date,
+      default: Date.now
+    },
+  }],
 });
+
+// static methods
+
+const Chat = mongoose.model('Chat', chatSchema);
+
+export default Chat;

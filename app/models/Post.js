@@ -69,7 +69,7 @@ const postSchema = new mongoose.Schema({
       },
       timestamp: {
         type: Date,
-        required: true
+        default: Date.now
       },
       likes: {
         type: Number,
@@ -88,7 +88,7 @@ const postSchema = new mongoose.Schema({
       message: 'Limit of 4 images to a post'
     }
   },
-});
+}, { timestamps: true });
 
 // static methods
 

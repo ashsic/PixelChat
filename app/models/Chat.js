@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const chatSchema = new mongoose.Schema({
   participants: [{
@@ -8,7 +8,7 @@ const chatSchema = new mongoose.Schema({
 
   name: {
     type: String,
-    default: this.participants
+    default: true//this.participants
   },
 
   messages: [{
@@ -29,7 +29,7 @@ const chatSchema = new mongoose.Schema({
       }
     },
     image: {
-      type: Image, //?
+      type: String, //?
       required: function() {
           return !this.text; 
       }

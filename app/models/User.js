@@ -40,6 +40,10 @@ const userSchema = new mongoose.Schema({
     type: String
   },
 
+  picture: {
+    type: String
+  },
+
   chats: {
     type: [{
       type: mongoose.Schema.Types.ObjectId,

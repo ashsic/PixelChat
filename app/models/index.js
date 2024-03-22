@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
 import { config } from "dotenv";
 
-import User from "./User";
-import Post from "./Post";
-import Chat from "./Chat";
+import User from "./User.js";
+import Post from "./Post.js";
+import Chat from "./Chat.js";
 
 config();
 

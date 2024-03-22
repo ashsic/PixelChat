@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const postSchema = new mongoose.Schema({
   poster: {
@@ -80,7 +80,7 @@ const postSchema = new mongoose.Schema({
   }],
 
   images: {
-    type: [Image],
+    type: [String],
     validate: {
       validator: function(arr) {
           return arr.length <= 4;

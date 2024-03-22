@@ -6,6 +6,7 @@ const userSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
+
   email: {
     type: String,
     required: true,
@@ -14,25 +15,31 @@ const userSchema = new mongoose.Schema({
     lowercase: true,
     match: [/^\S+@\S+\.\S+$/, 'Please enter a valid email address']
   },
+
   firstName: {
     type: String,
     required: true
   },
+
   lastName: {
       type: String,
       required: true
   },
+
   password: {
     type: String,
     required: true
   },
+
   dob: {
     type: Date,
     required: true
   },
+
   bio: {
     type: String
   },
+
   chats: {
     type: [{
       type: mongoose.Schema.Types.ObjectId,
@@ -41,6 +48,7 @@ const userSchema = new mongoose.Schema({
     required: true,
     default: []
   },
+
   posts: {
     type: [{
       type: mongoose.Schema.Types.ObjectId,
@@ -49,6 +57,7 @@ const userSchema = new mongoose.Schema({
     required: true,
     default: []
   },
+
   followers: {
     type: [{
       type: mongoose.Schema.Types.ObjectId,
@@ -57,6 +66,7 @@ const userSchema = new mongoose.Schema({
     required: true,
     default: []
   },
+
   following: {
     type: [{
       type: mongoose.Schema.Types.ObjectId,
@@ -66,3 +76,9 @@ const userSchema = new mongoose.Schema({
     default: []
   },
 });
+
+// static methods
+
+const User = mongoose.model('User', userSchema);
+
+export default User;

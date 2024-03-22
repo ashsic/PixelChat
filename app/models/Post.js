@@ -6,9 +6,15 @@ const postSchema = new mongoose.Schema({
     ref: 'User' 
   },
 
-  content: {
+  text: {
     type: String,
-    required: true
+    required: true,
+    validate: {
+      validator: function(text) {
+          return text.length > 0 && text.length < 1024;
+      },
+      message: 'Post must meet the length requirements.'
+    }
   },
 
   timestamp: {
@@ -27,9 +33,15 @@ const postSchema = new mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User' 
     },
-    content: {
+    text: {
       type: String,
-      required: true
+      required: true,
+      validate: {
+        validator: function(text) {
+            return text.length > 0 && text.length < 512;
+        },
+        message: 'Comment must meet the length requirements.'
+      }
     },
     timestamp: {
       type: Date,
@@ -45,9 +57,15 @@ const postSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User' 
       },
-      content: {
+      text: {
         type: String,
-        required: true
+        required: true,
+        validate: {
+          validator: function(text) {
+              return text.length > 0 && text.length < 512;
+          },
+          message: 'Comment must meet the length requirements.'
+        }
       },
       timestamp: {
         type: Date,
@@ -69,5 +87,11 @@ const postSchema = new mongoose.Schema({
       },
       message: 'Limit of 4 images to a post'
     }
-  }
+  },
 });
+
+// static methods
+
+const Post = mongoose.model('Post', postSchema);
+
+export default Post;

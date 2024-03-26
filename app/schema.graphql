@@ -6,7 +6,7 @@ type Query {
 }
 
 type Mutation {
-  createUser(
+  signUp(
     username: String!,
     email: String!,
     firstName: String!,
@@ -73,4 +73,9 @@ type User {
   posts: [Post!]!
   followers: [User!]!
   following: [User!]!
+}
+
+type AuthPayload {
+  token: String
+  user: User
 }

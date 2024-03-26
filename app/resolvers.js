@@ -1,6 +1,11 @@
 import { models } from "./models/index.js";
-import mongoose from "mongoose";
 import authHelper from "./helpers/authHelper.js";
+import { ExtractJwt, Strategy } from "passport-jwt";
+import passport from "passport";
+
+passport.use(new Strategy(function verify(username, password, cb) {
+  
+}))
 
 const resolvers = {
   User: {
@@ -17,16 +22,12 @@ const resolvers = {
     }
   },
   Mutation: {
-    async createUser(parent, args) {
-      const hashedPassword = await authHelper(args.password);
+    async signUp(parent, args) {
+      const password = await authHelper(args.password);
       const newUser = new models.User({
-        username: args.username,
-        email: args.email,
-        firstName: args.firstName,
-        lastName: args.lastName,
-        password: hashedPassword,
-        dob: new Date(args.dob),
-        bio: args.bio
+        ...args,
+        password: password,
+        dob: new Date(args.dob)
       });
       await newUser.save();
       return newUser;

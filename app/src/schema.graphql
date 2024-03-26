@@ -1,14 +1,29 @@
-
-
-
-
-type Chat {
-
+type Query {
+  user(id:ID!) User
+  users: [User]
 }
 
+type Mutation {
+  createUser(
+    username: String!,
+    email: String!,
+    firstName: String!,
+    lastName: String!,
+    password: String!,
+    dob: String!,
+    bio: String!
+  ): User
+}
 
+type Chat {
+  _id: ID!
+  participants: [User!]!
+  name: String!
+  messages: [Message!]!
+}
 
 type Post {
+  _id: ID!
   poster: User!
   text: String!
   timestamp: String!
@@ -18,71 +33,33 @@ type Post {
 }
 
 type Comment {
-
+  commenter: User!
+  text: String!
+  timestamp: String!
+  likes: Int!
+  replies: [CommentReply!]!
 }
 
-comments: [{
-    commenter: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'User' 
-    },
-    text: {
-      type: String,
-      required: true,
-      validate: {
-        validator: function(text) {
-            return text.length > 0 && text.length < 512;
-        },
-        message: 'Comment must meet the length requirements.'
-      }
-    },
-    timestamp: {
-      type: Date,
-      required: true
-    },
-    likes: {
-      type: Number,
-      required: true,
-      default: 0
-    },
-    replies: [{
-      replier: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User' 
-      },
-      text: {
-        type: String,
-        required: true,
-        validate: {
-          validator: function(text) {
-              return text.length > 0 && text.length < 512;
-          },
-          message: 'Comment must meet the length requirements.'
-        }
-      },
-      timestamp: {
-        type: Date,
-        default: Date.now
-      },
-      likes: {
-        type: Number,
-        required: true,
-        default: 0
-      },
-    }]
-  }],
+type CommentReply {
+  comment: Comment!
+  replier: User!
+  text: String!
+  timestamp: String!
+  likes: Int!
+}
 
 type User {
+  _id: ID!
   username: String!
   email: String!
   firstName: String!
   lastName: String!
   password: String!
   dob: String!
-  bio: String
+  bio: String!
   picture: String
-  chats: [Chat]
-  posts: [Post]
-  followers: [User]
-  following: [User]
+  chats: [Chat!]!
+  posts: [Post!]!
+  followers: [User!]!
+  following: [User!]!
 }

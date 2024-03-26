@@ -5,12 +5,10 @@ const chatSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User' 
   }],
-
   name: {
     type: String,
-    default: true//this.participants
+    default: 'test' //this.participants
   },
-
   messages: [{
     sender: {
       type: mongoose.Schema.Types.ObjectId,
@@ -43,10 +41,12 @@ const chatSchema = new mongoose.Schema({
       type: Date,
       default: Date.now
     },
+    hidden: {
+      type: Boolean,
+      default: false
+    }
   }],
 });
-
-// static methods
 
 const Chat = mongoose.model('Chat', chatSchema);
 

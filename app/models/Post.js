@@ -28,13 +28,56 @@ const postSchema = new mongoose.Schema({
     default: 0
   },
 
-  comments: {
-    type: [{
+  comments: [{
+    commenter: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Comment' 
-    }],
-    default: []
-  },
+      ref: 'User' 
+    },
+    text: {
+      type: String,
+      required: true,
+      validate: {
+        validator: function(text) {
+            return text.length > 0 && text.length < 512;
+        },
+        message: 'Comment must meet the length requirements.'
+      }
+    },
+    timestamp: {
+      type: Date,
+      required: true
+    },
+    likes: {
+      type: Number,
+      required: true,
+      default: 0
+    },
+    replies: [{
+      replier: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User' 
+      },
+      text: {
+        type: String,
+        required: true,
+        validate: {
+          validator: function(text) {
+              return text.length > 0 && text.length < 512;
+          },
+          message: 'Comment must meet the length requirements.'
+        }
+      },
+      timestamp: {
+        type: Date,
+        default: Date.now
+      },
+      likes: {
+        type: Number,
+        required: true,
+        default: 0
+      },
+    }]
+  }],
 
   images: {
     type: [String],

@@ -16,8 +16,8 @@ const models = {
   User,
   Post,
   Chat,
-  Comment,
-  CommentReply
+  // Comment,
+  // CommentReply
 };
 
 export {

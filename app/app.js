@@ -1,36 +1,29 @@
 import express from "express";
 import cors from "cors";
-import { connectDb } from "./models/index.js";
 import { config } from "dotenv";
 
-import gql from "graphql-tag";
+import { connectDb } from "./models/index.js";
+
+import typeDefs from "./graphql/typeDefs.js";
+import resolvers from "./graphql/resolvers.js";
+
 import { ApolloServer } from '@apollo/server';
 import { buildSubgraphSchema } from '@apollo/subgraph';
 import { expressMiddleware } from '@apollo/server/express4';
-import resolvers from "./resolvers.js";
-import { readFileSync } from "fs";
 
-import { getTokenData } from "./utils.js";
-
+import { getTokenData } from "./helpers/jwtHelper.js";
 
 config();
 
 const app = express();
-
 const port = process.env.PORT || 3000;
 
 // Middleware
-
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-const typeDefs = gql(
-  readFileSync("schema.graphql", {
-    encoding: "utf-8",
-  })
-);
-
+// Apollo server
 const server = new ApolloServer({
   schema: buildSubgraphSchema({
     typeDefs,
@@ -40,12 +33,7 @@ const server = new ApolloServer({
 
 await server.start();
 
-// Routes
-
-app.get("/", (req, res) => {
-  res.send("Hello world!");
-});
-
+// Route
 app.use("/graphql",
   expressMiddleware(server, {
     context: async ({ req }) => ({
@@ -58,6 +46,7 @@ app.use("/graphql",
   }),
 );
 
+// Start db, express
 connectDb().then(() => {
   console.log("Connected to MongoDB.");
 

@@ -10,7 +10,7 @@ import { expressMiddleware } from '@apollo/server/express4';
 import resolvers from "./resolvers.js";
 import { readFileSync } from "fs";
 
-import { getUserId } from "./utils.js";
+import { getTokenData } from "./utils.js";
 
 
 config();
@@ -20,14 +20,6 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 // Middleware
-
-function tokenCheck (req, res, next) {
-  const token = req.headers['authorization'];
-  console.log(token);
-  next();
-}
-
-// app.use(tokenCheck);
 
 app.use(cors());
 app.use(express.json());
@@ -44,15 +36,6 @@ const server = new ApolloServer({
     typeDefs,
     resolvers
   }),
-  context: ({ req }) => {
-    return {
-      ...req,
-      userId:
-        req && req.headers.authorization
-          ? getUserId(req)
-          : null
-    }
-  }
 });
 
 await server.start();
@@ -66,11 +49,14 @@ app.get("/", (req, res) => {
 app.use("/graphql",
   expressMiddleware(server, {
     context: async ({ req }) => ({
-      token: req.headers.authorization
+      ...req,
+      tokenPayload:
+        req && req.headers.authorization
+          ? getTokenData(req)
+          : null
     })
   }),
 );
-
 
 connectDb().then(() => {
   console.log("Connected to MongoDB.");

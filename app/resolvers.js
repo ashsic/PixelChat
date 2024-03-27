@@ -2,26 +2,10 @@ import { models } from "./models/index.js";
 import authHelper from "./helpers/authHelper.js";
 
 import { config } from "dotenv";
-import { ExtractJwt, Strategy } from "passport-jwt";
-import passport from "passport";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 config();
-
-// const options = {
-//   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-//   secretOrKey: process.env.SECRET, 
-//   algorithms: ['RS256']
-// };
-
-
-// passport.use(new Strategy(function verify(username, password, cb) {
-  
-// }));
-
-
-
 
 const resolvers = {
   User: {
@@ -32,7 +16,12 @@ const resolvers = {
       const user = await models.User.findById(args.id);
       return user;
     },
-    async users() {
+    async users(parent, args, context) {
+      const authUser = context.tokenPayload;
+      if (!authUser || !authUser.userId) {
+        throw new Error("Unauthorized action.");
+      }
+
       const users = await models.User.find({});
       return users;
     }
@@ -48,8 +37,7 @@ const resolvers = {
       await newUser.save();
       return newUser;
     },
-    async login(parent, args, context, info) {
-      console.log(context)
+    async login(parent, args) {
       const user = await models.User.findOne({ email: args.email });
       if (!user) {
         throw new Error("User not found.");
@@ -59,8 +47,12 @@ const resolvers = {
         throw new Error("Invalid password.");
       }
 
-      const token = jwt.sign({ userId: user._id }, process.env.SECRET_KEY);
-      console.log('logged in', token)
+      const token = jwt.sign({
+        userId: user._id,
+        exp: Math.floor(Date.now() / 1000) + (60*60) // 1 hour expiry
+      }, process.env.SECRET_KEY);
+
+      console.log('logged in')
       return {
         token,
         user

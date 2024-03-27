@@ -25,7 +25,7 @@ config();
 
 const resolvers = {
   User: {
-    id: (parent) => parent.id ?? parent._id,
+    _id: (parent) => parent.id ?? parent._id,
   },
   Query: {
     async user(parent, args) {
@@ -48,7 +48,8 @@ const resolvers = {
       await newUser.save();
       return newUser;
     },
-    async login(parent, args) {
+    async login(parent, args, context, info) {
+      console.log(context)
       const user = await models.User.findOne({ email: args.email });
       if (!user) {
         throw new Error("User not found.");

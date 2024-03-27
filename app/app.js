@@ -11,7 +11,6 @@ import resolvers from "./resolvers.js";
 import { readFileSync } from "fs";
 
 import { getUserId } from "./utils.js";
-import { nextTick } from "process";
 
 
 config();
@@ -25,11 +24,10 @@ const port = process.env.PORT || 3000;
 function tokenCheck (req, res, next) {
   const token = req.headers['authorization'];
   console.log(token);
-  
   next();
 }
 
-app.use(tokenCheck);
+// app.use(tokenCheck);
 
 app.use(cors());
 app.use(express.json());
@@ -65,12 +63,14 @@ app.get("/", (req, res) => {
   res.send("Hello world!");
 });
 
-app.use(
-  '/graphql',
-  // cors(),
-  // express.json(),
-  expressMiddleware(server),
+app.use("/graphql",
+  expressMiddleware(server, {
+    context: async ({ req }) => ({
+      token: req.headers.authorization
+    })
+  }),
 );
+
 
 connectDb().then(() => {
   console.log("Connected to MongoDB.");

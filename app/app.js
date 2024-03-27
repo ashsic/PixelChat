@@ -10,6 +10,10 @@ import { expressMiddleware } from '@apollo/server/express4';
 import resolvers from "./resolvers.js";
 import { readFileSync } from "fs";
 
+import { getUserId } from "./utils.js";
+import { nextTick } from "process";
+
+
 config();
 
 const app = express();
@@ -17,6 +21,15 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 // Middleware
+
+function tokenCheck (req, res, next) {
+  const token = req.headers['authorization'];
+  console.log(token);
+  
+  next();
+}
+
+app.use(tokenCheck);
 
 app.use(cors());
 app.use(express.json());
@@ -29,7 +42,19 @@ const typeDefs = gql(
 );
 
 const server = new ApolloServer({
-  schema: buildSubgraphSchema({ typeDefs, resolvers }),
+  schema: buildSubgraphSchema({
+    typeDefs,
+    resolvers
+  }),
+  context: ({ req }) => {
+    return {
+      ...req,
+      userId:
+        req && req.headers.authorization
+          ? getUserId(req)
+          : null
+    }
+  }
 });
 
 await server.start();

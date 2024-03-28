@@ -12,6 +12,7 @@ import apolloMiddleware from "./graphql/apolloMiddleware.js";
 
 config();
 
+// Create express server, set port
 const app = express();
 const port = process.env.PORT || 3000;
 

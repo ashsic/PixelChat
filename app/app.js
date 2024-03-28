@@ -7,7 +7,7 @@ import { connectDb } from "./models/index.js";
 import { ApolloServer } from '@apollo/server';
 import { buildSubgraphSchema } from '@apollo/subgraph';
 import typeDefs from "./graphql/typeDefs.js";
-import resolvers from "./graphql/resolvers.js";
+import resolvers from "./graphql/index.js";
 import apolloMiddleware from "./graphql/apolloMiddleware.js";
 
 config();

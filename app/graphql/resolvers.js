@@ -1,9 +1,10 @@
-import { models } from "../models/index.js";
-import authHelper from "../helpers/authHelper.js";
-
 import { config } from "dotenv";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+
+import { models } from "../models/index.js";
+import authHelper from "../helpers/authHelper.js";
+import protectedAuth from "./protectedAuth.js";
 
 config();
 
@@ -13,15 +14,12 @@ const resolvers = {
   },
   Query: {
     async user(parent, args) {
+      protectedAuth(context);
       const user = await models.User.findById(args.id);
       return user;
     },
     async users(parent, args, context) {
-      const authUser = context.tokenPayload;
-      if (!authUser || !authUser.userId) {
-        throw new Error("Unauthorized action.");
-      }
-
+      protectedAuth(context);
       const users = await models.User.find({});
       return users;
     }

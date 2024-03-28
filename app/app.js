@@ -4,14 +4,11 @@ import { config } from "dotenv";
 
 import { connectDb } from "./models/index.js";
 
-import typeDefs from "./graphql/typeDefs.js";
-import resolvers from "./graphql/resolvers.js";
-
 import { ApolloServer } from '@apollo/server';
 import { buildSubgraphSchema } from '@apollo/subgraph';
-import { expressMiddleware } from '@apollo/server/express4';
-
-import { getTokenData } from "./helpers/jwtHelper.js";
+import typeDefs from "./graphql/typeDefs.js";
+import resolvers from "./graphql/resolvers.js";
+import apolloMiddleware from "./graphql/apolloMiddleware.js";
 
 config();
 
@@ -33,18 +30,8 @@ const server = new ApolloServer({
 
 await server.start();
 
-// Route
-app.use("/graphql",
-  expressMiddleware(server, {
-    context: async ({ req }) => ({
-      ...req,
-      tokenPayload:
-        req && req.headers.authorization
-          ? getTokenData(req)
-          : null
-    })
-  }),
-);
+// Route w/ middleware
+app.use("/graphql", apolloMiddleware(server));
 
 // Start db, express
 connectDb().then(() => {

@@ -1,3 +1,4 @@
+// Mutation resolvers
 import { config } from "dotenv";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";

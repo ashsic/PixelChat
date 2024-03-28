@@ -1,3 +1,4 @@
+// Query resolvers
 import protectedAuth from "../protectedAuth.js";
 import { models } from "../../models/index.js";
 

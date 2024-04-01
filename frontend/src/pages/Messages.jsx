@@ -75,13 +75,13 @@ export default function Messages() {
                 <img
                 src="Default_pfp.svg.png"
                 alt="profile pic"
-                className="w-14 h-14 m-2">
+                className="w-14 h-14 m-2 rounded-full">
                 </img>
-                <div>
+                <div className="w-full">
                   <h4 className="mb-1">{conv.members[0]}</h4>
-                  <div className="flex text-sm justify-between">
+                  <div className="flex text-xs w-full">
                     <p className="">{conv.members[0] + ": " + conv.messages[0].text}</p>
-                    <time className="">{timeSinceParser(conv.messages[0].timestamp)}</time>
+                    <time className="pl-6">{timeSinceParser(conv.messages[0].timestamp)}</time>
                   </div>
                 </div>
               </li>

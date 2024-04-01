@@ -15,8 +15,16 @@ export default function Messages() {
     {
       members: ["Alice", "Bob"],
       messages: [
-        { sender: "Alice", text: "Hi Bob!", timestamp: generateRandomTimestamp() },
-        { sender: "Bob", text: "Hey Alice!", timestamp: generateRandomTimestamp() }
+        { sender: "Alice", text: "Nice weather today!", timestamp: generateRandomTimestamp() },
+        { sender: "Bob", text: "Have you seen this movie?", timestamp: generateRandomTimestamp() },
+        { sender: "Alice", text: "I have a question.", timestamp: generateRandomTimestamp() },
+        { sender: "Bob", text: "How are you?", timestamp: generateRandomTimestamp() },
+        { sender: "Alice", text: "Let's grab a coffee.", timestamp: generateRandomTimestamp() },
+        { sender: "Bob", text: "Let's meet tomorrow.", timestamp: generateRandomTimestamp() },
+        { sender: "Alice", text: "I'm excited for the weekend.", timestamp: generateRandomTimestamp() },
+        { sender: "Bob", text: "What's up?", timestamp: generateRandomTimestamp() },
+        { sender: "Alice", text: "I'm fine, thank you.", timestamp: generateRandomTimestamp() },
+        { sender: "Bob", text: "Did you watch the game?", timestamp: generateRandomTimestamp() }
       ]
     },
     {

@@ -10,8 +10,8 @@ function App() {
 
   return (
     <>
-      <NavBar />
       <Router>
+      <NavBar />
         <Routes>
           <Route index path="/" element={<Home />} />
           <Route index path="/messages" element={<Messages />} />
@@ -19,6 +19,6 @@ function App() {
       </Router>
     </>
   )
-}
+};
 
-export default App
+export default App;

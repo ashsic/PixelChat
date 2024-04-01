@@ -42,10 +42,10 @@ export default function NavBar() {
       <ul className="flex flex-1 flex-col">
         {navItems.map((item) => {
           return (
-            <li href={item.route}
+            <li
             className="h-12 text-lg flex items-center mt-1 mb-1 hover:bg-slate-200 rounded-md w-12 lg:w-full"
             key={item.name}>
-              <Link className="w-12 lg:w-full h-full p-3" to={item.route}>
+              <Link to={item.route} className="w-12 lg:w-full h-full p-3" >
                 <div className="flex w-32">
                   <i className="material-icons h-6">{item.icon}</i>
                   <p className="hidden h-6 ml-3 items-center lg:flex">

@@ -1,6 +1,7 @@
-
+import { Link, useParams } from "react-router-dom";
 
 export default function Messages() {
+  const { messageid } = useParams();
 
   // Fetch chats/messages
 
@@ -13,6 +14,7 @@ export default function Messages() {
   }
   const conversations = [
     {
+      id: 0,
       members: ["Alice", "Bob"],
       messages: [
         { sender: "Alice", text: "Nice weather today!", timestamp: generateRandomTimestamp() },
@@ -28,6 +30,7 @@ export default function Messages() {
       ]
     },
     {
+      id: 1,
       members: ["Charlie", "David"],
       messages: [
         { sender: "Charlie", text: "Hey David!", timestamp: generateRandomTimestamp() },
@@ -35,6 +38,7 @@ export default function Messages() {
       ]
     },
     {
+      id: 2,
       members: ["Eve", "Frank"],
       messages: [
         { sender: "Eve", text: "Hello Frank!", timestamp: generateRandomTimestamp() },
@@ -42,6 +46,7 @@ export default function Messages() {
       ]
     },
     {
+      id: 3,
       members: ["Grace", "Harry"],
       messages: [
         { sender: "Grace", text: "Good morning Harry!", timestamp: generateRandomTimestamp() },
@@ -49,6 +54,7 @@ export default function Messages() {
       ]
     },
     {
+      id: 4,
       members: ["Ivy", "Jack"],
       messages: [
         { sender: "Ivy", text: "Hey Jack, how are you?", timestamp: generateRandomTimestamp() },
@@ -73,36 +79,36 @@ export default function Messages() {
 
   return (
     <div className="flex flex-1 w-full">
-      <div className="w-96 max-h-screen">
+      <div className="w-96 max-h-screen border-r border-gray-500">
         <h1 className="text-2xl p-3 absolute">Messages</h1>
         <ul className="overflow-auto h-full">
           <div className="h-14"></div>
           {conversations.map((conv) => {
-            let multi = [(
-              <li className="flex w-full items-center">
-                <img
-                src="Default_pfp.svg.png"
-                alt="profile pic"
-                className="w-14 h-14 m-2 rounded-full">
-                </img>
-                <div className="w-full">
-                  <h4 className="mb-1">{conv.members[0]}</h4>
-                  <div className="flex text-xs w-full">
-                    <p className="">{conv.members[0] + ": " + conv.messages[0].text}</p>
-                    <time className="pl-6">{timeSinceParser(conv.messages[0].timestamp)}</time>
+            
+            return (
+              <li key={conv.id} >
+                <Link to={"/messages/" + conv.id} className="flex w-full items-center">
+                  <img
+                  src="../public/Default_pfp.svg.png"
+                  alt="profile pic"
+                  className="w-14 h-14 m-2 rounded-full">
+                  </img>
+                  <div className="w-full">
+                    <h4 className="mb-1">{conv.members[0]}</h4>
+                    <div className="flex text-xs w-full">
+                      <p className="">{conv.members[0] + ": " + conv.messages[0].text}</p>
+                      <time className="pl-6">{timeSinceParser(conv.messages[0].timestamp)}</time>
+                    </div>
                   </div>
-                </div>
+                </Link>
               </li>
-            )];
-            for (let i = 0; i < 3; i++) {
-              multi = multi.concat(multi)
-            };
-            return multi;
+            );
+            
           })}
         </ul>
       </div>
       <div className="flex flex-1">
-          <p>test</p>
+        <p>{messageid ?? "Select a conversation!"}</p>
       </div>
     </div>
   );

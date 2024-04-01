@@ -14,7 +14,7 @@ function App() {
       <NavBar />
         <Routes>
           <Route index path="/" element={<Home />} />
-          <Route index path="/messages/:messageid?" element={<Messages />} />
+          <Route index path="/messages/:chatid?" element={<Messages />} />
         </Routes>
       </Router>
     </>

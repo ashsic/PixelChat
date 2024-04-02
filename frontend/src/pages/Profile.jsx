@@ -1,4 +1,3 @@
-import ProfileRow from "../components/ProfileRow";
 
 
 export default function Profile() {
@@ -7,16 +6,16 @@ export default function Profile() {
     firstname: "test",
     lastname: "name",
     bio: "test bio",
-    posts: [1,2,3,4,5,6,7,8],
+    posts: [1,2,3,4,5,6,7,8,9,9,9,9,9],
     followers: 23,
     following: 43
   }
 
   return (
-    <main className="max-w-5xl flex-1 p-4">
+    <main className="max-w-4xl flex-1 p-4 border">
       <section>
         <div className="flex mt-10 mb-10">
-          <div className="flex flex-auto justify-center">
+          <div className="flex flex-auto justify-center w-0.5">
             <img className="flex-none min-w-10 w-40 h-40" src="../public/Default_pfp.svg.png" alt="default profile pic" />
           </div>
           <div className="flex flex-col justify-center flex-auto">
@@ -37,15 +36,14 @@ export default function Profile() {
           </div>
         </div>
       </section>
-      <section>
-        <ProfileRow posts={props.posts} />
-        {/* {props.posts.map((post) => {
+      <section className="grid grid-cols-3 grid-flow-row">
+        {props.posts.map((post) => {
           return (
-            <div className="flex flex-auto justify-center border">
-              <img className="flex-none min-w-10 w-40 h-40" src="../public/Default_pfp.svg.png"></img>
+            <div className="border">
+              <img src="../public/Default_pfp.svg.png" alt="" />
             </div>
           );
-        })} */}
+        })}
       </section>
     </main>
   );

@@ -12,7 +12,7 @@ function App() {
   return (
     <>
       <Router>
-      <NavBar />
+        <NavBar />
         <div className=" flex justify-center flex-1">
           <Routes>
             <Route index path="/" element={<Home />} />

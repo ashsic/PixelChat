@@ -65,8 +65,7 @@ export default function Messages() {
 
   const timeSinceParser = (timestamp) => {
     const pastTime = new Date(timestamp);
-    const now = new Date();
-    const timeDiff = now - pastTime;
+    const timeDiff = new Date() - pastTime;
 
     if (timeDiff >= 86400000) {
       return Math.ceil(timeDiff / (86400000)) + "d";

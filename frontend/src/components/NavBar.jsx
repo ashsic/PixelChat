@@ -43,7 +43,7 @@ export default function NavBar() {
         {navItems.map((item) => {
           return (
             <li
-            className="h-12 text-lg flex items-center mt-1 mb-1 hover:bg-slate-200 rounded-md w-12 lg:w-full"
+            className="h-12 text-lg flex items-center mt-1 mb-1 hover:bg-slate-200 active:bg-slate-300 rounded-md w-12 lg:w-full"
             key={item.name}>
               <Link to={item.route} className="w-12 lg:w-full h-full p-3" >
                 <div className="flex w-32">

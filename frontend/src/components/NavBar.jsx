@@ -38,10 +38,10 @@ export default function NavBar() {
 
   return (
     <div 
-    className="w-20 lg:w-56 2xl:w-80 border-r
-    border-gray-500 max-h-full min-h-screen">
-      <nav className="fixed flex flex-col h-screen p-3">
-        <h1 className="text-2xl p-3 hidden lg:block">Website Name</h1>
+    className="w-20 lg:w-56 2xl:w-80 max-h-full min-h-screen">
+      <nav className="fixed flex flex-col h-screen p-3 w-20 lg:w-56 2xl:w-80
+      border-r border-gray-500">
+        <h1 className="text-2xl p-3 hidden lg:block mb-2">Website Name</h1>
         <ul className="flex flex-1 flex-col">
           {navItems.map((item) => {
             return (

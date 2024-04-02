@@ -1,4 +1,6 @@
 import { Link, useParams } from "react-router-dom";
+import Conversation from "../components/Conversation";
+import Message from "../components/Message";
 
 export default function Messages() {
   const { chatid } = useParams();
@@ -63,19 +65,6 @@ export default function Messages() {
     }
   ];
 
-  const timeSinceParser = (timestamp) => {
-    const pastTime = new Date(timestamp);
-    const timeDiff = new Date() - pastTime;
-
-    if (timeDiff >= 86400000) {
-      return Math.ceil(timeDiff / (86400000)) + "d";
-    } else if (timeDiff >= 3600000) {
-      return Math.ceil(timeDiff / (3600000))+ "h";
-    } else {
-      return Math.ceil(timeDiff + 1 / 60000) + "m";
-    }
-  };
-
   return (
     <div className="flex flex-1 w-full">
       <div className="w-96 max-h-screen border-r border-gray-500">
@@ -83,26 +72,9 @@ export default function Messages() {
         <ul className="overflow-auto h-full">
           <div className="h-14"></div>
           {conversations.map((conv) => {
-            
             return (
-              <li key={conv.id} >
-                <Link to={"/messages/" + conv.id} className="flex w-full items-center">
-                  <img
-                  src="../public/Default_pfp.svg.png"
-                  alt="profile pic"
-                  className="w-14 h-14 m-2 rounded-full">
-                  </img>
-                  <div className="w-full">
-                    <h4 className="mb-1">{conv.members[0]}</h4>
-                    <div className="flex text-xs w-full">
-                      <p className="">{conv.members[0] + ": " + conv.messages[0].text}</p>
-                      <time className="pl-6">{timeSinceParser(conv.messages[0].timestamp)}</time>
-                    </div>
-                  </div>
-                </Link>
-              </li>
+              <Conversation key={conv.id} conv={conv} />
             );
-            
           })}
         </ul>
       </div>
@@ -111,20 +83,7 @@ export default function Messages() {
         {chatid && <ul>
           {conversations[chatid].messages.map((message, i) => {
             return (
-              <li key={i} className="flex w-full items-center">
-                <img
-                src="../public/Default_pfp.svg.png"
-                alt="profile pic"
-                className="w-14 h-14 m-2 rounded-full">
-                </img>
-                <div className="w-full">
-                  <h4 className="mb-1">{message.sender}</h4>
-                  <div className="flex text-xs w-full">
-                    <p className="">{message.sender + ": " + message.text}</p>
-                    <time className="pl-6">{timeSinceParser(message.timestamp)}</time>
-                  </div>
-                </div>
-              </li>
+              <Message key={i} message={message} />
             );
           })}
         </ul>}

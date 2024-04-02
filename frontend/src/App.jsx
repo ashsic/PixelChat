@@ -3,9 +3,9 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 
 import NavBar from './components/NavBar';
 
-import Home from "./pages/Home";
-import Messages from './pages/Messages';
-import Profile from './pages/Profile';
+import Home from "./pages/HomePage";
+import Messages from './pages/MessagesPage';
+import Profile from './pages/ProfilePage';
 
 function App() {
 

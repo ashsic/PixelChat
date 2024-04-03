@@ -67,8 +67,17 @@ export default function Messages() {
     }
   ];
 
+  // Modal functions
+
+  const modal = document.querySelector("#myModal");
+  
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  } 
+
   const createChat = () => {
-    const modal = document.querySelector("#myModal");
     modal.style.display = "flex";
   }
 
@@ -107,7 +116,7 @@ export default function Messages() {
         </ul>}
       </div>
 
-      {/* <Modal /> */}
+      <ConversationModal />
 
     </div>
   );

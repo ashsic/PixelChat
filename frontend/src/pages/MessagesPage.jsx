@@ -1,11 +1,13 @@
 import { Link, useParams } from "react-router-dom";
 import Conversation from "../components/Conversation";
 import Message from "../components/Message";
+import ConversationModal from "../components/ConversationModal";
 
 export default function Messages() {
   const { chatid } = useParams();
 
   // Fetch chats/messages
+
 
   // sample chats
   function generateRandomTimestamp() {
@@ -25,7 +27,7 @@ export default function Messages() {
         { sender: "Bob", text: "How are you?", timestamp: generateRandomTimestamp() },
         { sender: "Alice", text: "Let's grab a coffee.", timestamp: generateRandomTimestamp() },
         { sender: "Bob", text: "Let's meet tomorrow.", timestamp: generateRandomTimestamp() },
-        { sender: "Alice", text: "I'm excited for the weekend.", timestamp: generateRandomTimestamp() },
+        { sender: "Alice", text: "I'm excited htmlFor the weekend.", timestamp: generateRandomTimestamp() },
         { sender: "Bob", text: "What's up?", timestamp: generateRandomTimestamp() },
         { sender: "Alice", text: "I'm fine, thank you.", timestamp: generateRandomTimestamp() },
         { sender: "Bob", text: "Did you watch the game?", timestamp: generateRandomTimestamp() }
@@ -65,19 +67,35 @@ export default function Messages() {
     }
   ];
 
+  const createChat = () => {
+    const modal = document.querySelector("#myModal");
+    modal.style.display = "flex";
+  }
+
   return (
     <div className="flex flex-1 w-full">
-      <div className="w-96 max-h-screen border-r border-gray-500">
-        <h1 className="text-2xl p-3 absolute">Messages</h1>
-        <ul className="overflow-auto h-full">
-          <div className="h-14"></div>
-          {conversations.map((conv) => {
-            return (
-              <Conversation key={conv.id} conv={conv} />
-            );
-          })}
-        </ul>
+
+      <div className="max-h-full min-h-screen border-gray-500 border-r w-96">
+        <div className="pl-2 w-96 max-h-screen fixed">
+          <h1 className="text-2xl p-3 absolute mt-2.5">Messages</h1>
+          <div className="h-16 flex flex-row-reverse">
+            <button className="mt-4 mr-5 rounded-md hover:bg-slate-200 active:bg-slate-300"
+            onClick={createChat}>
+              <i className="material-icons px-2 text-3xl">
+                create
+              </i>
+            </button>
+          </div>
+          <ul className="overflow-auto h-full">
+            {conversations.map((conv) => {
+              return (
+                <Conversation key={conv.id} conv={conv} />
+              );
+            })}
+          </ul>
+        </div>
       </div>
+
       <div className="flex flex-1">
         <p>{chatid ?? "Select a conversation!"}</p>
         {chatid && <ul>
@@ -88,6 +106,9 @@ export default function Messages() {
           })}
         </ul>}
       </div>
+
+      {/* <Modal /> */}
+
     </div>
   );
 };

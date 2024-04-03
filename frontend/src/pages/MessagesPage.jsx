@@ -69,8 +69,8 @@ export default function Messages() {
 
   // Modal functions
 
-  const modal = document.querySelector("#myModal");
-  
+  const modal = document.querySelector("#conversationModal");
+
   window.onclick = function(event) {
     if (event.target == modal) {
       modal.style.display = "none";

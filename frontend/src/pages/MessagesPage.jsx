@@ -30,7 +30,25 @@ export default function Messages() {
         { sender: "Alice", text: "I'm excited htmlFor the weekend.", timestamp: generateRandomTimestamp() },
         { sender: "Bob", text: "What's up?", timestamp: generateRandomTimestamp() },
         { sender: "Alice", text: "I'm fine, thank you.", timestamp: generateRandomTimestamp() },
-        { sender: "Bob", text: "Did you watch the game?", timestamp: generateRandomTimestamp() }
+        { sender: "Bob", text: "Did you watch the game?", timestamp: generateRandomTimestamp() },
+        { sender: "Alice", text: "Nice weather today!", timestamp: generateRandomTimestamp() },
+        { sender: "Bob", text: "Have you seen this movie?", timestamp: generateRandomTimestamp() },
+        { sender: "Alice", text: "I have a question.", timestamp: generateRandomTimestamp() },
+        { sender: "Bob", text: "How are you?", timestamp: generateRandomTimestamp() },
+        { sender: "Alice", text: "Let's grab a coffee.", timestamp: generateRandomTimestamp() },
+        { sender: "Bob", text: "Let's meet tomorrow.", timestamp: generateRandomTimestamp() },
+        { sender: "Alice", text: "I'm excited htmlFor the weekend.", timestamp: generateRandomTimestamp() },
+        { sender: "Bob", text: "What's up?", timestamp: generateRandomTimestamp() },
+        { sender: "Alice", text: "I'm fine, thank you.", timestamp: generateRandomTimestamp() },
+        { sender: "Alice", text: "Nice weather today!", timestamp: generateRandomTimestamp() },
+        { sender: "Bob", text: "Have you seen this movie?", timestamp: generateRandomTimestamp() },
+        { sender: "Alice", text: "I have a question.", timestamp: generateRandomTimestamp() },
+        { sender: "Bob", text: "How are you?", timestamp: generateRandomTimestamp() },
+        { sender: "Alice", text: "Let's grab a coffee.", timestamp: generateRandomTimestamp() },
+        { sender: "Bob", text: "Let's meet tomorrow.", timestamp: generateRandomTimestamp() },
+        { sender: "Alice", text: "I'm excited htmlFor the weekend.", timestamp: generateRandomTimestamp() },
+        { sender: "Bob", text: "What's up?", timestamp: generateRandomTimestamp() },
+        { sender: "Alice", text: "I'm fine, thank you.", timestamp: generateRandomTimestamp() },
       ]
     },
     {
@@ -69,33 +87,58 @@ export default function Messages() {
 
   // Modal functions
 
-  const modal = document.querySelector("#conversationModal");
-
-  window.onclick = function(event) {
+  window.onclick = (event) => {
+    const modal = document.querySelector("#conversationModal");
     if (event.target == modal) {
       modal.style.display = "none";
     }
   } 
 
   const createChat = () => {
+    const modal = document.querySelector("#conversationModal");
     modal.style.display = "flex";
   }
 
   return (
     <div className="flex flex-1 w-full">
 
-      <div className="max-h-full min-h-screen border-gray-500 border-r w-96">
-        <div className="pl-2 w-96 max-h-screen fixed">
+      <div className="max-h-full min-h-screen w-96 pr-0.5">
+        <div className="w-96 max-h-screen fixed flex flex-col">
           <h1 className="text-2xl p-3 absolute mt-2.5">Messages</h1>
-          <div className="h-16 flex flex-row-reverse">
-            <button className="mt-4 mr-5 rounded-md hover:bg-slate-200 active:bg-slate-300"
+          <div className="min-h-16 flex flex-row-reverse">
+            <button className="mt-4 mr-5 h-11 rounded-md hover:bg-slate-200 active:bg-slate-300"
             onClick={createChat}>
               <i className="material-icons px-2 text-3xl">
                 create
               </i>
             </button>
           </div>
-          <ul className="overflow-auto h-full">
+          <ul className="overflow-y-auto flex-shrink">
+            {conversations.map((conv) => {
+              return (
+                <Conversation key={conv.id} conv={conv} />
+              );
+            })}
+            {conversations.map((conv) => {
+              return (
+                <Conversation key={conv.id} conv={conv} />
+              );
+            })}
+            {conversations.map((conv) => {
+              return (
+                <Conversation key={conv.id} conv={conv} />
+              );
+            })}
+            {conversations.map((conv) => {
+              return (
+                <Conversation key={conv.id} conv={conv} />
+              );
+            })}
+            {conversations.map((conv) => {
+              return (
+                <Conversation key={conv.id} conv={conv} />
+              );
+            })}
             {conversations.map((conv) => {
               return (
                 <Conversation key={conv.id} conv={conv} />
@@ -105,10 +148,10 @@ export default function Messages() {
         </div>
       </div>
 
-      <div className="flex flex-1">
+      <div className="flex flex-1 border-gray-500 border-l scroll-smooth overflow-auto">
         <p>{chatid ?? "Select a conversation!"}</p>
-        {chatid && <ul>
-          {conversations[chatid].messages.map((message, i) => {
+        {chatid && <ul className="flex flex-col-reverse overflow-auto">
+          {conversations[chatid].messages.toReversed().map((message, i) => {
             return (
               <Message key={i} message={message} />
             );

@@ -5,7 +5,7 @@ export default function Conversation(props) {
   const { conv } = props;
 
   return (
-    <li className="hover:bg-slate-50">
+    <li className="hover:bg-slate-50 pl-2">
       <Link to={"/messages/" + conv.id} className="flex w-full items-center">
         <img
         src="../public/Default_pfp.svg.png"

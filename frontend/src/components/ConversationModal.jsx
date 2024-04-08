@@ -35,7 +35,41 @@ export default function ConversationModal() {
           </div>
 
           <div>
-            <p>search results go here</p>
+            {/* <p>search results go here</p> */}
+
+            <form action="" method="POST" className="flex flex-col">
+
+              <div>
+                <label className="" htmlFor="user">
+                  To:
+                </label>
+                <input
+                className="bg-slate-100 my-2 pl-2 flex-grow outline-none text-sm"
+                type="text"
+                name="user"
+                id="user"
+                placeholder="Enter user name" />
+              </div>
+
+              <div>
+                <label className="" htmlFor="message">
+                  Message:
+                </label>
+                <input
+                className="bg-slate-100 my-2 pl-2 flex-grow outline-none text-sm"
+                type="text"
+                name="message"
+                id="message"
+                placeholder="Enter message" />
+              </div>
+
+              <button
+              type="submit"
+              className="w-32 rounded-lg py-2 bg-cyan-300">
+                Submit
+              </button>
+
+            </form>
           </div>
 
         </div>

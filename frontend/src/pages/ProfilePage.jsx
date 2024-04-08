@@ -12,7 +12,7 @@ export default function Profile() {
   }
 
   return (
-    <main className="max-w-4xl flex-1 p-4 border">
+    <main className="max-w-5xl flex-1 p-4 border">
       <section>
         <div className="flex mt-10 mb-10">
           <div className="flex flex-auto justify-center w-0.5">

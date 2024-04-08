@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import PostModal from "./PostModal";
 
 
 export default function NavBar() {
@@ -20,7 +21,7 @@ export default function NavBar() {
     },
     {
       name: "Create",
-      route: "/create",
+      // route: "/create",
       icon: "add_box"
     },
     {
@@ -35,6 +36,29 @@ export default function NavBar() {
     }
   ];
 
+  // Post modal functions
+
+  const closePostModal = (event) => {
+    const modal = document.querySelector("#postModal");
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  };
+
+  window.addEventListener("click", closePostModal);
+
+  // window.onclick = (event) => {
+  //   const modal = document.querySelector("#postModal");
+  //   if (event.target == modal) {
+  //     modal.style.display = "none";
+  //   }
+  // } 
+
+  const createPost = () => {
+    const modal = document.querySelector("#postModal");
+    modal.style.display = "flex";
+  }
+
 
   return (
     <div 
@@ -45,10 +69,9 @@ export default function NavBar() {
         <ul className="flex flex-1 flex-col">
           {navItems.map((item) => {
             return (
-              <li
-              className="h-12 text-lg flex items-center mt-1 mb-1
-              hover:bg-slate-200 active:bg-slate-300 rounded-md w-12 lg:w-full"
-              key={item.name}>
+              item.route
+              && 
+              <li className="h-12 text-lg flex items-center mt-1 mb-1 hover:bg-slate-200 active:bg-slate-300 rounded-md w-12 lg:w-full" key={item.name}>
                 <Link to={item.route} className="w-12 lg:w-full h-full p-3" >
                   <div className="flex w-32">
                     <i className="material-icons h-6">{item.icon}</i>
@@ -57,6 +80,17 @@ export default function NavBar() {
                     </p>
                   </div>
                 </Link>
+              </li>
+              ||
+              <li className="h-12 text-lg flex items-center mt-1 mb-1 hover:bg-slate-200 active:bg-slate-300 rounded-md w-12 lg:w-full" key={item.name}>
+                <button onClick={createPost} className="w-12 lg:w-full h-full p-3" >
+                  <div className="flex w-32">
+                    <i className="material-icons h-6">{item.icon}</i>
+                    <p className="hidden h-6 ml-3 items-center lg:flex">
+                      {item.name}
+                    </p>
+                  </div>
+                </button>
               </li>
             );
           })}
@@ -72,6 +106,9 @@ export default function NavBar() {
           </Link>
         </div>
       </nav>
+
+      <PostModal />
+
     </div>
   );
 };

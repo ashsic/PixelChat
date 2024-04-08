@@ -46,7 +46,7 @@ function App() {
         {/* <div className='flex flex-col'>
           <DisplayLocations />
         </div> */}
-        <div className=" flex justify-center flex-1">
+        <div className="flex justify-center flex-1">
           <Routes>
             <Route index path="/" element={<Home />} />
             <Route index path="/messages/:chatid?" element={<Messages />} />

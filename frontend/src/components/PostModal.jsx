@@ -1,6 +1,39 @@
-
+import { useEffect } from "react";
 
 export default function PostModal() {
+  useEffect(() => {
+
+    const handleFileUpload = (event) => {
+      const file = event.target.files[0];
+      console.log(event.target.files);
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          const fileUploadForm = document.querySelector("#uploadForm");
+          fileUploadForm.style.display = "none";
+
+          const imageContainer = document.querySelector("#imageContainer");
+          imageContainer.style.display = "flex";
+
+          const userImage = document.querySelector("#userImage");
+          userImage.style.display = "flex";
+          userImage.src = event.target.result;
+        }
+        reader.readAsDataURL(file);
+      }
+    }
+
+    const fileLoader = document.querySelector("#file");
+    fileLoader.addEventListener("change", handleFileUpload);
+
+    return () => {
+      // fileLoader.removeEventListener("change", handleFileUpload);
+      console.log('unmount')
+      const userImage = document.querySelector("#userImage");
+      userImage.style.display = "none";
+      userImage.src = "";
+    };
+  }, []);
 
   // Close the modal on clicking X
   const closeModal = () => {
@@ -29,7 +62,7 @@ export default function PostModal() {
           </div>
         </div>
 
-        <div className="flex-grow flex align-middle justify-center h-full pb-10 w-full border-t-2">
+        <div className="flex-grow flex align-middle justify-center h-full pb-10 w-full border-t border-slate-300">
 
           <form id="uploadForm" action="/upload" method="POST" encType="multipart/form-data"
           className="flex flex-col items-center justify-center">

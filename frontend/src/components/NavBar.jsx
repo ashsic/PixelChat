@@ -42,46 +42,50 @@ export default function NavBar() {
     const modal = document.querySelector("#postModal");
     if (event.target == modal) {
       modal.style.display = "none";
+
+      const fileUploadForm = document.querySelector("#uploadForm");
+      fileUploadForm.style.display = "flex";
+
+      const imageContainer = document.querySelector("#imageContainer");
+      imageContainer.style.display = "none";
+
+      const userImage = document.querySelector("#userImage");
+      userImage.style.display = "none";
+      userImage.src = "";
     }
   };
 
   window.addEventListener("click", closePostModal);
 
-  // window.onclick = (event) => {
-  //   const modal = document.querySelector("#postModal");
-  //   if (event.target == modal) {
-  //     modal.style.display = "none";
-  //   }
-  // } 
 
   const createPost = () => {
     const modal = document.querySelector("#postModal");
     modal.style.display = "flex";
+    console.log('in createpost')
+    // const fileLoader = document.querySelector("#file");
 
-    const fileLoader = document.querySelector("#file");
+    // const handleFileUpload = (event) => {
+    //   const file = event.target.files[0];
+    //   console.log(event.target.files);
+    //   if (file) {
+    //     const reader = new FileReader();
+    //     reader.onload = (event) => {
+    //       const fileUploadForm = document.querySelector("#uploadForm");
+    //       fileUploadForm.style.display = "none";
 
-    const handleFileUpload = (event) => {
-      const file = event.target.files[0];
-      console.log(event.target);
-      if (file) {
-        console.log('test')
-        const reader = new FileReader();
-        reader.onload = (event) => {
-          const fileUploadForm = document.querySelector("#uploadForm");
-          fileUploadForm.style.display = "none";
+    //       const imageContainer = document.querySelector("#imageContainer");
+    //       imageContainer.style.display = "flex";
 
-          const imageContainer = document.querySelector("#imageContainer");
-          imageContainer.style.display = "flex";
+    //       const userImage = document.querySelector("#userImage");
+    //       userImage.style.display = "flex";
+    //       userImage.src = event.target.result;
+    //     }
+    //     reader.readAsDataURL(file);
+    //   }
+    // }
 
-          const userImage = document.querySelector("#userImage");
-          // userImage.style.display = "flex";
-          userImage.src = event.target.result;
-        }
-        reader.readAsDataURL(file);
-      }
-    }
-  
-    fileLoader.addEventListener("change", handleFileUpload);
+    // fileLoader.removeEventListener("change", handleFileUpload);
+    // fileLoader.addEventListener("change", handleFileUpload);
   }
 
   return (

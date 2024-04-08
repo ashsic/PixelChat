@@ -1,6 +1,6 @@
 import bcrypt from "bcryptjs";
 
-const authHelper = async (password) => {
+const encryptPassword = async (password) => {
   try {
     const hashedPassword = await new Promise((resolve, reject) => {
       bcrypt.genSalt(10, (err, salt) => {
@@ -19,4 +19,4 @@ const authHelper = async (password) => {
   }
 };
 
-export default authHelper;
+export default encryptPassword;

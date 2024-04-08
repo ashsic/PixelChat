@@ -8,16 +8,7 @@ export default function PostModal() {
     modal.style.display = "none";
   }
 
-  const fileLoader = document.querySelector("#file");
 
-  const handleFileUpload = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-
-    }
-  }
-
-  fileLoader.addEventListener("change", handleFileUpload);
 
   return (
     <dialog id="postModal" 
@@ -38,10 +29,10 @@ export default function PostModal() {
           </div>
         </div>
 
-        <div className="flex-grow flex align-middle justify-center w-full border-t-2">
+        <div className="flex-grow flex align-middle justify-center h-full pb-10 w-full border-t-2">
 
-          <form action="/upload" method="POST" encType="multipart/form-data"
-          className="flex flex-col items-center justify-center pl-4 pr-6">
+          <form id="uploadForm" action="/upload" method="POST" encType="multipart/form-data"
+          className="flex flex-col items-center justify-center">
             <i className="material-icons text-9xl">image</i>
             <span className="font-medium text-lg mb-2">Drag photos here from your desktop</span>
             <span>- or -</span>
@@ -51,18 +42,23 @@ export default function PostModal() {
               Select from computer
             </label>
             <input type="file" id="file" name="file" className="hidden" />
-
-
-
-            {/* <form action="/upload" method="post" enctype="multipart/form-data">
-    <label for="file">Select file:</label>
-    <input type="file" id="file" name="file">
-    <button type="submit">Upload</button>
-  </form> */}
-
           </form>
 
+          <div id="imageContainer" className="hidden h-full overflow-hidden items-center justify-center">
+            <img id="userImage" className="h-full object-cover" alt="User uploaded image." src=""></img>
+          </div>
+
+
+
         </div>
+
+
+
+      </div>
+    </dialog>
+  );
+};
+
 
         {/* <div className="flex justify-center">
           <button
@@ -70,8 +66,3 @@ export default function PostModal() {
             Chat
           </button>
         </div> */}
-
-      </div>
-    </dialog>
-  );
-};

@@ -57,8 +57,32 @@ export default function NavBar() {
   const createPost = () => {
     const modal = document.querySelector("#postModal");
     modal.style.display = "flex";
-  }
 
+    const fileLoader = document.querySelector("#file");
+
+    const handleFileUpload = (event) => {
+      const file = event.target.files[0];
+      console.log(event.target);
+      if (file) {
+        console.log('test')
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          const fileUploadForm = document.querySelector("#uploadForm");
+          fileUploadForm.style.display = "none";
+
+          const imageContainer = document.querySelector("#imageContainer");
+          imageContainer.style.display = "flex";
+
+          const userImage = document.querySelector("#userImage");
+          // userImage.style.display = "flex";
+          userImage.src = event.target.result;
+        }
+        reader.readAsDataURL(file);
+      }
+    }
+  
+    fileLoader.addEventListener("change", handleFileUpload);
+  }
 
   return (
     <div 

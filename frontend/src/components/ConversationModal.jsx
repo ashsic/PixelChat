@@ -13,7 +13,7 @@ export default function ConversationModal() {
 
         <div className="flex rounded-lg">
           <div className="size-14"></div>
-          <div className="flex-grow flex flex-col justify-end w-96 mx-16">
+          <div className="flex-grow flex flex-col justify-center pt-2 w-96 mx-16">
             <p className="font-bold text-lg text-center pb-2">
               New Message
             </p>

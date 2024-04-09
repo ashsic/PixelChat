@@ -20,12 +20,10 @@ async function signUp(parent, args) {
 };
 
 async function login(parent, args) {
-  console.log(args);
   const user = await models.User.findOne({ email: args.email });
   if (!user) {
     throw new Error("User not found.");
   }
-  console.log(user);
   const valid = await bcrypt.compare(args.password, user.password);
   if (!valid) {
     throw new Error("Invalid password.");
@@ -36,7 +34,6 @@ async function login(parent, args) {
     exp: Math.floor(Date.now() / 1000) + (60*60) // 1 hour expiry
   }, process.env.SECRET_KEY);
 
-  console.log('logged in')
   return {
     token,
     user
@@ -46,16 +43,14 @@ async function login(parent, args) {
 // Chat functions
 
 async function createChat(parent, args) {
-  console.log(args);
-  let newChat = new models.Chat(args);
+  const newChat = new models.Chat(args);
   await newChat.save();
-  newChat = {
-    ...newChat,
-    participants: args.participants.map((p) => {return {id: p}}),
-    id: newChat._id.toString(),
-    name: args.name
-  };
-  console.log(newChat);
+
+  await models.User.updateMany(
+    { _id: { $in: args.participants } },
+    { $push: {chats: newChat._id } }
+  );
+  
   return newChat;
 };
 

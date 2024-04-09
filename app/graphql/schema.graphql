@@ -15,6 +15,7 @@ type Mutation {
     dob: String!,
     bio: String!
   ): User
+  
   login(email: String!, password: String!): AuthPayload
 
   createChat(

@@ -1,4 +1,5 @@
 import { gql, useMutation } from '@apollo/client';
+import { Link } from 'react-router-dom';
 
 const LOGIN = gql`
   mutation Login($email: String!, $password: String!) {
@@ -24,7 +25,7 @@ function Login() {
   return (
     <div className="flex flex-col h-screen pt-16 ">
 
-      <div className='py-8 pl-5 '>
+      <div className='pb-10 pl-4'>
         <h1 className="font-semibold text-xl w-fit">
           Website Name
         </h1>
@@ -50,7 +51,7 @@ function Login() {
             input2.value = '';
           }}
         >
-          <div className='py-4'>
+          <div className='pb-4'>
             <h2
             className="font-semibold text-2xl w-fit">
               Sign in to your account
@@ -87,17 +88,32 @@ function Login() {
             }}
           />
           <button 
-          className='border bg-cyan-500 hover:bg-cyan-400 active:bg-cyan-600 text-slate-50 font-semibold py-3 rounded-md mt-10'
+          className='border bg-cyan-400 hover:bg-cyan-300 active:bg-cyan-500
+          text-slate-50 font-semibold py-3 rounded-md mt-12'
           type="submit">
             Continue
           </button>
-
-          <button type=''></button>
         </form>
+          
+        <form action="" className='flex flex-col w-96'>
+          <button 
+          className='border bg-purple-600 hover:bg-purple-500 active:bg-purple-700 text-slate-50 font-semibold py-3 rounded-md mt-4'
+          type="submit">
+            Sign in with a guest account
+          </button>
+        </form>
+
       </div>
 
-      <div>
-        test
+      <div className='flex w-full pt-8 pl-6'>
+        <span className=' text-sm'>
+          Don't have an account? 
+        </span>
+        <Link to="/signup" className="pl-1 text-sm text-purple-700 hover:underline" >
+          <div className="flex w-32">
+            <span>Sign up</span>
+          </div>
+        </Link>
       </div>
 
     </div>

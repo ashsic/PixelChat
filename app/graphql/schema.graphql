@@ -15,13 +15,23 @@ type Mutation {
     dob: String!,
     bio: String!
   ): User
-  
+
   login(email: String!, password: String!): AuthPayload
 
   createChat(
     participants: [String!]!
     name: String!
     messages: [String]
+  ): Chat
+
+  sendMessage(
+    chat: String!
+    sender: String!
+    text: String
+    image: String
+    likes: Int
+    timestamp: String
+    hidden: Boolean
   ): Chat
 }
 
@@ -54,8 +64,8 @@ type Message {
   text: String!
   image: String
   likes: Int!
-  timestamp: String
-  hidden: Boolean
+  timestamp: String!
+  hidden: Boolean!
 }
 
 type Post {

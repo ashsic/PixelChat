@@ -54,10 +54,22 @@ async function createChat(parent, args) {
   return newChat;
 };
 
-
+async function sendMessage(parent, args) {
+  const id = args.chat
+  await models.Chat.findByIdAndUpdate(id, {
+    $push: {
+      messages: {
+        sender: args.sender,
+        text: args.text
+      }
+    }
+  });
+  
+}
 
 export default {
   signUp,
   login,
-  createChat
+  createChat,
+  sendMessage
 };

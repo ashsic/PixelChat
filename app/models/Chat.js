@@ -7,7 +7,7 @@ const chatSchema = new mongoose.Schema({
   }],
   name: {
     type: String,
-    default: 'test' //this.participants
+    default: 'test' //this.participants .tostring?
   },
   messages: [{
     sender: {
@@ -41,7 +41,7 @@ const chatSchema = new mongoose.Schema({
       type: Date,
       default: Date.now
     },
-    hidden: {
+    hidden: { // Instead of deletion
       type: Boolean,
       default: false
     }

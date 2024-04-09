@@ -20,6 +20,7 @@ async function signUp(parent, args) {
 };
 
 async function login(parent, args) {
+  
   const user = await models.User.findOne({ email: args.email });
   if (!user) {
     throw new Error("User not found.");
@@ -28,12 +29,12 @@ async function login(parent, args) {
   if (!valid) {
     throw new Error("Invalid password.");
   }
-
+  console.log(user);
   const token = jwt.sign({
     userId: user._id,
     exp: Math.floor(Date.now() / 1000) + (60*60) // 1 hour expiry
   }, process.env.SECRET_KEY);
-
+  console.log(token);
   return {
     token,
     user

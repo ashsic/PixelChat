@@ -2,7 +2,10 @@ scalar Date
 
 type Query {
   user(id:ID!): User
+
   users: [User]
+
+  userChats(ids:[ID!]): [Chat]
 }
 
 type Mutation {
@@ -35,6 +38,9 @@ type Mutation {
   ): Chat
 }
 
+# type Subscription {
+
+# }
 
 type User {
   _id: ID!
@@ -46,15 +52,15 @@ type User {
   dob: Date!
   bio: String!
   picture: String
-  chats: [Chat!]!
-  posts: [Post!]!
-  followers: [User!]!
-  following: [User!]!
+  chats: [String!]!
+  posts: [String!]!
+  followers: [String!]!
+  following: [String!]!
 }
 
 type Chat {
   _id: ID!
-  participants: [User!]!
+  participants: [String!]!
   name: String!
   messages: [Message!]!
 }

@@ -18,16 +18,11 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 // Middleware
-app.use(cookieParser());
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 
-app.use((req, res, next) => {
-  console.log(req.cookies);
-  next();
-})
 
 // Apollo server
 const server = new ApolloServer({

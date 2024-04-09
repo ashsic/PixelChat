@@ -9,7 +9,7 @@ config();
 
 // cookie settings for jwt
 const cookieOptions = {
-  httpOnly: true,
+  // httpOnly: true,
   path: '/graphql',
   domain: 'localhost:3000',
   expires: new Date(Date.now() + 3600000),
@@ -52,9 +52,12 @@ async function login(parent, args, { res }) {
     exp: Math.floor(Date.now() / 1000) + (60*60) // 1 hour expiry
   }, process.env.SECRET_KEY);
   
-  res.cookie('jwtPayload', token, cookieOptions);
+  // res.cookie('jwtPayload', token, cookieOptions);
 
-  return user;
+  return {
+    token,
+    user
+  };
 };
 
 // Chat functions

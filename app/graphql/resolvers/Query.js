@@ -9,10 +9,13 @@ async function user(parent, args, context) {
 }
 
 async function users(parent, args, context) {
-  // protectedAuth(context);
-  //console.log(context);
-  const users = await models.User.find({});
-  return users;
+  try {
+    protectedAuth(context);
+    const users = await models.User.find({});
+    return users;
+  } catch (error) {
+    return { success: false, message: error.message };
+  }
 }
 
 async function userChats(parent, args, context) {

@@ -1,46 +1,45 @@
 import { useEffect } from "react";
 
 export default function PostModal() {
-  useEffect(() => {
+  // useEffect(() => {
 
-    const handleFileUpload = (event) => {
-      const file = event.target.files[0];
-      console.log(event.target.files);
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = (event) => {
-          const fileUploadForm = document.querySelector("#uploadForm");
-          fileUploadForm.style.display = "none";
+  //   const handleFileUpload = (event) => {
+  //     const file = event.target.files[0];
+  //     console.log(event.target.files);
+  //     if (file) {
+  //       const reader = new FileReader();
+  //       reader.onload = (event) => {
+  //         const fileUploadForm = document.querySelector("#uploadForm");
+  //         fileUploadForm.style.display = "none";
 
-          const imageContainer = document.querySelector("#imageContainer");
-          imageContainer.style.display = "flex";
+  //         const imageContainer = document.querySelector("#imageContainer");
+  //         imageContainer.style.display = "flex";
 
-          const userImage = document.querySelector("#userImage");
-          userImage.style.display = "flex";
-          userImage.src = event.target.result;
-        }
-        reader.readAsDataURL(file);
-      }
-    }
+  //         const userImage = document.querySelector("#userImage");
+  //         userImage.style.display = "flex";
+  //         userImage.src = event.target.result;
+  //       }
+  //       reader.readAsDataURL(file);
+  //     }
+  //   }
 
-    const fileLoader = document.querySelector("#file");
-    fileLoader.addEventListener("change", handleFileUpload);
+  //   const fileLoader = document.querySelector("#file");
+  //   fileLoader.addEventListener("change", handleFileUpload);
 
-    return () => {
-      // fileLoader.removeEventListener("change", handleFileUpload);
-      console.log('unmount')
-      const userImage = document.querySelector("#userImage");
-      userImage.style.display = "none";
-      userImage.src = "";
-    };
-  }, []);
+  //   // return () => {
+  //   //   // fileLoader.removeEventListener("change", handleFileUpload);
+  //   //   console.log('unmount')
+  //   //   const userImage = document.querySelector("#userImage");
+  //   //   userImage.style.display = "none";
+  //   //   userImage.src = "";
+  //   // };
+  // }, []);
 
   // Close the modal on clicking X
   const closeModal = () => {
     const modal = document.querySelector("#postModal");
     modal.style.display = "none";
   }
-
 
 
   return (

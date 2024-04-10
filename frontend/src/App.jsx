@@ -6,26 +6,71 @@ import Login from './components/Login';
 import Timeline from "./pages/Timeline";
 import Messages from './pages/MessagesPage';
 import Profile from './pages/ProfilePage';
+import { gql, useLazyQuery, useQuery } from '@apollo/client';
+import { useState, useEffect } from 'react';
 
 
-const isAuthenticated = () => {
-  const token = localStorage.getItem('authToken');
-  if (!token) return false;
-  
-  return true;
+const VERIFY_JWT = gql`
+  query {
+  verifyJwt{
+    username
+  }
+}
+`;
+
+function Jwt() {
+  const { loading, error, data } = useQuery(VERIFY_JWT);
+  if (loading) return 'Loading...';
+  if (error) return `Error! ${error.message}`;
+
+  return (
+    <div>
+      success! {console.log(data)}
+    </div>
+  );
 }
 
 
+
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  
+
+
+
+
+  // const testfunc = useEffect(() => {
+  //   const token = localStorage.getItem('authToken');
+  //   if (!token) return false;
+    
+  //   verifyJwtFunc({ variables: { token: token } });
+  
+  //   return () => {};
+  // }, [verifyJwtFunc]);
+
+  // useEffect(() => {
+  //   console.log('data', data)
+  //   // If data contains user info, user is logged in
+  //   if (data && data.verifyJwtFunc) {
+  //     setIsLoggedIn(true);
+  //   } else {
+  //     setIsLoggedIn(false);
+  //   }
+  // }, [data]);
+
+  console.log(isLoggedIn)
+
   return (
     <>
       <Router>
-        {isAuthenticated() && <NavBar />}
+        <NavBar />
         <div className="flex justify-center flex-1">
+          <button onClick={() => {console.log(isLoggedIn)}}>BUTTON</button>
+          
+          <Jwt />
           <Routes>
-            <Route index path="/" element={<div>homepage dashboard...?</div>} />
-            <Route index path="/login" element={<Login />} />
-            <Route index path="/feed" element={<Timeline />} />
+            <Route index path="/" element={<Login />} />
+            <Route index path="/home" element={<Timeline />} />
             <Route index path="/messages/:chatid?" element={<Messages />} />
             <Route index path="/profile/:username?" element={<Profile />} />
           </Routes>

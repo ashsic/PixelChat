@@ -26,7 +26,7 @@ function Login() {
 
   return (
     <div className="flex flex-col h-screen pt-16 ">
-      {user && (<Navigate to="/timeline" replace="true" />)}
+      {/* {user && (<Navigate to="/timeline" replace="true" />)} */}
       <div className='pb-10 pl-4'>
         <h1 className="font-semibold text-xl w-fit">
           Website Name
@@ -43,8 +43,8 @@ function Login() {
                 password: input2.value
               }
             }).then((result) => {
-              //console.log(result.data.login.token);
-              localStorage.setItem('authToken', result.data.login.token);
+              console.log(result);
+              // localStorage.setItem('authToken', result.data.login.token);
               
             }).catch((err) => {
               console.error(err);
@@ -52,7 +52,7 @@ function Login() {
 
             input1.value = '';
             input2.value = '';
-            setUser(localStorage.getItem("authToken"));
+            // setUser(localStorage.getItem("authToken"));
           }}
         >
           <div className='pb-4'>

@@ -1,5 +1,6 @@
 import { gql, useMutation } from '@apollo/client';
-import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import { Link, Navigate } from 'react-router-dom';
 
 const LOGIN = gql`
   mutation Login($email: String!, $password: String!) {
@@ -15,6 +16,7 @@ const LOGIN = gql`
 `;
 
 function Login() {
+  const [user, setUser] = useState(localStorage.getItem("authToken"));
   let input1;
   let input2;
   const [login, { data, loading, error }] = useMutation(LOGIN);
@@ -24,7 +26,7 @@ function Login() {
 
   return (
     <div className="flex flex-col h-screen pt-16 ">
-
+      {user && (<Navigate to="/timeline" replace="true" />)}
       <div className='pb-10 pl-4'>
         <h1 className="font-semibold text-xl w-fit">
           Website Name
@@ -41,14 +43,16 @@ function Login() {
                 password: input2.value
               }
             }).then((result) => {
-              console.log(result.data.login.token);
+              //console.log(result.data.login.token);
               localStorage.setItem('authToken', result.data.login.token);
+              
             }).catch((err) => {
               console.error(err);
             });
 
             input1.value = '';
             input2.value = '';
+            setUser(localStorage.getItem("authToken"));
           }}
         >
           <div className='pb-4'>

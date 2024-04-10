@@ -8,9 +8,9 @@ function getTokenPayload(token) {
 
 function getTokenData(req, authToken) {
   if (req) {
-    const authHeader = req.headers.authorization;
-    if (authHeader) {
-      const token = authHeader.replace('Bearer ', '');
+    const cookies = req.cookies
+    if (cookies) {
+      const token = cookies.jwtPayload;
       if (!token) {
         throw new Error('No token found');
       }

@@ -7,7 +7,7 @@ const apolloMiddleware = (server) => {
     context: async ({ req }) => ({
       ...req,
       tokenPayload:
-        req && req.headers.authorization
+        req && req.cookies
           ? getTokenData(req)
           : null
     })

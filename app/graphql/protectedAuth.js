@@ -4,6 +4,7 @@ const protectedAuth = (context) => {
   if (!user || !user.userId) {
     throw new Error('Authentication required');
   }
+  return user.userId;
 };
 
 export default protectedAuth;

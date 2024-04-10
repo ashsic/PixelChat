@@ -9,11 +9,12 @@ config();
 
 // cookie settings for jwt
 const cookieOptions = {
-  // httpOnly: true,
+  httpOnly: true,
   path: '/graphql',
-  domain: 'localhost:3000',
+  domain: '.localhost',
   expires: new Date(Date.now() + 3600000),
-  sameSite: 'None'
+  sameSite: 'None',
+  secure: true
 };
 
 // Auth/user functions
@@ -36,7 +37,6 @@ async function login(parent, args, { res }) {
   }
 
   const valid = await bcrypt.compare(args.password, user.password);
-
   if (!valid) {
     throw new Error("Invalid password.");
   }
@@ -52,7 +52,9 @@ async function login(parent, args, { res }) {
     exp: Math.floor(Date.now() / 1000) + (60*60) // 1 hour expiry
   }, process.env.SECRET_KEY);
   
-  // res.cookie('jwtPayload', token, cookieOptions);
+  console.log('user logged in');
+
+  res.cookie('jwtPayload', token, cookieOptions);
 
   return {
     token,

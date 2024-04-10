@@ -6,6 +6,8 @@ type Query {
   users: [User]
 
   userChats(ids:[ID!]): [Chat]
+
+  verifyJwt: User
 }
 
 type Mutation {

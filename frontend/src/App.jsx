@@ -18,16 +18,14 @@ const VERIFY_JWT = gql`
 }
 `;
 
-function Jwt() {
+function VerifyLogin() {
   const { loading, error, data } = useQuery(VERIFY_JWT);
-  if (loading) return 'Loading...';
-  if (error) return `Error! ${error.message}`;
-
+  if (loading) return 'loading...';
+  if (error) return <div>error: {error.message}</div>;
+  console.log('data',data)
   return (
-    <div>
-      success! {console.log(data)}
-    </div>
-  );
+    <div>success!</div>
+  )
 }
 
 
@@ -65,9 +63,7 @@ function App() {
       <Router>
         <NavBar />
         <div className="flex justify-center flex-1">
-          <button onClick={() => {console.log(isLoggedIn)}}>BUTTON</button>
-          
-          <Jwt />
+          <VerifyLogin />
           <Routes>
             <Route index path="/" element={<Login />} />
             <Route index path="/home" element={<Timeline />} />

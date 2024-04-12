@@ -1,10 +1,10 @@
 // Authenticates for protected routes (all but signup/login)
 const protectedAuth = (context) => {
-  const user = context.tokenPayload;
-  if (!user || !user.userId) {
+  const token = context.tokenPayload;
+  if (!token || !token.userId) {
     throw new Error('Authentication required');
   }
-  return user.userId;
+  return token.userId;
 };
 
 export default protectedAuth;

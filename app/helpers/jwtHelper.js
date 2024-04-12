@@ -6,23 +6,22 @@ function getTokenPayload(token) {
   return jwt.verify(token, process.env.SECRET_KEY);
 }
 
-function getTokenData(req, authToken) {
+function getTokenData(req) {
   if (req) {
     const cookies = req.cookies
     if (cookies) {
       const token = cookies.jwtPayload;
-      if (!token) {
-        throw new Error('No token found');
-      }
-      const { userId, exp, iat } = getTokenPayload(token);
-      return { userId, exp, iat };
+      if (token) {
+        try {
+          const { userId, exp, iat } = getTokenPayload(token);
+          return { userId, exp, iat };
+        } catch (error) {
+          return null;
+        }
+      } 
     }
-  } else if (authToken) {
-    const { userId, exp, iat } = getTokenPayload(authToken);
-    return { userId, exp, iat };
   }
-
-  throw new Error('Not authenticated');
+  return null;
 }
 
 export {

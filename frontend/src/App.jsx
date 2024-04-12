@@ -6,14 +6,24 @@ import Login from './components/Login';
 import Timeline from "./pages/Timeline";
 import Messages from './pages/MessagesPage';
 import Profile from './pages/ProfilePage';
-import { gql, useLazyQuery, useQuery } from '@apollo/client';
+import { gql, useLazyQuery, useReactiveVar, useQuery } from '@apollo/client';
 import { useState, useEffect } from 'react';
+import { isLoggedInVar } from './graphql/cache';
 
 
 const VERIFY_JWT = gql`
   query {
   verifyJwt{
+    _id
     username
+    firstName
+    dob
+    bio
+    picture
+    chats
+    posts
+    followers
+    following
   }
 }
 `;
@@ -24,37 +34,16 @@ function VerifyLogin() {
   if (error) return <div>error: {error.message}</div>;
   console.log('data',data)
   return (
-    <div>success!</div>
+    <div>
+      success!
+    </div>
   )
 }
 
 
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  
-
-
-
-
-  // const testfunc = useEffect(() => {
-  //   const token = localStorage.getItem('authToken');
-  //   if (!token) return false;
-    
-  //   verifyJwtFunc({ variables: { token: token } });
-  
-  //   return () => {};
-  // }, [verifyJwtFunc]);
-
-  // useEffect(() => {
-  //   console.log('data', data)
-  //   // If data contains user info, user is logged in
-  //   if (data && data.verifyJwtFunc) {
-  //     setIsLoggedIn(true);
-  //   } else {
-  //     setIsLoggedIn(false);
-  //   }
-  // }, [data]);
+  const isLoggedIn = useReactiveVar(isLoggedInVar);
 
   console.log(isLoggedIn)
 

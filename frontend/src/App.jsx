@@ -28,33 +28,68 @@ const VERIFY_JWT = gql`
 }
 `;
 
-function VerifyLogin() {
-  const { loading, error, data } = useQuery(VERIFY_JWT);
-  if (loading) return 'loading...';
-  if (error) return <div>error: {error.message}</div>;
-  console.log('data',data)
-  return (
-    <div>
-      success!
-    </div>
-  )
-}
+// function VerifyLogin() {
+//   const { loading, error, data } = useQuery(VERIFY_JWT);
+//   if (loading) return 'loading...';
+//   if (error) {
+//     isLoggedInVar(false);
+//     return <div>error: {error.message}</div>;
+//   }
+//   console.log('data',data)
+//   isLoggedInVar(true);
+//   return (
+//     <div>
+//       success!
+//     </div>
+//   )
+// }
+
+// function verifyLogin() {
+//   const { loading, error, data } = useQuery(VERIFY_JWT);
+
+//   if (error) {
+//     isLoggedInVar(false);
+//     return;
+//   }
+//   isLoggedInVar(true);
+// }
+
 
 
 
 function App() {
-  const isLoggedIn = useReactiveVar(isLoggedInVar);
+  // const isLoggedIn = useReactiveVar(isLoggedInVar);
 
-  console.log(isLoggedIn)
+  // const { loading, error, data } = useQuery(VERIFY_JWT);
+
+  // function verifyLogin() {
+  //   const { loading, error, data } = useQuery(VERIFY_JWT);
+  //   if (loading) return false;
+  //   if (error) {
+  //     return false;
+  //   }
+  //   return true;
+  // }
+
+  // //isLoggedInVar(verifyLogin())
+
+  // //if (loading)
+
+  
+  // console.log('initial state',isLoggedIn)
+
+  // // if (error) return <Login />;
+
+
 
   return (
     <>
       <Router>
         <NavBar />
         <div className="flex justify-center flex-1">
-          <VerifyLogin />
+          {/* <VerifyLogin /> */}
           <Routes>
-            <Route index path="/" element={<Login />} />
+            <Route index path="/" element={!<Timeline /> || <Login />} />
             <Route index path="/home" element={<Timeline />} />
             <Route index path="/messages/:chatid?" element={<Messages />} />
             <Route index path="/profile/:username?" element={<Profile />} />

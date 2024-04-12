@@ -1,6 +1,7 @@
-import { gql, useMutation } from '@apollo/client';
+import { gql, useMutation, useReactiveVar } from '@apollo/client';
 import { useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
+import { isLoggedInVar } from '../graphql/cache.js';
 
 const LOGIN = gql`
   mutation Login($email: String!, $password: String!) {
@@ -16,7 +17,8 @@ const LOGIN = gql`
 `;
 
 function Login() {
-  const [user, setUser] = useState(localStorage.getItem("authToken"));
+  const isLoggedIn = useReactiveVar(isLoggedInVar);
+
   let input1;
   let input2;
   const [login, { data, loading, error }] = useMutation(LOGIN);
@@ -44,7 +46,6 @@ function Login() {
               }
             }).then((result) => {
               console.log(result);
-              // localStorage.setItem('authToken', result.data.login.token);
               
             }).catch((err) => {
               console.error(err);
@@ -52,7 +53,7 @@ function Login() {
 
             input1.value = '';
             input2.value = '';
-            // setUser(localStorage.getItem("authToken"));
+
           }}
         >
           <div className='pb-4'>

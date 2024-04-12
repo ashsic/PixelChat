@@ -12,7 +12,7 @@ const cookieOptions = {
   httpOnly: true,
   path: '/graphql',
   domain: '.localhost',
-  expires: Math.floor(Date.now() / 1000) + (60*60),
+  expires: new Date(Math.floor(Date.now()) + (60*60*1000)),
   sameSite: 'None',
   secure: true
 };

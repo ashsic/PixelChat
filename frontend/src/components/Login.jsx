@@ -17,7 +17,7 @@ const LOGIN = gql`
 `;
 
 function Login() {
-  const isLoggedIn = useReactiveVar(isLoggedInVar);
+  // const isLoggedIn = useReactiveVar(isLoggedInVar);
 
   let input1;
   let input2;

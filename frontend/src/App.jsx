@@ -1,5 +1,5 @@
 import './App.css'
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import { createBrowserRouter, BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 
 import NavBar from './components/NavBar';
 import Login from './components/Login';
@@ -8,7 +8,9 @@ import Messages from './pages/MessagesPage';
 import Profile from './pages/ProfilePage';
 import { gql, useLazyQuery, useReactiveVar, useQuery } from '@apollo/client';
 import { useState, useEffect } from 'react';
-import { isLoggedInVar } from './graphql/cache';
+// import { isLoggedInVar } from './graphql/cache';
+import SignUp from './components/SignUp';
+import ErrorPage from './pages/ErrorPage';
 
 
 const VERIFY_JWT = gql`
@@ -28,73 +30,55 @@ const VERIFY_JWT = gql`
 }
 `;
 
-// function VerifyLogin() {
-//   const { loading, error, data } = useQuery(VERIFY_JWT);
-//   if (loading) return 'loading...';
-//   if (error) {
-//     isLoggedInVar(false);
-//     return <div>error: {error.message}</div>;
+
+// const router = createBrowserRouter([
+//   {
+//     path: "/",
+//     element: <NavBar />,
 //   }
-//   console.log('data',data)
-//   isLoggedInVar(true);
-//   return (
-//     <div>
-//       success!
-//     </div>
-//   )
-// }
-
-// function verifyLogin() {
-//   const { loading, error, data } = useQuery(VERIFY_JWT);
-
-//   if (error) {
-//     isLoggedInVar(false);
-//     return;
-//   }
-//   isLoggedInVar(true);
-// }
+// ])
 
 
+// <div className="flex justify-center flex-1">
+// <Route index path="/" element={<Timeline />} />
+// <Route index path="/home" element={<Timeline />} />
+// <Route index path="/messages/:chatid?" element={<Messages />} />
+// <Route index path="/profile/:username?" element={<Profile />} />
+// </div>
 
 
 function App() {
   // const isLoggedIn = useReactiveVar(isLoggedInVar);
+  const { loading, error, data } = useQuery(VERIFY_JWT);
 
-  // const { loading, error, data } = useQuery(VERIFY_JWT);
+  if (loading) console.log('loading')
 
-  // function verifyLogin() {
-  //   const { loading, error, data } = useQuery(VERIFY_JWT);
-  //   if (loading) return false;
-  //   if (error) {
-  //     return false;
-  //   }
-  //   return true;
-  // }
+  // // console.log('initial state',isLoggedIn)
 
-  // //isLoggedInVar(verifyLogin())
+  if (error) console.log('error')
 
-  // //if (loading)
-
-  
-  // console.log('initial state',isLoggedIn)
-
-  // // if (error) return <Login />;
-
+  if (data) console.log('data')
 
 
   return (
     <>
       <Router>
-        <NavBar />
-        <div className="flex justify-center flex-1">
-          {/* <VerifyLogin /> */}
-          <Routes>
-            <Route index path="/" element={!<Timeline /> || <Login />} />
-            <Route index path="/home" element={<Timeline />} />
-            <Route index path="/messages/:chatid?" element={<Messages />} />
-            <Route index path="/profile/:username?" element={<Profile />} />
-          </Routes>
-        </div>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route
+          path="/"
+          element={<NavBar />}
+          errorElement={<ErrorPage />}
+          props={data}
+          >
+            <Route errorElement={<ErrorPage />}>
+              <Route index element={<Timeline />} />
+              <Route path="messages/:chatid?" element={<Messages />} />
+              <Route path="profile/:username?" element={<Profile />} />
+            </Route>
+          </Route>
+        </Routes>
       </Router>
     </>
   )

@@ -1,32 +1,20 @@
-import { gql, useMutation, useReactiveVar } from '@apollo/client';
-import { useState } from 'react';
-import { Link, Navigate, Form } from 'react-router-dom';
-import { isLoggedInVar } from '../graphql/cache.js';
-
-const LOGIN = gql`
-  mutation Login($email: String!, $password: String!) {
-    login(email: $email, password: $password) {
-      token
-      user {
-        username
-        email
-        password
-      }
-    }
-  }
-`;
+import { gql, useMutation} from '@apollo/client';
+import { Link, Form, useNavigate } from 'react-router-dom';
+import { LOGIN } from '../graphql/mutations';
 
 function Login() {
-  // const isLoggedIn = useReactiveVar(isLoggedInVar);
+  const navigate = useNavigate();
+  
+  const [login, { data, loading, error }] = useMutation(LOGIN, { onCompleted: (user2) => navigate("/")})//, { state: user2 })}) //{ onCompleted: () => navigate("/")});
 
-  let input1;
-  let input2;
-  const [login, { data, loading, error }] = useMutation(LOGIN);
-
+  
   if (loading) return 'Submitting...';
   if (error) return `Submission error! ${error.message}`;
 
-    return (
+  let input1;
+  let input2;
+
+  return (
     <div className="flex justify-center flex-1">
       <div className="flex flex-col h-screen pt-16 ">
         <div className='pb-10 pl-4'>
@@ -37,8 +25,8 @@ function Login() {
 
         <div className='border rounded-md shadow-lg  p-16 h-fit'>
           <Form className='flex flex-col w-96'
-            method="post"
-            action="/test"
+            
+
             onSubmit={e => {
               e.preventDefault();
               login({ 
@@ -48,14 +36,13 @@ function Login() {
                 }
               }).then((result) => {
                 console.log(result);
-                
+                console.log('logged in === true')
               }).catch((err) => {
                 console.error(err);
               });
 
               input1.value = '';
               input2.value = '';
-
             }}
           >
             <div className='pb-4'>

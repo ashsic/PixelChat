@@ -1,14 +1,23 @@
-import { NavLink, Outlet, Navigate } from "react-router-dom";
+import { NavLink, Outlet, Navigate, useLocation } from "react-router-dom";
 import PostModal from "./PostModal";
-import { isLoggedInVar } from "../graphql/cache";
+
+import { gql, useQuery } from '@apollo/client';
+
+import { VERIFY_JWT } from "../graphql/queries";
+
+import { createContext } from 'react';
+
+export const LoginStatusContext = createContext();
 
 
+export default function NavBar() {
+  const { loading, error, data } = useQuery(VERIFY_JWT);
+  
+  if (loading) return <div>Loading...</div>;
+  if (error) return <Navigate to="/login" />;
 
-export default function NavBar({ props }) {
-
-  console.log('props',props)
-
-  if (!props) return <Navigate to="/login" />
+  // const isLoggedIn = useReactiveVar(isLoggedInVar);
+  // if (!isLoggedIn) return <Navigate to="/login" />
 
   const navItems = [
     {
@@ -74,7 +83,7 @@ export default function NavBar({ props }) {
     // const handleFileUpload = (event) => {
     //   const file = event.target.files[0];
     //   console.log(event.target.files);
-    //   if (file) {
+    //   if (file) {LoginStatusContext.Provider
     //     const reader = new FileReader();
     //     reader.onload = (event) => {
     //       const fileUploadForm = document.querySelector("#uploadForm");
@@ -96,7 +105,7 @@ export default function NavBar({ props }) {
   }
 
   return (
-    <>
+    <LoginStatusContext.Provider value={data}>
       <div 
       className="w-20 lg:w-56 2xl:w-80 max-h-full min-h-screen">
         <nav className="fixed flex flex-col h-screen p-3 w-20 lg:w-56 2xl:w-80
@@ -151,6 +160,6 @@ export default function NavBar({ props }) {
       <div className="flex justify-center flex-1">
         <Outlet />
       </div>
-    </>
+    </LoginStatusContext.Provider>
   );
 };

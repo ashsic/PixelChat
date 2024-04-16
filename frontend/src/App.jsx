@@ -38,10 +38,11 @@ const VERIFY_JWT = gql`
 `;
 
 
-const rootAction = async () => {
+function testAction() {
+  console.log('action')
+
   return redirect("/");
 }
-
 
 
 function App() {
@@ -52,25 +53,27 @@ function App() {
 
   // // console.log('initial state',isLoggedIn)
 
+
+
+
   if (error) {
     console.log('error')
     isLoggedInVar(false)
   }
 
   if (data) {
-    console.log('data')
     isLoggedInVar(true)
-    console.log(isLoggedIn)
+    console.log('data',isLoggedIn)
   }
 
   const router = createBrowserRouter(
     createRoutesFromElements(
       <>
-        <Route path="/login" element={<Login />} />
+        <Route path="/login" element={<Login props={isLoggedIn} />} action={testAction} />
         <Route path="/signup" element={<SignUp />} />
         <Route
         path="/"
-        action={rootAction}
+        action={testAction}
         element={<NavBar props={isLoggedIn} />}
         errorElement={<ErrorPage />}
         >

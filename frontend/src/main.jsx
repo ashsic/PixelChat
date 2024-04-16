@@ -2,9 +2,10 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import './index.css'
-import { ApolloClient, InMemoryCache, useReactiveVar, ApolloProvider, createHttpLink } from '@apollo/client';
+import { ApolloClient, InMemoryCache, useReactiveVar, ApolloProvider, createHttpLink, gql } from '@apollo/client';
 import { cache } from "./graphql/cache.js"
 import { isLoggedInVar } from './graphql/cache';
+import { Router } from './Router.jsx';
 
 const link = createHttpLink({
   uri: 'http://localhost:3000/graphql',
@@ -16,34 +17,37 @@ const client = new ApolloClient({
   link
 });
 
+const VERIFY_JWT = gql`
+  query {
+  verifyJwt{
+    _id
+    username
+    firstName
+    dob
+    bio
+    picture
+    chats
+    posts
+    followers
+    following
+  }
+}
+`;
 
+// const { loading, error, data } = await client.query({
+//   query: VERIFY_JWT
+// })
 
+// import { createContext } from 'react';
 
+// const LoginStatusContext = createContext();
 
-// function VerifyLogin() {
-//   const isLoggedIn = useReactiveVar(isLoggedInVar);
-//   const { loading, error, data } = useQuery(VERIFY_JWT);
-//   if (loading) return false;
-//   if (error) {
-//     return false;
-//   }
-//   return true;
-// }
-
-// //isLoggedInVar(verifyLogin())
-
-// //if (loading)
-
-
-// console.log('initial state',isLoggedIn)
-
-// if (error) return <Login />;
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <ApolloProvider client={client}>
-      <App />
+      <Router />
     </ApolloProvider>
   </React.StrictMode>,
 );

@@ -7,15 +7,7 @@ import encryptPassword from "../../helpers/encryptPassword.js";
 
 config();
 
-// cookie settings for jwt
-const cookieOptions = {
-  httpOnly: true,
-  path: '/graphql',
-  domain: '.localhost',
-  expires: new Date(Math.floor(Date.now()) + (60*60*1000)),
-  sameSite: 'None',
-  secure: true
-};
+
 
 // Auth/user functions
 async function signUp(parent, args) {
@@ -53,6 +45,16 @@ async function login(parent, args, { res }) {
   }, process.env.SECRET_KEY);
   
   console.log('user logged in');
+
+  // cookie settings for jwt
+  const cookieOptions = {
+    httpOnly: true,
+    path: '/graphql',
+    domain: '.localhost',
+    expires: new Date(Math.floor(Date.now()) + (60*60*1000)),
+    sameSite: 'None',
+    secure: true
+  };
 
   res.cookie('jwtPayload', token, cookieOptions);
 

@@ -58,10 +58,7 @@ async function login(parent, args, { res }) {
 
   res.cookie('jwtPayload', token, cookieOptions);
 
-  return {
-    token,
-    user
-  };
+  return user;
 };
 
 // Chat functions

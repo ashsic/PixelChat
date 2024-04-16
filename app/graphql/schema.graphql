@@ -21,7 +21,7 @@ type Mutation {
     bio: String!
   ): User
 
-  login(email: String!, password: String!): AuthPayload
+  login(email: String!, password: String!): User
 
   createChat(
     participants: [String!]!

@@ -1,8 +1,14 @@
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet, Navigate } from "react-router-dom";
 import PostModal from "./PostModal";
+import { isLoggedInVar } from "../graphql/cache";
 
 
-export default function NavBar() {
+
+export default function NavBar({ props }) {
+
+  console.log('props',props)
+
+  if (!props) return <Navigate to="/login" />
 
   const navItems = [
     {

@@ -4,6 +4,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { models } from "../../models/index.js";
 import encryptPassword from "../../helpers/encryptPassword.js";
+import protectedAuth from "../protectedAuth.js";
 
 config();
 
@@ -61,6 +62,27 @@ async function login(parent, args, { res }) {
   return user;
 };
 
+async function logout(parent, args, context) {
+  protectedAuth(context);
+  //console.log(context.res)
+  console.log('logging out...')
+
+  const cookieOptions = {
+    httpOnly: true,
+    path: '/graphql',
+    domain: '.localhost',
+    expires: new Date(0),
+    sameSite: 'None',
+    secure: true
+  };
+
+  const token = "logout";
+
+  context.res.cookie('jwtPayload', token, cookieOptions);
+  console.log('logout successful...?')
+  return token;
+};
+
 // Chat functions
 
 async function createChat(parent, args) {
@@ -91,6 +113,7 @@ async function sendMessage(parent, args) {
 export default {
   signUp,
   login,
+  logout,
   createChat,
   sendMessage
 };

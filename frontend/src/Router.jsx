@@ -7,6 +7,7 @@ import Timeline from './pages/Timeline.jsx';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import LoginCheck from './components/LoginCheck.jsx';
 import LogoutPage from './components/LogoutPage.jsx';
+import { AuthRouteWrapper } from './pages/AuthRouteWrapper.jsx';
 
 const router = createBrowserRouter([
   {
@@ -23,7 +24,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/",
-    element: <NavBar />,
+    element: <AuthRouteWrapper />,
     errorElement: <ErrorPage />,
     children: [
       { index: true, element: <Timeline /> },

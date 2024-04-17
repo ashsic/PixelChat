@@ -6,6 +6,7 @@ import { LoginStatusContext } from "../helpers/contexts";
 
 import PostModal from "./PostModal";
 import LogOutButton from "./LogOutButton";
+import { useState } from "react";
 
 
 
@@ -32,11 +33,22 @@ import LogOutButton from "./LogOutButton";
 //   );
 // }
 
-export default function NavBar() {
-  const { loading, error, data } = useQuery(VERIFY_JWT);
+export default function NavBar(props) {
+  // const { loading, error, data } = useQuery(VERIFY_JWT);
+  console.log('navbar')
+
+
+  const [user, setUser] = useState(props);
+
+
+  const changeUserData = (newData) => {
+    setUser(newData);
+  }
   
-  if (loading) return <div>Loading...</div>;
-  if (error) return <Navigate to="/login" />;
+  // if (loading) return <div>Loading...</div>; // eventually make loading screen to return here
+  // if (error) return <Navigate to="/login" />;
+
+  
 
   const navItems = [
     {
@@ -124,7 +136,7 @@ export default function NavBar() {
   }
 
   return (
-    <LoginStatusContext.Provider value={data}>
+    <LoginStatusContext.Provider value={{ user, changeUserData }}>
       <div 
       className="w-20 lg:w-56 2xl:w-80 max-h-full min-h-screen">
         <nav className="fixed flex flex-col h-screen p-3 w-20 lg:w-56 2xl:w-80

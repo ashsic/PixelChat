@@ -5,7 +5,7 @@ import { LOGIN } from '../graphql/mutations';
 function Login() {
   const navigate = useNavigate();
   
-  const [login, { data, loading, error }] = useMutation(LOGIN, { onCompleted: (user2) => navigate("/")})//, { state: user2 })}) //{ onCompleted: () => navigate("/")});
+  const [login, { data, loading, error }] = useMutation(LOGIN, { onCompleted: () => navigate("/")});
 
   
   if (loading) return 'Submitting...';

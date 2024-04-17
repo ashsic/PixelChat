@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { LoginStatusContext } from "../components/NavBar";
+import { LoginStatusContext } from "../helpers/contexts";
 
 export default function Timeline() {
   const userInfo = useContext(LoginStatusContext);

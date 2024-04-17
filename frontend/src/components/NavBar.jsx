@@ -1,23 +1,42 @@
-import { NavLink, Outlet, Navigate, useLocation } from "react-router-dom";
-import PostModal from "./PostModal";
-
-import { gql, useQuery } from '@apollo/client';
-
+import { NavLink, Outlet, Navigate } from "react-router-dom";
+import { useQuery } from '@apollo/client';
 import { VERIFY_JWT } from "../graphql/queries";
 
-import { createContext } from 'react';
+import { LoginStatusContext } from "../helpers/contexts";
 
-export const LoginStatusContext = createContext();
+import PostModal from "./PostModal";
+import LogOutButton from "./LogOutButton";
 
+
+
+// import { LOGOUT } from "../graphql/mutations";
+// import { useMutation } from '@apollo/client';
+// import { useNavigate } from "react-router-dom";
+
+// function LogOutButton() {
+//   const navigate = useNavigate();
+//   const [logout] = useMutation(LOGOUT, {
+//     onCompleted: () => navigate("/logout"),
+//     refetchQueries: [{ query: VERIFY_JWT }]
+//   });
+
+//   return (
+//     <div className="flex w-32">
+//       <i className="material-icons h-6">logout</i>
+//       <button
+//       onClick={logout}
+//       className="hidden h-6 ml-3 items-center lg:flex">
+//         Log Out
+//       </button>
+//     </div>
+//   );
+// }
 
 export default function NavBar() {
   const { loading, error, data } = useQuery(VERIFY_JWT);
   
   if (loading) return <div>Loading...</div>;
   if (error) return <Navigate to="/login" />;
-
-  // const isLoggedIn = useReactiveVar(isLoggedInVar);
-  // if (!isLoggedIn) return <Navigate to="/login" />
 
   const navItems = [
     {
@@ -149,6 +168,11 @@ export default function NavBar() {
                     Settings
                   </p>
                 </div>
+              </NavLink>
+            </div>
+            <div className="h-12 text-lg flex items-center mt-1 mb-1 hover:bg-slate-200 active:bg-slate-300 rounded-md w-12 lg:w-full">
+              <NavLink to="/" className="w-12 lg:w-full h-full p-3">
+                <LogOutButton />
               </NavLink>
             </div>
           </div>

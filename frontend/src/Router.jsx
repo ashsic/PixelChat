@@ -1,5 +1,3 @@
-import Login from './components/Login.jsx';
-import SignUp from './components/SignUp.jsx';
 import NavBar from './components/NavBar.jsx';
 import ErrorPage from './pages/ErrorPage.jsx';
 import Messages from './pages/MessagesPage.jsx';
@@ -7,37 +5,21 @@ import Profile from './pages/ProfilePage.jsx';
 import Timeline from './pages/Timeline.jsx';
 
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-
-import { gql, useQuery } from '@apollo/client';
-
-import { useContext } from 'react';
 import LoginCheck from './components/LoginCheck.jsx';
-
-const VERIFY_JWT = gql`
-  query {
-  verifyJwt{
-    _id
-    username
-    firstName
-    dob
-    bio
-    picture
-    chats
-    posts
-    followers
-    following
-  }
-}
-`;
+import LogoutPage from './components/LogoutPage.jsx';
 
 const router = createBrowserRouter([
   {
-    path: "/login/*",
+    path: "/login",
     element: <LoginCheck/>,
   },
   {
     path: "/signup",
     element: <LoginCheck/>,
+  },
+  {
+    path: "/logout",
+    element: <LogoutPage/>
   },
   {
     path: "/",
@@ -59,7 +41,6 @@ const router = createBrowserRouter([
 ])
 
 export function Router() {
-
   return (
     <RouterProvider router={router} />
   );

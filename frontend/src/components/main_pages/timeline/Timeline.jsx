@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { LoginStatusContext } from "../helpers/contexts";
+import { LoginStatusContext } from "../../../helpers/contexts";
 
 export default function Timeline() {
   const { user, changeUserData } = useContext(LoginStatusContext);

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import timeSinceParser from "../helpers/timeSinceParser";
+import timeSinceParser from "../../../helpers/timeSinceParser";
 
 export default function Conversation(props) {
   const { conv } = props;

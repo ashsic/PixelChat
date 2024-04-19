@@ -1,4 +1,4 @@
-import timeSinceParser from "../helpers/timeSinceParser";
+import timeSinceParser from "../../../helpers/timeSinceParser";
 
 export default function Message(props) {
   const { message } = props;

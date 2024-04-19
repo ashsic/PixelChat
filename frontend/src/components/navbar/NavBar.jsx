@@ -1,7 +1,7 @@
 import { NavLink, Outlet } from "react-router-dom";
 import { useState } from "react";
 
-import { LoginStatusContext } from "../helpers/contexts";
+import { LoginStatusContext } from "../../helpers/contexts";
 
 import PostModal from "./PostModal";
 import LogOutButton from "./LogOutButton";

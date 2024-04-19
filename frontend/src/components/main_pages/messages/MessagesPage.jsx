@@ -1,7 +1,7 @@
 import { Link, useParams } from "react-router-dom";
-import Conversation from "../components/Conversation";
-import Message from "../components/Message";
-import ConversationModal from "../components/ConversationModal";
+import Conversation from "./Conversation";
+import Message from "./Message";
+import ConversationModal from "./ConversationModal";
 
 import { useQuery, gql } from '@apollo/client';
 

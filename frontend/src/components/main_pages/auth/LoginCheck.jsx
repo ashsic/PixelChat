@@ -1,10 +1,10 @@
-import { VERIFY_JWT } from "../graphql/queries";
+import { VERIFY_JWT } from "../../../graphql/queries";
 import { useQuery } from '@apollo/client';
 
 import { Navigate, Router, Routes, Route, useLocation } from "react-router-dom";
-import Login from "./Login";
-import SignUp from "./SignUp";
-import ErrorPage from "../pages/ErrorPage";
+import Login from "./LoginPage";
+import SignUp from "./SignUpPage";
+import ErrorPage from "../error/ErrorPage";
 
 function LoginCheck() {
   const location = useLocation();

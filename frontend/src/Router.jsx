@@ -1,12 +1,12 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-import { AuthRouteWrapper } from './pages/AuthRouteWrapper.jsx';
-import ErrorPage from './pages/ErrorPage.jsx';
-import Messages from './pages/MessagesPage.jsx';
-import Profile from './pages/ProfilePage.jsx';
-import Timeline from './pages/Timeline.jsx';
-import LoginCheck from './components/LoginCheck.jsx';
-import LogoutPage from './components/LogoutPage.jsx';
+import { AuthRouteWrapper } from './components/main_pages/auth/AuthRouteWrapper.jsx';
+import ErrorPage from './components/main_pages/error/ErrorPage.jsx';
+import Messages from './components/main_pages/messages/MessagesPage.jsx';
+import Profile from './components/main_pages/profile/ProfilePage.jsx';
+import Timeline from './components/main_pages/timeline/Timeline.jsx';
+import LoginCheck from './components/main_pages/auth/LoginCheck.jsx';
+import LogoutPage from './components/main_pages/auth/LogoutPage.jsx';
 
 
 const router = createBrowserRouter([

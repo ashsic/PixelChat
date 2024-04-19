@@ -1,6 +1,6 @@
 import { gql, useMutation} from '@apollo/client';
 import { Link, Form, useNavigate } from 'react-router-dom';
-import { LOGIN } from '../graphql/mutations';
+import { LOGIN } from '../../../graphql/mutations';
 
 function Login() {
   const navigate = useNavigate();

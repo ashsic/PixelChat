@@ -2,11 +2,10 @@ import { Navigate } from "react-router-dom";
 import { useState } from "react";
 import { useQuery } from "@apollo/client";
 
-import { VERIFY_JWT } from "../graphql/queries";
-import NavBar from "../components/NavBar";
+import { VERIFY_JWT } from "../../../graphql/queries";
+import NavBar from "../../navbar/NavBar";
 
 export function AuthRouteWrapper() {
-  console.log('authwrapper')
   const [isLoggedIn, setIsLoggedIn] = useState(true)
   const { loading, error, data, refetch } = useQuery(VERIFY_JWT);
 

@@ -1,7 +1,7 @@
-import { LOGOUT } from "../graphql/mutations";
+import { LOGOUT } from "../../graphql/mutations";
 import { useMutation } from '@apollo/client';
 import { useContext } from "react";
-import { LoginStatusContext } from "../helpers/contexts";
+import { LoginStatusContext } from "../../helpers/contexts";
 import { NavLink } from "react-router-dom";
 
 export default function LogOutButton() {

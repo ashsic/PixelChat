@@ -3,7 +3,6 @@
 export default function LoadingPage() {
 
   return (
-    
     <div className="flex flex-col w-full justify-between h-screen items-center">
       <div></div>
       <div className="">

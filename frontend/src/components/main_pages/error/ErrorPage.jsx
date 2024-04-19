@@ -5,12 +5,16 @@ export default function ErrorPage() {
   // console.error(error);
 
   return (
-    <div >
+    <div className="flex flex-col w-full justify-between h-screen items-center">
+      <div></div>
+      <div className="">
       <h1>Oops!</h1>
       <p>Sorry, an unexpected error has occurred.</p>
       <p>
         <i>{"Unknown error."}</i>
       </p>
+      </div>
+      <div></div>
     </div>
   );
 }

@@ -1,8 +1,8 @@
 import { useMutation} from '@apollo/client';
 import { Link, Form, useNavigate } from 'react-router-dom';
 import { LOGIN } from '../../../graphql/mutations';
-import LoadingPage from '../loading/Page';
-import ErrorPage from '../error/Page';
+import LoadingPage from '../loading/LoadingPage';
+import ErrorPage from '../error/ErrorPage';
 import GuestLogin from './GuestLogin';
 
 function Login() {

@@ -1,8 +1,8 @@
 import { useMutation } from '@apollo/client';
 import { Link, Form, useNavigate } from 'react-router-dom';
 import { SIGNUP } from '../../../graphql/mutations';
-import LoadingPage from '../loading/Page';
-import ErrorPage from '../error/Page';
+import LoadingPage from '../loading/LoadingPage';
+import ErrorPage from '../error/ErrorPage';
 import GuestLogin from './GuestLogin';
 
 export default function SignUpPage() {
@@ -37,13 +37,13 @@ export default function SignUpPage() {
 
               let spaceIdx = fullName.indexOf(" ");
 
-              // if (spaceIdx === -1) {
-              //   firstName = fullName;
-              //   lastName = null;
-              // } else {
-              //   firstName = fullName.slice(0, spaceIdx);
-              //   lastName = fullName.slice(spaceIdx + 1);
-              // }
+              if (spaceIdx === -1) {
+                firstName = fullName;
+                lastName = null;
+              } else {
+                firstName = fullName.slice(0, spaceIdx);
+                lastName = fullName.slice(spaceIdx + 1);
+              }
 
               signUp({ 
                 variables: {
@@ -143,7 +143,7 @@ export default function SignUpPage() {
             required
             minLength={8}
             maxLength={32}
-            pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+            // pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*?&]{8,}$"
             id="password" 
             name="password" 
             className='border-2 h-10 rounded-md px-2'

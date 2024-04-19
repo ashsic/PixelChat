@@ -4,8 +4,8 @@ import { Navigate, Router, Routes, Route, useLocation } from "react-router-dom";
 
 import Login from "./LoginPage";
 import SignUpPage from "./SignUpPage";
-import ErrorPage from "../error/Page";
-import LoadingPage from "../loading/Page";
+import ErrorPage from "../error/ErrorPage";
+import LoadingPage from "../loading/LoadingPage";
 
 function LoginCheck() {
   const location = useLocation();

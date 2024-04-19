@@ -24,8 +24,29 @@ export const LOGOUT = gql`
   }
 `;
 
+// export const SIGNUP = gql`
+//   mutation Signup($username: String!, $email: String!, $password: String!, $firstName: String!, $lastName: String!) {
+//     signup(email: $email, password: $password, username: $username, firstName: $firstName, lastName: $lastName) {
+//       _id
+//     }
+//   }
+// `;
+
 export const SIGNUP = gql`
-  mutation Signup {
-    username
+mutation SignUp($username: String!, $email: String!, $password: String!, $firstName: String!, $lastName: String!){
+  signUp(username: $username, email: $email, password: $password, firstName: $firstName, lastName: $lastName) {
+    _id
   }
+}
+
 `;
+
+
+// export const SIGNUP = gql`
+// mutation {
+//   signUp(username: "51example_userdfassda", email: "a321sduserdsfa@example.com", password: "test", firstName: "test", lastName: "test") {
+//     _id
+//   }
+// }
+
+// `;

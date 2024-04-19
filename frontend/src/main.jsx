@@ -17,33 +17,6 @@ const client = new ApolloClient({
   link
 });
 
-const VERIFY_JWT = gql`
-  query {
-  verifyJwt{
-    _id
-    username
-    firstName
-    dob
-    bio
-    picture
-    chats
-    posts
-    followers
-    following
-  }
-}
-`;
-
-// const { loading, error, data } = await client.query({
-//   query: VERIFY_JWT
-// })
-
-// import { createContext } from 'react';
-
-// const LoginStatusContext = createContext();
-
-
-
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <ApolloProvider client={client}>

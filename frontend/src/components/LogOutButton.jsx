@@ -1,30 +1,20 @@
 import { LOGOUT } from "../graphql/mutations";
-import { VERIFY_JWT } from "../graphql/queries";
 import { useMutation } from '@apollo/client';
-import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { LoginStatusContext } from "../helpers/contexts";
 import { NavLink } from "react-router-dom";
 
-// TODO: Need to use state to store user instead of context, send state to this 
-// component as props then change the props in order to re render NavBar.
-
-
 export default function LogOutButton() {
   const { user, changeUserData } = useContext(LoginStatusContext);
-  console.log('logoutbutton', user)
-  const navigate = useNavigate();
   const [logout] = useMutation(LOGOUT, {
-    refetchQueries: [VERIFY_JWT],
     onCompleted: () => {
       window.location.reload()
-      navigate("/logout");
     } 
   }); 
 
   return (
-    <NavLink to="/" className="w-12 lg:w-full h-full p-3">
-      <div className="flex w-32" onClick={logout}>
+    <NavLink to="/" className="w-12 lg:w-full h-full p-3" onClick={logout}>
+      <div className="flex w-32" >
         <i className="material-icons h-6">logout</i>
         <button
         

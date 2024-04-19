@@ -1,13 +1,13 @@
-import NavBar from './components/NavBar.jsx';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+
+import { AuthRouteWrapper } from './pages/AuthRouteWrapper.jsx';
 import ErrorPage from './pages/ErrorPage.jsx';
 import Messages from './pages/MessagesPage.jsx';
 import Profile from './pages/ProfilePage.jsx';
 import Timeline from './pages/Timeline.jsx';
-
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import LoginCheck from './components/LoginCheck.jsx';
 import LogoutPage from './components/LogoutPage.jsx';
-import { AuthRouteWrapper } from './pages/AuthRouteWrapper.jsx';
+
 
 const router = createBrowserRouter([
   {
@@ -20,7 +20,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/logout",
-    element: <LogoutPage/>
+    element: <LogoutPage/> // remove?
   },
   {
     path: "/",

@@ -1,54 +1,17 @@
-import { NavLink, Outlet, Navigate } from "react-router-dom";
-import { useQuery } from '@apollo/client';
-import { VERIFY_JWT } from "../graphql/queries";
+import { NavLink, Outlet } from "react-router-dom";
+import { useState } from "react";
 
 import { LoginStatusContext } from "../helpers/contexts";
 
 import PostModal from "./PostModal";
 import LogOutButton from "./LogOutButton";
-import { useState } from "react";
-
-
-
-// import { LOGOUT } from "../graphql/mutations";
-// import { useMutation } from '@apollo/client';
-// import { useNavigate } from "react-router-dom";
-
-// function LogOutButton() {
-//   const navigate = useNavigate();
-//   const [logout] = useMutation(LOGOUT, {
-//     onCompleted: () => navigate("/logout"),
-//     refetchQueries: [{ query: VERIFY_JWT }]
-//   });
-
-//   return (
-//     <div className="flex w-32">
-//       <i className="material-icons h-6">logout</i>
-//       <button
-//       onClick={logout}
-//       className="hidden h-6 ml-3 items-center lg:flex">
-//         Log Out
-//       </button>
-//     </div>
-//   );
-// }
 
 export default function NavBar(props) {
-  // const { loading, error, data } = useQuery(VERIFY_JWT);
-  console.log('navbar')
-
-
   const [user, setUser] = useState(props);
-
 
   const changeUserData = (newData) => {
     setUser(newData);
   }
-  
-  // if (loading) return <div>Loading...</div>; // eventually make loading screen to return here
-  // if (error) return <Navigate to="/login" />;
-
-  
 
   const navItems = [
     {

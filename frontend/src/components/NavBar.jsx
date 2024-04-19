@@ -183,9 +183,7 @@ export default function NavBar(props) {
               </NavLink>
             </div>
             <div className="h-12 text-lg flex items-center mt-1 mb-1 hover:bg-slate-200 active:bg-slate-300 rounded-md w-12 lg:w-full">
-              <NavLink to="/" className="w-12 lg:w-full h-full p-3">
-                <LogOutButton />
-              </NavLink>
+              <LogOutButton />
             </div>
           </div>
         </nav>

@@ -5,6 +5,7 @@ export default function LogoutPage() {
   const navigate = useNavigate();
 
   window.setTimeout(() => {
+    
     navigate("/login")
   }, 3000);
 

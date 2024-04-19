@@ -1,6 +1,41 @@
-
+import { Form } from "react-router-dom";
+import { useMutation } from "@apollo/client";
+import { CREATE_CHAT } from "../../../graphql/mutations";
+import { useContext } from "react";
 
 export default function ConversationModal() {
+  const [createChat, { loading, error, data }] = useMutation(CREATE_CHAT);
+  const { user, changeUserData } = useContext(LoginStatusContext);
+  console.log(user)
+
+  const submitChatForm = (e) => {
+    e.preventDefault();
+    createChat({
+      variables: {
+        participants: 'test'
+      }
+    })
+
+  }
+
+  e => {
+    e.preventDefault();
+    login({ 
+      variables: {
+        email: "use1r@example.com",
+        password: "test"
+      }
+    }).then((result) => {
+      console.log(result);
+      console.log('logged in === true')
+    }).catch((err) => {
+      console.error(err);
+    });
+  }
+
+
+
+
   const closeModal = () => {
     const modal = document.querySelector("#conversationModal");
     modal.style.display = "none";
@@ -37,7 +72,7 @@ export default function ConversationModal() {
           <div>
             {/* <p>search results go here</p> */}
 
-            <form action="" method="POST" className="flex flex-col">
+            <Form onSubmit={submitChatForm} action="" method="POST" className="flex flex-col">
 
               <div>
                 <label className="" htmlFor="user">
@@ -53,14 +88,14 @@ export default function ConversationModal() {
 
               <div>
                 <label className="" htmlFor="message">
-                  Message:
+                  Chat Name:
                 </label>
                 <input
                 className="bg-slate-100 my-2 pl-2 flex-grow outline-none text-sm"
                 type="text"
                 name="message"
                 id="message"
-                placeholder="Enter message" />
+                placeholder="Enter name" />
               </div>
 
               <button
@@ -69,7 +104,7 @@ export default function ConversationModal() {
                 Submit
               </button>
 
-            </form>
+            </Form>
           </div>
 
         </div>

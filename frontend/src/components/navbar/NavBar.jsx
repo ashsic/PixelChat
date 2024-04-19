@@ -98,8 +98,8 @@ export default function NavBar(props) {
   }
 
   return (
-    <LoginStatusContext.Provider value={{ user, changeUserData }}>
-      <div 
+    <div>
+      <div
       className="w-20 lg:w-56 2xl:w-80 max-h-full min-h-screen">
         <nav className="fixed flex flex-col h-screen p-3 w-20 lg:w-56 2xl:w-80
         border-r border-gray-500">
@@ -108,7 +108,7 @@ export default function NavBar(props) {
             {navItems.map((item) => {
               return (
                 item.route
-                && 
+                &&
                 <li className="h-12 text-lg flex items-center mt-1 mb-1 hover:bg-slate-200 active:bg-slate-300 rounded-md w-12 lg:w-full" key={item.name}>
                   <NavLink to={item.route} className="w-12 lg:w-full h-full p-3" >
                     <div className="flex w-32">
@@ -149,13 +149,11 @@ export default function NavBar(props) {
             </div>
           </div>
         </nav>
-
         <PostModal />
-
       </div>
       <div className="flex justify-center flex-1">
         <Outlet />
       </div>
-    </LoginStatusContext.Provider>
+    </div>
   );
 };

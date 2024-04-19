@@ -22,22 +22,6 @@ import { useQuery, gql } from '@apollo/client';
 //   }
 // `;
 
-// function DisplayLocations() {
-//   const { loading, error, data } = useQuery(GET_USERS);
-
-//   if (loading) return <p>Loading...</p>;
-//   if (error) return <p>Error : {error.message}</p>;
-
-//   return data.users.map(({ username, email }, i) => (
-//     <div key={i}>
-//       <h3>{username}</h3>
-//       <br />
-//       <b>About this user:</b>
-//       <p>{email}</p>
-//       <br />
-//     </div>
-//   ));
-// }
 
   // sample chats
   function generateRandomTimestamp() {
@@ -152,32 +136,7 @@ export default function Messages() {
             </button>
           </div>
           <ul className="overflow-y-auto flex-shrink">
-            {conversations.map((conv) => {
-              return (
-                <Conversation key={conv.id} conv={conv} />
-              );
-            })}
-            {conversations.map((conv) => {
-              return (
-                <Conversation key={conv.id} conv={conv} />
-              );
-            })}
-            {conversations.map((conv) => {
-              return (
-                <Conversation key={conv.id} conv={conv} />
-              );
-            })}
-            {conversations.map((conv) => {
-              return (
-                <Conversation key={conv.id} conv={conv} />
-              );
-            })}
-            {conversations.map((conv) => {
-              return (
-                <Conversation key={conv.id} conv={conv} />
-              );
-            })}
-            {conversations.map((conv) => {
+          {conversations.map((conv) => {
               return (
                 <Conversation key={conv.id} conv={conv} />
               );

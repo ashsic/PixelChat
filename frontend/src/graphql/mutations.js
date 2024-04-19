@@ -19,7 +19,13 @@ export const LOGIN = gql`
 `;
 
 export const LOGOUT = gql`
-  mutation Logout{
+  mutation Logout {
     logout
+  }
+`;
+
+export const SIGNUP = gql`
+  mutation Signup {
+    username
   }
 `;

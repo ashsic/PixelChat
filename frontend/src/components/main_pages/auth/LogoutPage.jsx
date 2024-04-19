@@ -1,6 +1,8 @@
 import { Navigate, useNavigate } from "react-router-dom";
 
 
+// remove this page?
+
 export default function LogoutPage() {
   const navigate = useNavigate();
 

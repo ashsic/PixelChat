@@ -25,7 +25,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/loading",
-    element: <LoadingPage/> // remove?
+    element: <LoadingPage/> // for styling
   },
   {
     path: "/",

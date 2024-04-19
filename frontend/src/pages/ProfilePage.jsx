@@ -12,13 +12,13 @@ export default function Profile() {
   }
 
   return (
-    <main className="max-w-5xl flex-1 p-4 border">
+    <main className="max-w-4xl flex-1 p-4 border">
       <section>
-        <div className="flex mt-10 mb-10">
+        <div className="flex mt-10 mb-10 ml-10">
           <div className="flex flex-auto justify-center w-0.5">
             <img className="flex-none min-w-10 w-40 h-40" src="../public/Default_pfp.svg.png" alt="default profile pic" />
           </div>
-          <div className="flex flex-col justify-center flex-auto">
+          <div className="flex flex-col justify-center flex-auto mr-12">
             <div className="flex items-center mb-3">
               <h3 className="text-lg mr-4">{props.username}</h3>
               <button className="border pl-4 pr-4 rounded-md h-8 mr-4">Edit profile</button>
@@ -30,8 +30,8 @@ export default function Profile() {
               <span className="mr-4">{props.following + " following"}</span>
             </div>
             <div className="text-sm">
-              <h5 className="font-medium">{props.firstname + " " + props.lastname}</h5>
-              <p>{props.bio}</p>
+              <h5 className="font-medium w-fit">{props.firstname + " " + props.lastname}</h5>
+              <p className="w-fit">{props.bio}</p>
             </div>
           </div>
         </div>

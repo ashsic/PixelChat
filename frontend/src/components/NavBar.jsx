@@ -67,7 +67,6 @@ export default function NavBar(props) {
 
   window.addEventListener("click", closePostModal);
 
-
   const createPost = () => {
     const modal = document.querySelector("#postModal");
     modal.style.display = "flex";

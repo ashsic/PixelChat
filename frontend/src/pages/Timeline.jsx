@@ -3,8 +3,6 @@ import { LoginStatusContext } from "../helpers/contexts";
 
 export default function Timeline() {
   const { user, changeUserData } = useContext(LoginStatusContext);
-  console.log('user',user)
-  console.log(user.props)
   const { _id, username, firstName, lastName } = user.props.data.verifyJwt;
 
   return (

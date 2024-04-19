@@ -19,8 +19,8 @@ const userSchema = new mongoose.Schema({
     required: true
   },
   lastName: {
-      type: String,
-      required: true
+    type: String,
+    // required: true
   },
   password: {
     type: String,
@@ -28,7 +28,7 @@ const userSchema = new mongoose.Schema({
   },
   dob: {
     type: Date,
-    required: true
+    // required: true
   },
   bio: {
     type: String

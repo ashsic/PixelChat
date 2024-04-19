@@ -16,7 +16,7 @@ async function signUp(parent, args) {
   const newUser = new models.User({
     ...args,
     password: password,
-    dob: new Date(args.dob)
+    dob: new Date() //args.dob ? new Date(args.dob) : null
   });
   await newUser.save();
   return newUser;

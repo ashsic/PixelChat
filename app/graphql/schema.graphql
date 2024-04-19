@@ -17,8 +17,8 @@ type Mutation {
     firstName: String!,
     lastName: String!,
     password: String!,
-    dob: String!,
-    bio: String!
+    dob: String,
+    bio: String
   ): User
 
   login(email: String!, password: String!): User

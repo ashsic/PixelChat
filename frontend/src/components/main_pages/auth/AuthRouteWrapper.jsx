@@ -4,6 +4,7 @@ import { useQuery } from "@apollo/client";
 
 import { VERIFY_JWT } from "../../../graphql/queries";
 import NavBar from "../../navbar/NavBar";
+import LoadingPage from "../loading/Page";
 
 export function AuthRouteWrapper() {
   const [isLoggedIn, setIsLoggedIn] = useState(true)
@@ -15,7 +16,7 @@ export function AuthRouteWrapper() {
 
   // if (loading) return <div>Loading...</div>; // eventually make loading screen to return here
   // if (error) return <Navigate to="/login" />;
-  if (loading) return <div>Loading...</div>; // eventually make loading screen to return here
+  if (loading) return <LoadingPage />;
   if (error) return <Navigate to="/login" />;
 
   return (

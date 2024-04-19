@@ -1,6 +1,8 @@
 import { gql, useMutation} from '@apollo/client';
 import { Link, Form, useNavigate } from 'react-router-dom';
 import { LOGIN } from '../../../graphql/mutations';
+import LoadingPage from '../loading/Page';
+import ErrorPage from '../error/Page';
 
 function Login() {
   const navigate = useNavigate();
@@ -8,8 +10,8 @@ function Login() {
   const [login, { data, loading, error }] = useMutation(LOGIN, { onCompleted: () => navigate("/")});
 
   
-  if (loading) return 'Submitting...';
-  if (error) return `Submission error! ${error.message}`;
+  if (loading) return <LoadingPage />;
+  if (error) return <ErrorPage />; //`Submission error! ${error.message}`;
 
   let input1;
   let input2;

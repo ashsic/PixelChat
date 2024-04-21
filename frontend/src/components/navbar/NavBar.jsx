@@ -6,12 +6,12 @@ import { LoginStatusContext } from "../../helpers/contexts";
 import PostModal from "./PostModal";
 import LogOutButton from "./LogOutButton";
 
-export default function NavBar(props) {
-  const [user, setUser] = useState(props);
+export default function NavBar() {
+  // const [user, setUser] = useState(props);
 
-  const changeUserData = (newData) => {
-    setUser(newData);
-  }
+  // const changeUserData = (newData) => {
+  //   setUser(newData);
+  // }
 
   const navItems = [
     {

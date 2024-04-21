@@ -2,6 +2,7 @@ import { Form } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 import { CREATE_CHAT } from "../../../graphql/mutations";
 import { useContext } from "react";
+import { LoginStatusContext } from "../../../helpers/contexts";
 
 export default function ConversationModal() {
   const [createChat, { loading, error, data }] = useMutation(CREATE_CHAT);

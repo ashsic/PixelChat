@@ -5,7 +5,7 @@ import { LoginStatusContext } from "../../helpers/contexts";
 import { NavLink } from "react-router-dom";
 
 export default function LogOutButton() {
-  const { user, changeUserData } = useContext(LoginStatusContext);
+  // const { user } = useContext(LoginStatusContext);
   const [logout] = useMutation(LOGOUT, {
     onCompleted: () => {
       window.location.reload()

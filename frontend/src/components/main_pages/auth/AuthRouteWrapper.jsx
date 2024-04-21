@@ -14,8 +14,8 @@ export function AuthRouteWrapper() {
   if (error) return <Navigate to="/login" />;
 
   return (
-    <LoginStatusContext.Provider value={{ user }}>
-      <NavBar props={ { data } } />
+    <LoginStatusContext.Provider value={{ user:data }}>
+      <NavBar /> {/*props={ { data } } />*/}
     </LoginStatusContext.Provider>
   );
 }

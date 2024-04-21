@@ -98,7 +98,7 @@ export default function NavBar() {
   }
 
   return (
-    <div>
+    <div className="flex">
       <div
       className="w-20 lg:w-56 2xl:w-80 max-h-full min-h-screen">
         <nav className="fixed flex flex-col h-screen p-3 w-20 lg:w-56 2xl:w-80

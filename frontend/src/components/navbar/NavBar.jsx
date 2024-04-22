@@ -151,7 +151,7 @@ export default function NavBar() {
         </nav>
         <PostModal />
       </div>
-      <div className="flex justify-center flex-1">
+      <div className="flex justify-center flex-1 w-full">
         <Outlet />
       </div>
     </div>

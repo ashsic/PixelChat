@@ -44,3 +44,18 @@ export const CREATE_CHAT = gql`
     }
   }
 `;
+
+export const SEND_MESSAGE = gql`
+  mutation SendMessage($chat: String!, $sender: String!, $text: String!) {
+    sendMessage(chat: $chat, sender: $sender, text: $text) {
+      _id
+      name
+      messages {
+        sender
+        text
+        likes
+        timestamp
+      }
+    }
+  }
+`;

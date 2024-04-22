@@ -6,7 +6,8 @@ import { useContext } from "react";
 import { LoginStatusContext } from "../../../helpers/contexts";
 import { useQuery } from '@apollo/client';
 import { USER_CHATS } from "../../../graphql/queries";
-import Chat from "./Chat";
+import MessageBox from "./MessageBox";
+
 
 export default function Messages() {
   const { chatid } = useParams();
@@ -19,7 +20,7 @@ export default function Messages() {
   if (loading) return <p>loading...</p>
   if (error) return <p>error</p>
   
-  
+
   // Modal functions
 
   window.onclick = (event) => {
@@ -36,9 +37,9 @@ export default function Messages() {
   console.log(data)
 
   return (
-    <div className="flex">
+    <div className="flex w-full">
 
-      <div className="max-h-full min-h-screen w-64 lg:w-96 pr-0.5">
+      <div className="max-h-full min-h-screen flex-grow-0 w-96 lg:w-96 pr-0.5">
         <div className="w-64 lg:w-96 max-h-screen fixed flex flex-col">
           <h1 className="text-2xl p-3 absolute mt-2.5">Messages</h1>
           <div className="min-h-16 flex flex-row-reverse">
@@ -64,23 +65,32 @@ export default function Messages() {
 
       
 
-      
-        {!chatid ? (
-          <div className="border-gray-500 border-l flex justify-center items-center pl-20">
-            <h4 className="text-xl font-medium text-slate-600">Select a conversation</h4>
+    
+      {!chatid ? (
+        <div className="border-gray-500 border-l flex flex-1 w-full justify-center items-center">
+          <h4 className="text-xl font-medium text-slate-600">Select a conversation</h4>
+        </div>
+      ) : (
+        <div className="flex flex-col flex-1 relative border-slate-300 border-l scroll-smooth overflow-auto">
+          <div className="w-full">
+            <div className="border-slate-300 border-b py-4">
+              <h3 className="text-lg font-medium pl-8">{data.userChats[0].name}</h3>
+            </div>
           </div>
-        ) : (
-          <div className="flex flex-col flex-1 border-gray-500 border-l scroll-smooth overflow-auto">
-            <div className="w-full border-slate-500 border-b">test</div>
-            <ul className="flex flex-col-reverse overflow-auto">
-              {data.userChats[0].messages.toReversed().map((message, i) => {
-                return (
-                  <Message key={i} message={message} />
-                );
-              })}
-            </ul>
+
+          <ul className="flex flex-col-reverse overflow-auto">
+            {data.userChats[0].messages.toReversed().map((message, i) => {
+              return (
+                <Message key={i} message={message} />
+              );
+            })}
+          </ul>
+
+          <div className="absolute w-full bottom-0 right-0">
+            <MessageBox />
           </div>
-        )}
+        </div>
+      )}
 
 
       <ConversationModal />

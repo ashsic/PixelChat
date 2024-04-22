@@ -3,6 +3,8 @@ import timeSinceParser from "../../../helpers/timeSinceParser";
 export default function Message(props) {
   const { message } = props;
 
+  console.log(message)
+
   return (
     <li className="flex w-full items-center">
       <img

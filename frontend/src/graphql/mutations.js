@@ -36,11 +36,11 @@ mutation SignUp($username: String!, $email: String!, $password: String!, $firstN
 //Chat
 
 export const CREATE_CHAT = gql`
-  mutation CreateChat($participants: [String!]!, $name: String!, ) {
+  mutation CreateChat($participants: [String!]!, $name: String!) {
     createChat(participants: $participants, name: $name) {
+      _id
       participants
       name
-      messages
     }
   }
 `;

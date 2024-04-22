@@ -6,33 +6,34 @@ import { LoginStatusContext } from "../../../helpers/contexts";
 
 export default function ConversationModal() {
   const [createChat, { loading, error, data }] = useMutation(CREATE_CHAT);
-  const { user, changeUserData } = useContext(LoginStatusContext);
+  const { user } = useContext(LoginStatusContext);
   console.log(user)
 
   const submitChatForm = (e) => {
     e.preventDefault();
     createChat({
       variables: {
-        participants: 'test'
+        participants: ["660322bacf69ecdb6b19d2fa","660323d25a771aea3dcacb41"],
+        name: "test"
       }
     })
 
   }
 
-  e => {
-    e.preventDefault();
-    login({ 
-      variables: {
-        email: "use1r@example.com",
-        password: "test"
-      }
-    }).then((result) => {
-      console.log(result);
-      console.log('logged in === true')
-    }).catch((err) => {
-      console.error(err);
-    });
-  }
+  // e => {
+  //   e.preventDefault();
+  //   login({ 
+  //     variables: {
+  //       email: "use1r@example.com",
+  //       password: "test"
+  //     }
+  //   }).then((result) => {
+  //     console.log(result);
+  //     console.log('logged in === true')
+  //   }).catch((err) => {
+  //     console.error(err);
+  //   });
+  // }
 
 
 
@@ -75,9 +76,9 @@ export default function ConversationModal() {
 
             <Form onSubmit={submitChatForm} action="" method="POST" className="flex flex-col">
 
-              <div>
+            <div>
                 <label className="" htmlFor="user">
-                  To:
+                  Participants:
                 </label>
                 <input
                 className="bg-slate-100 my-2 pl-2 flex-grow outline-none text-sm"
@@ -88,14 +89,26 @@ export default function ConversationModal() {
               </div>
 
               <div>
-                <label className="" htmlFor="message">
-                  Chat Name:
+                <label className="" htmlFor="user">
+                  Message:
                 </label>
                 <input
                 className="bg-slate-100 my-2 pl-2 flex-grow outline-none text-sm"
                 type="text"
                 name="message"
                 id="message"
+                placeholder="Enter user name" />
+              </div>
+
+              <div>
+                <label className="" htmlFor="message">
+                  Chat Name:
+                </label>
+                <input
+                className="bg-slate-100 my-2 pl-2 flex-grow outline-none text-sm"
+                type="text"
+                name="chat_name"
+                id="chat_name"
                 placeholder="Enter name" />
               </div>
 

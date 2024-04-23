@@ -109,7 +109,7 @@ async function sendMessage(parent, args) {
     }
   });
 
-  pubsub.publish('MESSAGE_SENT', {
+  pubsub.publish('MESSAGE_SENT' + id , {
     messageSent: {
       sender: args.sender,
       text: args.text

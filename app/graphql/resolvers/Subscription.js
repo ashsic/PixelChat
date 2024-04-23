@@ -5,6 +5,6 @@ import { pubsub } from "./pubsub.js";
 
 export default {
   messageSent : {
-    subscribe: () => pubsub.asyncIterator(['MESSAGE_SENT']) 
+    subscribe: (_, args) =>  pubsub.asyncIterator(['MESSAGE_SENT' + args.id])
   }
 };

@@ -28,7 +28,6 @@ type Mutation {
   createChat(
     participants: [String!]!
     name: String!
-    messages: [String]
   ): Chat
 
   sendMessage(
@@ -42,9 +41,9 @@ type Mutation {
   ): Chat
 }
 
-# type Subscription {
-
-# }
+type Subscription {
+  messageSent: Message
+}
 
 type User {
   _id: ID!
@@ -70,12 +69,13 @@ type Chat {
 }
 
 type Message {
-  sender: User!
+  sender: ID!
+  username: String!
   text: String!
   image: String
-  likes: Int!
-  timestamp: String!
-  hidden: Boolean!
+  likes: Int
+  timestamp: String
+  hidden: Boolean
 }
 
 type Post {

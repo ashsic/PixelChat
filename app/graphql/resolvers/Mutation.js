@@ -5,6 +5,7 @@ import jwt from "jsonwebtoken";
 import { models } from "../../models/index.js";
 import encryptPassword from "../../helpers/encryptPassword.js";
 import protectedAuth from "../protectedAuth.js";
+import { pubsub } from "./pubsub.js";
 
 config();
 
@@ -98,7 +99,7 @@ async function createChat(parent, args) {
 };
 
 async function sendMessage(parent, args) {
-  const id = args.chat
+  const id = args.chat;
   await models.Chat.findByIdAndUpdate(id, {
     $push: {
       messages: {
@@ -107,6 +108,14 @@ async function sendMessage(parent, args) {
       }
     }
   });
+
+  pubsub.publish('MESSAGE_SENT', {
+    messageSent: {
+      sender: args.sender,
+      text: args.text
+    }
+  });
+  
   
 }
 

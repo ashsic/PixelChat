@@ -12,48 +12,87 @@ import apolloMiddleware from "./graphql/apolloMiddleware.js";
 
 import cookieParser from "cookie-parser";
 
+import { createServer } from 'http';
+import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer';
+import { makeExecutableSchema } from '@graphql-tools/schema';
+import { WebSocketServer } from 'ws';
+import { useServer } from 'graphql-ws/lib/use/ws';
+
 config();
 
-// Create express server, set port
+const schema = makeExecutableSchema({ typeDefs, resolvers });
+
+// Create express server, http server, websocket server
 const app = express();
-const port = process.env.PORT || 3000;
+const httpServer = createServer(app);
+const wsServer = new WebSocketServer({
+  server: httpServer,
+  path: '/graphql',
+});
 
-const corsOptions = {
-  origin: 'http://localhost:5173',
-  credentials: true 
-};
+const serverCleanup = useServer({ schema }, wsServer);
 
-// Middleware
-app.use(cors(corsOptions));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser())
-
-app.use((req, res, next) => {
-  console.log('cookies',req.cookies)
-  next()
-})
-
-// Apollo server
 const server = new ApolloServer({
-  schema: buildSubgraphSchema({
-    typeDefs,
-    resolvers
-  }),
+  schema,
+  plugins: [
+    ApolloServerPluginDrainHttpServer({ httpServer }),
+    {
+      async serverWillStart() {
+        return {
+          async drainServer() {
+            await serverCleanup.dispose();
+          },
+        };
+      },
+    },
+  ],
 });
 
 await server.start();
 
 // Route w/ middleware
-app.use("/graphql", apolloMiddleware(server));
+const corsOptions = {
+  origin: `.localhost`, //'http://localhost:5173',
+  credentials: true 
+};
+
+app.use("/graphql", 
+  cors(corsOptions), 
+  express.json(), 
+  express.urlencoded({ extended: false }),
+  cookieParser(), 
+  apolloMiddleware(server)
+);
+
+const port = process.env.PORT || 3000;
 
 // Start db, express
 connectDb().then(() => {
   console.log("Connected to MongoDB.");
 
-  app.listen(port, () => {
-    console.log(`App listening on port ${port}.`);
+  httpServer.listen(port, () => {
+    console.log(`Server listening on http://localhost:${port}/graphql.`);
   });
 }).catch((err) => {
   console.error("Error connecting to MongoDB", err);
 });
+
+
+// Middleware
+// app.use(cors(corsOptions));
+// app.use(express.json());
+// app.use(express.urlencoded({ extended: false }));
+// app.use(cookieParser())
+
+// app.use((req, res, next) => {
+//   console.log('cookies',req.cookies)
+//   next()
+// })
+
+// Apollo server
+// const server = new ApolloServer({
+//   schema: buildSubgraphSchema({
+//     typeDefs,
+//     resolvers
+//   }),
+// });

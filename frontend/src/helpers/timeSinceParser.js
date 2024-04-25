@@ -1,7 +1,7 @@
 const timeSinceParser = (timestamp) => {
-  const pastTime = new Date(timestamp);
+  const pastTime = new Date(parseInt(timestamp));
   const timeDiff = new Date() - pastTime;
-
+  console.log(pastTime, timeDiff)
   if (timeDiff >= 1209600000) {
     return Math.ceil(timeDiff / 604800000) + "w";
   } else if (timeDiff >= 86400000) {

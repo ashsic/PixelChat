@@ -33,7 +33,7 @@ export default function MessageForm() {
     <form
     className="p-4"
     onSubmit={handleMessageSend}>
-      <div className='pt-3 pb-1'>
+      <div className=''>
         <label
         className="text-sm font-semibold w-fit hidden"
         htmlFor="message">

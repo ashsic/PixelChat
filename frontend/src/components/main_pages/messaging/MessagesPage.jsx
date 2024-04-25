@@ -72,7 +72,7 @@ export default function Messages() {
           <h4 className="text-xl font-medium text-slate-600">Select a conversation</h4>
         </div>
       ) : (
-        <Chat props={data} />
+        <Chat userChats={data.userChats} />
         // <div className="flex flex-col flex-1 relative border-slate-300 border-l scroll-smooth overflow-auto">
         //   <div className="w-full">
         //     <div className="border-slate-300 border-b py-4">

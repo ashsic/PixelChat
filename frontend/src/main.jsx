@@ -1,19 +1,44 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
-import { ApolloClient, InMemoryCache, useReactiveVar, ApolloProvider, createHttpLink, gql } from '@apollo/client';
+import { 
+  ApolloClient,
+  ApolloProvider,
+  createHttpLink,
+  split
+} from '@apollo/client';
 import { cache } from "./graphql/cache.js"
-import { isLoggedInVar } from './graphql/cache';
 import { Router } from './Router.jsx';
+import { GraphQLWsLink } from '@apollo/client/link/subscriptions';
+import { createClient } from 'graphql-ws';
+import { getMainDefinition } from '@apollo/client/utilities';
 
-const link = createHttpLink({
+const httpLink = createHttpLink({
   uri: 'http://localhost:3000/graphql',
   credentials: 'include'
 });
 
+const wsLink = new GraphQLWsLink(createClient({
+  url: 'ws://localhost:3000/subscriptions',
+  credentials: 'include'
+}));
+
+const splitLink = split(
+  ({ query }) => {
+    const definition = getMainDefinition(query);
+    return (
+      definition.kind === 'OperationDefinition' &&
+      definition.operation === 'subscription'
+    );
+  },
+  wsLink,
+  httpLink,
+);
+
+
 const client = new ApolloClient({
   cache: cache,
-  link
+  link: splitLink
 });
 
 ReactDOM.createRoot(document.getElementById('root')).render(

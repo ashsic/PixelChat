@@ -21,7 +21,7 @@ export default function Message(props) {
       </img>
       <div className="w-fit">
         <h4 className="text-xs mb-1 w-fit">{message.sender}</h4>
-        <div className={"flex text-s w-full items-center px-3 py-1 rounded-xl"  + (thisUsername === message.sender ? " bg-cyan-300" : " bg-slate-200")}>
+        <div className={"flex text-s w-full items-center px-3 py-1 rounded-xl justify-between"  + (thisUsername === message.sender ? " bg-cyan-300" : " bg-slate-200")}>
           <p className="">{message.text}</p>
           <time className="pl-6 text-xs">{timeSinceParser(message.timestamp)}</time>
         </div>

@@ -40,10 +40,10 @@ export default function Messages() {
   return (
     <div className="flex w-full">
 
-      <div className="max-h-full min-h-screen flex-grow-0 w-96 lg:w-96 pr-0.5">
-        <div className="w-64 lg:w-96 max-h-screen fixed flex flex-col">
-          <h1 className="text-2xl p-3 absolute mt-2.5">Messages</h1>
-          <div className="min-h-16 flex flex-row-reverse">
+      <div className="max-h-full min-h-screen flex-grow-0 w-20 md:w-96">
+        <div className="w-64 md:w-96 max-h-screen fixed flex flex-col">
+          <h1 className="text-2xl p-3 absolute mt-2.5 hidden md:block">Messages</h1>
+          <div className="min-h-16 flex-row-reverse hidden md:flex mb-2">
             <button className="mt-4 mr-5 h-11 rounded-md hover:bg-slate-200 active:bg-slate-300"
             onClick={createChat}>
               <i className="material-icons px-2 text-3xl">
@@ -51,7 +51,7 @@ export default function Messages() {
               </i>
             </button>
           </div>
-          <ul className="overflow-y-auto flex-shrink">
+          <ul className="overflow-y-auto flex-shrink overflow-x-hidden">
           {
           !data.userChats[0] ? <div>No conversations</div> :
             data.userChats.map((conv) => {

@@ -6,7 +6,8 @@ import { useContext } from "react";
 import { LoginStatusContext } from "../../../helpers/contexts";
 import { useQuery } from '@apollo/client';
 import { USER_CHATS } from "../../../graphql/queries";
-import MessageBox from "./MessageBox";
+import MessageForm from "./MessageForm";
+import Chat from "./Chat";
 
 
 export default function Messages() {
@@ -71,25 +72,26 @@ export default function Messages() {
           <h4 className="text-xl font-medium text-slate-600">Select a conversation</h4>
         </div>
       ) : (
-        <div className="flex flex-col flex-1 relative border-slate-300 border-l scroll-smooth overflow-auto">
-          <div className="w-full">
-            <div className="border-slate-300 border-b py-4">
-              <h3 className="text-lg font-medium pl-8">{data.userChats[0].name}</h3>
-            </div>
-          </div>
+        <Chat props={data} />
+        // <div className="flex flex-col flex-1 relative border-slate-300 border-l scroll-smooth overflow-auto">
+        //   <div className="w-full">
+        //     <div className="border-slate-300 border-b py-4">
+        //       <h3 className="text-lg font-medium pl-8">{data.userChats[0].name}</h3>
+        //     </div>
+        //   </div>
 
-          <ul className="flex flex-col-reverse overflow-auto">
-            {data.userChats[0].messages.toReversed().map((message, i) => {
-              return (
-                <Message key={i} message={message} />
-              );
-            })}
-          </ul>
+        //   <ul className="flex flex-col-reverse overflow-auto">
+        //     {data.userChats[0].messages.toReversed().map((message, i) => {
+        //       return (
+        //         <Message key={i} message={message} />
+        //       );
+        //     })}
+        //   </ul>
 
-          <div className="absolute w-full bottom-0 right-0">
-            <MessageBox />
-          </div>
-        </div>
+        //   <div className="absolute w-full bottom-0 right-0">
+        //     <MessageForm />
+        //   </div>
+        // </div>
       )}
 
 

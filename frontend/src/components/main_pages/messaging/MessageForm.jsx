@@ -8,7 +8,7 @@ import { SEND_MESSAGE } from "../../../graphql/mutations";
 
 
 
-export default function MessageBox() {
+export default function MessageForm() {
   const chatid = useParams();
   const { user } = useContext(LoginStatusContext);
   const [sendMessage, { loading, error, data }] = useMutation(SEND_MESSAGE);
@@ -18,11 +18,11 @@ export default function MessageBox() {
 
   const handleMessageSend = (e) => {
     e.preventDefault()
-    console.log('test')
+    console.log('message sent')
     sendMessage({
       variables: {
         chat: chatid.chatid,
-        sender: user.verifyJwt._id,
+        sender: user.verifyJwt.username,
         text: textbox.value
       }
     })

@@ -13,7 +13,7 @@ export default function GuestLogin() {
         login({ 
           variables: {
             email: "use1r@example.com",
-            password: "test"
+            password: "test1234"
           }
         }).then((result) => {
           console.log(result);

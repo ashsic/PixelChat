@@ -26,6 +26,8 @@ export const USER_CHATS = gql`
       participants
       messages {
         text
+        sender
+        timestamp
       }
     }
   }

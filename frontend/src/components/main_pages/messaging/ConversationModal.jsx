@@ -9,14 +9,21 @@ export default function ConversationModal() {
   const { user } = useContext(LoginStatusContext);
   console.log(user)
 
+  let participantsInput;
+  let chatNameInput;
+
   const submitChatForm = (e) => {
     e.preventDefault();
+    let participants = participantsInput.value.split(" ");
+    participants.push(user.verifyJwt.username);
     createChat({
       variables: {
-        participants: ["660322bacf69ecdb6b19d2fa","660323d25a771aea3dcacb41"],
-        name: "test"
+        participants: participants,
+        name: (participants.length > 2) ? chatNameInput.value || participants : participants
       }
     })
+    participantsInput = "";
+    chatNameInput = "";
 
   }
 
@@ -85,7 +92,10 @@ export default function ConversationModal() {
                 type="text"
                 name="user"
                 id="user"
-                placeholder="Enter user name" />
+                placeholder="Enter user name"
+                ref={node => {
+                  participantsInput = node;
+                }} />
               </div>
 
               <div>
@@ -109,7 +119,10 @@ export default function ConversationModal() {
                 type="text"
                 name="chat_name"
                 id="chat_name"
-                placeholder="Enter name" />
+                placeholder="Enter name"
+                ref={node => {
+                  chatNameInput = node;
+                }} />
               </div>
 
               <button

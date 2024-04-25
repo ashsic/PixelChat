@@ -14,8 +14,8 @@ export default function ConversationListItem({ conv }) {
   });
 
   return (
-    <li className="hover:bg-slate-50 pl-1">
-      <Link to={"/messages/" + _id} className="flex w-full items-center">
+    <li className="hover:bg-slate-50 pl-1 w-20 md:w-full">
+      <Link to={"/messages/" + _id} className="flex  items-center">
         <img
         src="../public/Default_pfp.svg.png"
         alt="profile pic"

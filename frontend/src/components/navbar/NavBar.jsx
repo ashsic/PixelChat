@@ -103,28 +103,28 @@ export default function NavBar() {
       className="w-20 lg:w-56 2xl:w-80 max-h-full min-h-screen">
         <nav className="fixed flex flex-col h-screen p-3 w-20 lg:w-56 2xl:w-80
         border-r border-slate-300">
-          <h1 className="text-2xl p-3 hidden lg:block mb-2">Website Name</h1>
+          <h1 className="text-2xl p-3 mb-2 w-64">Website Name</h1>
           <ul className="flex flex-1 flex-col">
-            {navItems.map((item) => {
+            {navItems.map((item) => { // need to refactor this out into a separate jsx file
               return (
-                item.route
+                item.route // convert to ternary
                 &&
-                <li className="h-12 text-lg flex items-center mt-1 mb-1 hover:bg-slate-200 active:bg-slate-300 rounded-md w-12 lg:w-full" key={item.name}>
+                <li className="h-12 text-lg flex items-center m-1 hover:bg-slate-200 active:bg-slate-300 rounded-md w-12 lg:w-full" key={item.name}>
                   <NavLink to={item.route} className="w-12 lg:w-full h-full p-3" >
-                    <div className="flex w-32">
+                    <div className="flex w-fit">
                       <i className="material-icons h-6">{item.icon}</i>
-                      <p className="hidden h-6 ml-3 items-center lg:flex">
+                      <p className="hidden h-6 ml-5 items-center lg:flex">
                         {item.name}
                       </p>
                     </div>
                   </NavLink>
                 </li>
                 ||
-                <li className="h-12 text-lg flex items-center mt-1 mb-1 hover:bg-slate-200 active:bg-slate-300 rounded-md w-12 lg:w-full" key={item.name}>
+                <li className="h-12 text-lg flex items-center m-1 hover:bg-slate-200 active:bg-slate-300 rounded-md w-12 lg:w-full" key={item.name}>
                   <button onClick={createPost} className="w-12 lg:w-full h-full p-3" >
-                    <div className="flex w-32">
+                    <div className="flex w-fit">
                       <i className="material-icons h-6">{item.icon}</i>
-                      <p className="hidden h-6 ml-3 items-center lg:flex">
+                      <p className="hidden h-6 ml-5 items-center lg:flex">
                         {item.name}
                       </p>
                     </div>
@@ -134,17 +134,17 @@ export default function NavBar() {
             })}
           </ul>
           <div>
-            <div className="h-12 text-lg flex items-center mt-1 mb-1 hover:bg-slate-200 active:bg-slate-300 rounded-md w-12 lg:w-full">
+            <div className="h-12 text-lg flex items-center m-1 hover:bg-slate-200 active:bg-slate-300  rounded-md w-12 lg:w-full">
               <NavLink to="/settings" className="w-12 lg:w-full h-full p-3">
-                <div className="flex w-32">
+                <div className="flex w-fit">
                   <i className="material-icons h-6">settings</i>
-                  <p className="hidden h-6 ml-3 items-center lg:flex">
+                  <p className="hidden h-6 ml-5 items-center lg:flex">
                     Settings
                   </p>
                 </div>
               </NavLink>
             </div>
-            <div className="h-12 text-lg flex items-center mt-1 mb-1 hover:bg-slate-200 active:bg-slate-300 rounded-md w-12 lg:w-full">
+            <div className="h-12 text-lg flex items-center m-1 hover:bg-slate-200 active:bg-slate-300 rounded-md w-12 lg:w-full">
               <LogOutButton />
             </div>
           </div>

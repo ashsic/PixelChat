@@ -14,11 +14,11 @@ export default function LogOutButton() {
 
   return (
     <NavLink to="/" className="w-12 lg:w-full h-full p-3" onClick={logout}>
-      <div className="flex w-32" >
+      <div className="flex w-fit" >
         <i className="material-icons h-6">logout</i>
         <button
         
-        className="hidden h-6 ml-3 items-center lg:flex">
+        className="hidden h-6 ml-5 items-center lg:flex">
           Log Out
         </button>
       </div>

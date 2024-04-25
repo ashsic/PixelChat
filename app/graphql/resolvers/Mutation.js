@@ -87,11 +87,14 @@ async function logout(parent, args, context) {
 // Chat functions
 
 async function createChat(parent, args) {
-  const newChat = new models.Chat(args);
+  const newChat = new models.Chat({
+    ...args,
+    name: args.name || args.participants 
+  });
   await newChat.save();
-
+  console.log('chat created')
   await models.User.updateMany(
-    { _id: { $in: args.participants } },
+    { username: { $in: args.participants } },
     { $push: {chats: newChat._id } }
   );
   

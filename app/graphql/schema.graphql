@@ -27,7 +27,7 @@ type Mutation {
 
   createChat(
     participants: [String!]!
-    name: String!
+    name: [String!]
   ): Chat
 
   sendMessage(
@@ -64,7 +64,7 @@ type User {
 type Chat {
   _id: ID!
   participants: [String!]!
-  name: String!
+  name: [String]!
   messages: [Message!]!
 }
 

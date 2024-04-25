@@ -2,12 +2,11 @@ import mongoose from "mongoose";
 
 const chatSchema = new mongoose.Schema({
   participants: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User' 
+    type: String,
   }],
   name: {
-    type: String,
-    default: 'test' //this.participants .tostring?
+    type: [String],
+    default: []
   },
   messages: [{
     sender: {

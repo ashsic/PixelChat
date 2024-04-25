@@ -103,6 +103,7 @@ async function createChat(parent, args) {
 
 async function sendMessage(parent, args) {
   const id = args.chat;
+  console.log(args)
   await models.Chat.findByIdAndUpdate(id, {
     $push: {
       messages: {

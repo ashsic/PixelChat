@@ -69,7 +69,7 @@ type Chat {
 }
 
 type Message {
-  sender: ID!
+  sender: String!
   username: String!
   text: String!
   image: String

@@ -27,7 +27,7 @@ const app = express();
 const httpServer = createServer(app);
 const wsServer = new WebSocketServer({
   server: httpServer,
-  path: '/graphql',
+  path: '/subscriptions',
 });
 
 const serverCleanup = useServer({ schema }, wsServer);
@@ -57,6 +57,14 @@ const corsOptions = {
 };
 
 app.use("/graphql", 
+  cors(corsOptions), 
+  express.json(), 
+  express.urlencoded({ extended: false }),
+  cookieParser(), 
+  apolloMiddleware(server)
+);
+
+app.use("/subscriptions", 
   cors(corsOptions), 
   express.json(), 
   express.urlencoded({ extended: false }),

@@ -12,9 +12,8 @@ export default function MessageForm() {
   const chatid = useParams();
   const { user } = useContext(LoginStatusContext);
   const [sendMessage, { loading, error, data }] = useMutation(SEND_MESSAGE);
+
   let textbox;
-
-
 
   const handleMessageSend = (e) => {
     e.preventDefault()
@@ -26,6 +25,7 @@ export default function MessageForm() {
         text: textbox.value
       }
     })
+    textbox.value = '';
   }
 
 

@@ -51,7 +51,7 @@ export default function Messages() {
               </i>
             </button>
           </div>
-          <ul className="overflow-y-auto flex-shrink overflow-x-hidden w-full">
+          <ul className="overflow-y-auto flex-shrink overflow-x-hidden w:20 md:w-full">
           {
           !data.userChats[0] ? <div>No conversations</div> :
             data.userChats.map((conv) => {

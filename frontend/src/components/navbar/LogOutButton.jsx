@@ -1,11 +1,8 @@
 import { LOGOUT } from "../../graphql/mutations";
 import { useMutation } from '@apollo/client';
-import { useContext } from "react";
-import { LoginStatusContext } from "../../helpers/contexts";
 import { NavLink } from "react-router-dom";
 
 export default function LogOutButton() {
-  // const { user } = useContext(LoginStatusContext);
   const [logout] = useMutation(LOGOUT, {
     onCompleted: () => {
       window.location.reload()
@@ -17,7 +14,6 @@ export default function LogOutButton() {
       <div className="flex w-fit" >
         <i className="material-icons h-6">logout</i>
         <button
-        
         className="hidden h-6 ml-5 items-center lg:flex">
           Log Out
         </button>

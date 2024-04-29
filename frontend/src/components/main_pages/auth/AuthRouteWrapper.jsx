@@ -1,7 +1,5 @@
 import { Navigate, Outlet } from "react-router-dom";
 import { useQuery } from "@apollo/client";
-
-
 import { LoginStatusContext } from "../../../helpers/contexts";
 import { VERIFY_JWT } from "../../../graphql/queries";
 import NavBar from "../../navbar/NavBar";

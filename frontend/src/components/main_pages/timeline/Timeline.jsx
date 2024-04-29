@@ -5,8 +5,6 @@ export default function Timeline() {
   const { user } = useContext(LoginStatusContext);
 
   const { _id, username, firstName, lastName } = user.verifyJwt; // unpack as needed
-
-  console.log(username)
   
   return (
     <div>

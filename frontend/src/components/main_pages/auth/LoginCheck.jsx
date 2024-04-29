@@ -1,15 +1,14 @@
 import { VERIFY_JWT } from "../../../graphql/queries";
 import { useQuery } from '@apollo/client';
-import { Navigate, Router, Routes, Route, useLocation } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 
 import Login from "./LoginPage";
 import SignUpPage from "./SignUpPage";
 import ErrorPage from "../error/ErrorPage";
 import LoadingPage from "../loading/LoadingPage";
 
-function LoginCheck() {
+export default function LoginCheck() {
   const location = useLocation();
-  // const navigate = useNavigate();
   const { loading, error, data } = useQuery(VERIFY_JWT);
 
   if (loading) return <LoadingPage />;
@@ -18,6 +17,3 @@ function LoginCheck() {
   
   return <ErrorPage />
 }
-
-export default LoginCheck;
-

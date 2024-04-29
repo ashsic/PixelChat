@@ -2,11 +2,23 @@ import { Link } from "react-router-dom";
 import timeSinceParser from "../../../helpers/timeSinceParser";
 import { useContext } from "react";
 import { LoginStatusContext } from "../../../helpers/contexts";
+import { USER_CHATS } from "../../../graphql/queries";
+import { useQuery } from "@apollo/client";
 
 export default function ConversationListItem({ conv }) {
-  const { _id, name, messages } = conv;
+  
   const { user } = useContext(LoginStatusContext);
+
+  const { loading, error, data } = useQuery(USER_CHATS, {
+    variables: { ids: conv }
+  });
+
+  if (loading) return <p>loading...</p>
+  if (error) return <p>error</p>
  
+  console.log('convlistitem', data)
+
+  const { _id, name, messages } = data.userChats[0];
   //console.log(messages)
 
   const otherUsersNames = name.filter(n => {

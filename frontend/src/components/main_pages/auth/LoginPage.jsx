@@ -10,7 +10,6 @@ function Login() {
   
   const [login, { data, loading, error }] = useMutation(LOGIN, { onCompleted: () => navigate("/")});
 
-  
   if (loading) return <LoadingPage />;
   if (error) return <ErrorPage />; //`Submission error! ${error.message}`;
 

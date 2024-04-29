@@ -1,9 +1,11 @@
 import { useState } from "react";
 import ExitModalButton from "./ExitModalButton";
+import ImageCrop from "./ImageCrop";
+import ReactCrop, { makeAspectCrop } from "react-image-crop";
 
 export default function PostModal() {
-
-  const [imgSrc, setImgSrc] = useState('');
+  const [crop, setCrop] = useState();
+  // const [imgSrc, setImgSrc] = useState('');
 
   
 
@@ -22,12 +24,28 @@ export default function PostModal() {
       userImg.style.display = "flex";
       userImg.src = imgUrl;
 
-      
-
-      
     }
     reader.readAsDataURL(file);
     
+  }
+
+  const ASPECT_RATIO = 1;
+  const MIN_DIMENSION = 150;
+
+  const onImgLoad = (e) => {
+    console.log(e.target.parentElement.classList)
+    e.target.parentElement.classList = "ReactCrop__child-wrapper flex h-full w-full items-center justify-start";
+    const { width, height } = e.currentTarget;
+    const currCrop = makeAspectCrop(
+      {
+        unit: "px",
+        width: MIN_DIMENSION,
+      },
+      ASPECT_RATIO,
+      width,
+      height,
+    );
+    setCrop(currCrop);
   }
 
   return (
@@ -66,8 +84,27 @@ export default function PostModal() {
             <input type="file" id="file" name="file" className="hidden" onChange={handleFileUpload} />
           </form>
 
-          <div id="imageContainer" className="flex h-full overflow-hidden items-center justify-center">
-            <img id="userImage" className="hidden h-full object-cover" alt="User-uploaded image." ></img>
+          
+
+          <div id="imageContainer" className="flex flex-col h-full overflow-auto items-start justify-start">
+
+            <ReactCrop 
+              className="flex h-full overflow-visible items-start justify-start my-auto"
+              crop={crop}
+              circularCrop
+              keepSelection
+              aspect={ASPECT_RATIO}
+              minWidth={MIN_DIMENSION}
+              onChange={
+                (pixelCrop) => setCrop(pixelCrop)
+              }
+            >
+              <img id="userImage" className="hidden h-full object-contain" alt="User-uploaded image." onLoad={onImgLoad} />
+              
+            </ReactCrop>
+
+            <div className="w-full h-full my-auto flex-grow"></div>
+
           </div>
 
 
@@ -80,11 +117,3 @@ export default function PostModal() {
     </dialog>
   );
 };
-
-
-        {/* <div className="flex justify-center">
-          <button
-          className="m-4 border  rounded-lg py-3 font-medium bg-cyan-300">
-            Chat
-          </button>
-        </div> */}

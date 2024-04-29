@@ -74,7 +74,11 @@ export default function ConversationModal() {
             <label className="mt-1.5 pr-4" htmlFor="searchUser">
               To:
             </label>
-            <input className="bg-slate-100 my-2 pl-2 flex-grow outline-none text-sm" type="text" placeholder="Search..." />
+            <input 
+              className="bg-slate-100 my-2 pl-2 flex-grow outline-none text-sm" 
+              type="text" 
+              placeholder="Search..."
+              id="searchUser" />
           </div>
 
           <div>

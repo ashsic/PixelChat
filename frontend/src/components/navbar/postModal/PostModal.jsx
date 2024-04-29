@@ -1,36 +1,43 @@
+import { useState } from "react";
 import ExitModalButton from "./ExitModalButton";
 
 export default function PostModal() {
 
+  const [imgSrc, setImgSrc] = useState('');
+
+  
+
   const handleFileUpload = (event) => {
     const file = event.target.files[0];
-    console.log(event.target.files)
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        const fileUploadForm = document.querySelector("#uploadForm");
-        fileUploadForm.style.display = "none";
+    if (!file) return;
 
-        const imageContainer = document.querySelector("#imageContainer");
-        imageContainer.style.display = "flex";
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const imgUrl = reader.result?.toString() || "";
 
-        const userImage = document.querySelector("#userImage");
-        userImage.style.display = "flex";
-        event.target.display = "flex";
-        userImage.src = event.target.result;
-      }
-      reader.readAsDataURL(file);
+      document.querySelector("#uploadForm").style.display = "none";
+      document.querySelector("#imageContainer").style.display = "flex"
+
+      const userImg = document.querySelector("#userImage");
+      userImg.style.display = "flex";
+      userImg.src = imgUrl;
+
+      
+
+      
     }
+    reader.readAsDataURL(file);
+    
   }
 
   return (
     <dialog id="postModal" 
     className="hidden fixed top-0 left-0 w-full h-full bg-black/30 border z-10 justify-center flex-col">
-      <div className="mx-auto bg-slate-100 h-2/3 max-h rounded-lg max-w-4xl flex flex-col">
+      <div className="mx-auto bg-slate-100 h-3/4 max-h rounded-lg max-w-4xl flex flex-col">
 
         <div className="flex rounded-lg">
           <div className="w-14 h-10"></div>
-          <div className="flex-grow flex flex-col justify-end w-96 mx-40">
+          <div className="flex-grow flex flex-col justify-end w-96 mx-48">
             <p className="font-bold text-lg text-center pb-1">
               Create new post
             </p>
@@ -59,8 +66,8 @@ export default function PostModal() {
             <input type="file" id="file" name="file" className="hidden" onChange={handleFileUpload} />
           </form>
 
-          <div id="imageContainer" className="hidden h-full overflow-hidden items-center justify-center">
-            <img id="userImage" className="h-full object-cover" alt="User uploaded image." src=""></img>
+          <div id="imageContainer" className="flex h-full overflow-hidden items-center justify-center">
+            <img id="userImage" className="hidden h-full object-cover" alt="User-uploaded image." ></img>
           </div>
 
 

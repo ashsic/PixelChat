@@ -9,7 +9,7 @@ export default function Chat({ chatid }) {
   const { user } = useContext(LoginStatusContext);
   
   const { loading, error, data } = useQuery(USER_CHATS, {
-    variables: { ids: [chatid] }
+    variables: { id: chatid }
   });
 
   if (loading) return <p>loading...</p>
@@ -17,7 +17,7 @@ export default function Chat({ chatid }) {
 
 
 
-  let { name, messages } = data.userChats[0];
+  let { name, messages } = data.userChats;
 
   if (name) {
     name = name.filter(n => {

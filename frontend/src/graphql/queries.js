@@ -19,8 +19,8 @@ export const VERIFY_JWT = gql`
 `;
 
 export const USER_CHATS = gql`
-  query UserChats($ids: [ID!]!) {
-    userChats(ids: $ids) {
+  query UserChats($id: ID!) {
+    userChats(id: $id) {
       _id
       name
       participants

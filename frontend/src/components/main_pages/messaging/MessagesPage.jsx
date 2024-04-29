@@ -58,7 +58,7 @@ export default function Messages() {
             ) : (
               chats.map((chat) => {
                 return (
-                  <ConversationListItem key={chat} conv={[ chat ]} />
+                  <ConversationListItem key={ chat } conv={ chat } />
                 );
               })
             )

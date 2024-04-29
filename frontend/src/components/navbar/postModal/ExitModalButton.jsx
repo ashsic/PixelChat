@@ -1,21 +1,10 @@
-export default function ExitModalButton() {
+export default function ExitModalButton({ setImgSrc }) {
   
-  const closeModal = (event) => {
+  const closeModal = () => {
     const modal = document.querySelector("#postModal");
     modal.style.display = "none";
 
-    const fileUploadForm = document.querySelector("#uploadForm");
-    fileUploadForm.style.display = "flex";
-
-    const fileInput = document.querySelector("#file");
-    fileInput.value = '';
-
-    const imageContainer = document.querySelector("#imageContainer");
-    imageContainer.style.display = "none";
-
-    const userImage = document.querySelector("#userImage");
-    userImage.style.display = "none";
-    userImage.src = "";
+    setImgSrc("");
   };
 
   return (

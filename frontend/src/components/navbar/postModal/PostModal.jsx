@@ -5,32 +5,43 @@ import ReactCrop, { makeAspectCrop } from "react-image-crop";
 
 export default function PostModal() {
   const [crop, setCrop] = useState();
-  // const [imgSrc, setImgSrc] = useState('');
+  const [error, setError] = useState('');
+  const [imgSrc, setImgSrc] = useState('');
 
-  
+  const ASPECT_RATIO = 16 / 9;
+  const MIN_WIDTH = 320;
+  const MIN_HEIGHT = 320;
 
   const handleFileUpload = (event) => {
     const file = event.target.files[0];
     if (!file) return;
 
     const reader = new FileReader();
-    reader.onload = (event) => {
+    reader.addEventListener("load", (event) => {
       const imgUrl = reader.result?.toString() || "";
 
       document.querySelector("#uploadForm").style.display = "none";
-      document.querySelector("#imageContainer").style.display = "flex"
+      // document.querySelector("#imageContainer").style.display = "flex"
 
-      const userImg = document.querySelector("#userImage");
-      userImg.style.display = "flex";
-      userImg.src = imgUrl;
+      // const userImg = document.querySelector("#userImage");
+      // userImg.style.display = "flex";
+      // userImg.src = imgUrl;
+      setImgSrc(imgUrl);
 
-    }
+      // userImg.addEventListener("load", (e) => {
+      //   const { naturalWidth, naturalHeight } = e.currentTarget;
+      //   if (naturalWidth < MIN_WIDTH || naturalHeight < MIN_HEIGHT) {
+      //     setError("Image must be at least 320 x 320 pixels.");
+      //     userImg.src = "";
+      //   }
+      // })
+
+    })
     reader.readAsDataURL(file);
     
   }
 
-  const ASPECT_RATIO = 1;
-  const MIN_DIMENSION = 150;
+  
 
   const onImgLoad = (e) => {
     console.log(e.target.parentElement.classList)
@@ -39,7 +50,7 @@ export default function PostModal() {
     const currCrop = makeAspectCrop(
       {
         unit: "px",
-        width: MIN_DIMENSION,
+        width: MIN_WIDTH,
       },
       ASPECT_RATIO,
       width,
@@ -61,57 +72,65 @@ export default function PostModal() {
             </p>
           </div>
           <div className="w-14 h-10 flex items-center justify-center">
-            <ExitModalButton />
+            <ExitModalButton setImgSrc={setImgSrc} />
           </div>
         </div>
 
         <div className="flex-grow flex align-middle justify-center h-full pb-10 w-full border-t border-slate-300">
 
-          <form
-          id="uploadForm"
-          action="/upload"
-          method="POST"
-          encType="multipart/form-data"
-          className="flex flex-col items-center justify-center">
-            <i className="material-icons text-9xl">image</i>
-            <span className="font-medium text-lg mb-2">Drag photos here from your desktop</span>
-            <span>- or -</span>
-            <label htmlFor="file"
-            className="hover:bg-cyan-400 cursor-pointer m-4 border
-            h-10 rounded-lg py-2 px-4 font-medium bg-cyan-300">
-              Select from computer
-            </label>
-            <input type="file" id="file" name="file" className="hidden" onChange={handleFileUpload} />
-          </form>
+          {error && <p classname="text-red-500">{error}</p>}
 
-          
+          {
+            (
+              imgSrc
+            ) ? (
+              <div id="imageContainer" className="relative flex flex-col h-full overflow-hidden items-start justify-start">
 
-          <div id="imageContainer" className="flex flex-col h-full overflow-auto items-start justify-start">
+                <ReactCrop 
+                  className="flex h-full overflow-visible items-start justify-start my-auto"
+                  crop={crop}
+                  keepSelection
+                  minWidth={100}
+                  ruleOfThirds
+                  onChange={
+                    (pixelCrop) => setCrop(pixelCrop)
+                  }
+                >
+                  
+                  <img 
+                    id="userImage" 
+                    className="hidden h-full object-contain" 
+                    alt="User-uploaded image." 
+                    src={imgSrc}
+                    onLoad={onImgLoad} 
+                  />
+                  
+                </ReactCrop>
 
-            <ReactCrop 
-              className="flex h-full overflow-visible items-start justify-start my-auto"
-              crop={crop}
-              circularCrop
-              keepSelection
-              aspect={ASPECT_RATIO}
-              minWidth={MIN_DIMENSION}
-              onChange={
-                (pixelCrop) => setCrop(pixelCrop)
-              }
-            >
-              <img id="userImage" className="hidden h-full object-contain" alt="User-uploaded image." onLoad={onImgLoad} />
-              
-            </ReactCrop>
+                <div className="w-full h-full my-auto flex-grow"></div>
 
-            <div className="w-full h-full my-auto flex-grow"></div>
-
-          </div>
-
-
+              </div>
+            ) : (
+              <form
+              id="uploadForm"
+              action="/upload"
+              method="POST"
+              encType="multipart/form-data"
+              className="flex flex-col items-center justify-center">
+                <i className="material-icons text-9xl">image</i>
+                <span className="font-medium text-lg mb-2">Drag photos here from your desktop</span>
+                <span>- or -</span>
+                <label htmlFor="file"
+                className="hover:bg-cyan-400 cursor-pointer m-4 border
+                h-10 rounded-lg py-2 px-4 font-medium bg-cyan-300">
+                  Select from computer
+                </label>
+                <input type="file" id="file" name="file" className="hidden" onChange={handleFileUpload} />
+              </form>
+            )
+          }
 
         </div>
-
-
 
       </div>
     </dialog>

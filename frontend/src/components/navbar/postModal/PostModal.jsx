@@ -1,39 +1,6 @@
 import ExitModalButton from "./ExitModalButton";
 
-
-
-
 export default function PostModal() {
-
-  const openPostModal = () => {
-    const modal = document.querySelector("#postModal");
-    modal.style.display = "flex";
-    console.log('in createpost')
-    const fileLoader = document.querySelector("#file");
-
-    const handleFileUpload = (event) => {
-      const file = event.target.files[0];
-      console.log(event.target.files);
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = (event) => {
-          const fileUploadForm = document.querySelector("#uploadForm");
-          fileUploadForm.style.display = "none";
-
-          const imageContainer = document.querySelector("#imageContainer");
-          imageContainer.style.display = "flex";
-
-          const userImage = document.querySelector("#userImage");
-          userImage.style.display = "flex";
-          userImage.src = event.target.result;
-        }
-        reader.readAsDataURL(file);
-      }
-    }
-
-    fileLoader.removeEventListener("change", handleFileUpload);
-    fileLoader.addEventListener("change", handleFileUpload);
-  }
 
   const handleFileUpload = (event) => {
     const file = event.target.files[0];
@@ -55,8 +22,6 @@ export default function PostModal() {
       reader.readAsDataURL(file);
     }
   }
-
-
 
   return (
     <dialog id="postModal" 

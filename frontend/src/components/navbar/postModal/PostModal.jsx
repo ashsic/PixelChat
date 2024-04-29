@@ -41,11 +41,8 @@ export default function PostModal() {
     
   }
 
-  
-
   const onImgLoad = (e) => {
-    console.log(e.target.parentElement.classList)
-    e.target.parentElement.classList = "ReactCrop__child-wrapper flex h-full w-full items-center justify-start";
+    e.target.parentElement.classList = "ReactCrop__child-wrapper flex h-full w-full items-center justify-center";
     const { width, height } = e.currentTarget;
     const currCrop = makeAspectCrop(
       {
@@ -84,10 +81,12 @@ export default function PostModal() {
             (
               imgSrc
             ) ? (
-              <div id="imageContainer" className="relative flex flex-col h-full overflow-hidden items-start justify-start">
+              <div id="imageContainer" className="relative flex flex-col h-full overflow-hidden items-center justify-center">
+
+                <div className="w-full h-full my-auto flex-grow"></div>
 
                 <ReactCrop 
-                  className="flex h-full overflow-visible items-start justify-start my-auto"
+                  className="flex h-full overflow-visible items-center justify-center my-auto"
                   crop={crop}
                   keepSelection
                   minWidth={100}
@@ -107,7 +106,16 @@ export default function PostModal() {
                   
                 </ReactCrop>
 
-                <div className="w-full h-full my-auto flex-grow"></div>
+                <div className="relative w-full h-full my-auto flex-grow">
+                  <div className="opacity-50 hover:opacity-100 flex absolute bottom-0 w-full bg-slate-200 justify-between">
+                    <div className="mx-6 mb-2 mt-3">
+                      <i className="material-icons text-3xl hover:animate-pulse hover:cursor-pointer">aspect_ratio</i>
+                    </div>
+                    <div className="mx-6 mb-2 mt-3">
+                      <i className="material-icons text-3xl hover:animate-pulse hover:cursor-pointer">check_circle_outline</i>
+                    </div>
+                  </div>
+                </div>
 
               </div>
             ) : (

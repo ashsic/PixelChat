@@ -1,18 +1,8 @@
-import { NavLink, Outlet } from "react-router-dom";
-import { useState } from "react";
-
-import { LoginStatusContext } from "../../helpers/contexts";
-
-import PostModal from "./PostModal";
+import { NavLink } from "react-router-dom";
 import LogOutButton from "./LogOutButton";
+import PostModal from "./postModal/PostModal";
 
 export default function NavBar() {
-  // const [user, setUser] = useState(props);
-
-  // const changeUserData = (newData) => {
-  //   setUser(newData);
-  // }
-
   const navItems = [
     {
       name: "Home",
@@ -21,7 +11,7 @@ export default function NavBar() {
     },
     {
       name: "Search",
-      route: "/search",
+      //route: "/search",
       icon: "search"
     },
     {
@@ -36,7 +26,7 @@ export default function NavBar() {
     },
     {
       name: "Notifications",
-      route: "/notifications",
+      //route: "/notifications",
       icon: "notifications"
     },
     {
@@ -46,52 +36,11 @@ export default function NavBar() {
     }
   ];
 
-  // Post modal functions
-
-  const closePostModal = (event) => {
-    const modal = document.querySelector("#postModal");
-    if (event.target == modal) {
-      modal.style.display = "none";
-
-      const fileUploadForm = document.querySelector("#uploadForm");
-      fileUploadForm.style.display = "flex";
-
-      const imageContainer = document.querySelector("#imageContainer");
-      imageContainer.style.display = "none";
-
-      const userImage = document.querySelector("#userImage");
-      userImage.style.display = "none";
-      userImage.src = "";
-    }
-  };
-
-  window.addEventListener("click", closePostModal);
-
-  const createPost = () => {
+  const openPostModal = () => {
     const modal = document.querySelector("#postModal");
     modal.style.display = "flex";
     console.log('in createpost')
-    // const fileLoader = document.querySelector("#file");
-
-    // const handleFileUpload = (event) => {
-    //   const file = event.target.files[0];
-    //   console.log(event.target.files);
-    //   if (file) {LoginStatusContext.Provider
-    //     const reader = new FileReader();
-    //     reader.onload = (event) => {
-    //       const fileUploadForm = document.querySelector("#uploadForm");
-    //       fileUploadForm.style.display = "none";
-
-    //       const imageContainer = document.querySelector("#imageContainer");
-    //       imageContainer.style.display = "flex";
-
-    //       const userImage = document.querySelector("#userImage");
-    //       userImage.style.display = "flex";
-    //       userImage.src = event.target.result;
-    //     }
-    //     reader.readAsDataURL(file);
-    //   }
-    // }
+    const fileLoader = document.querySelector("#file");
 
     // fileLoader.removeEventListener("change", handleFileUpload);
     // fileLoader.addEventListener("change", handleFileUpload);
@@ -121,7 +70,7 @@ export default function NavBar() {
                 </li>
                 ||
                 <li className="h-12 text-lg flex items-center m-1 hover:bg-slate-200 active:bg-slate-300 rounded-md w-12 lg:w-full" key={item.name}>
-                  <button onClick={createPost} className="w-12 lg:w-full h-full p-3" >
+                  <button className="w-12 lg:w-full h-full p-3" onClick={openPostModal}> {/*onClick={}  >*/}
                     <div className="flex w-fit">
                       <i className="material-icons h-6">{item.icon}</i>
                       <p className="hidden h-6 ml-5 items-center lg:flex">
@@ -149,11 +98,11 @@ export default function NavBar() {
             </div>
           </div>
         </nav>
+
         <PostModal />
       </div>
-      {/* <div className="flex justify-center flex-1 w-full">
-        <Outlet />
-      </div> */}
+
+
     </div>
   );
 };

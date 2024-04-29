@@ -17,7 +17,6 @@ export default function MessageForm() {
 
   const handleMessageSend = (e) => {
     e.preventDefault()
-    console.log('message sent')
     sendMessage({
       variables: {
         chat: chatid.chatid,

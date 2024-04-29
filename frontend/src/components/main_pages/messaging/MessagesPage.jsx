@@ -41,7 +41,7 @@ export default function Messages() {
       <div className="max-h-full min-h-screen flex-grow-0 w-20 md:w-96">
         <div className="w-64 md:w-96 max-h-screen fixed flex flex-col">
           <h1 className="text-2xl p-3 absolute mt-2.5 hidden md:block">Messages</h1>
-          <div className="min-h-16 flex-row-reverse hidden md:flex mb-2">
+          <div className="min-h-16 flex-row-reverse hidden md:flex pb-2 border-b border-slate-200">
             <button className="mt-4 mr-5 h-11 rounded-md hover:bg-slate-200 active:bg-slate-300"
             onClick={createChat}>
               <i className="material-icons px-2 text-3xl">
@@ -50,45 +50,34 @@ export default function Messages() {
             </button>
           </div>
           <ul className="overflow-y-auto flex-shrink overflow-x-hidden w:20 md:w-full">
-          {/* {
+          {
             (
-              !data.userChats[0]
+              !chats[0]
             ) ? (
               <div>No conversations</div>
             ) : (
-              data.userChats.map((conv) => {
+              chats.map((chat) => {
                 return (
-                  <ConversationListItem key={conv._id} conv={conv} />
+                  <ConversationListItem key={chat} conv={[ chat ]} />
                 );
               })
             )
-          } */}
-          {
-            chats.map((chat) => {
-              return (
-                <ConversationListItem key={chat} conv={[ chat ]} />
-              );
-            })
           }
           </ul>
         </div>
       </div>
 
-      <div className="border-slate-300 border-l flex flex-1 w-full justify-center items-center">
-        <h4 className="text-xl font-medium text-slate-600">Select a conversation</h4>
-      </div>
-
-      {/* {
+      {
         (
           !chatid
         ) ? (
-          <div className="border-gray-500 border-l flex flex-1 w-full justify-center items-center">
+          <div className="border-slate-300 border-l flex flex-1 w-full justify-center items-center">
             <h4 className="text-xl font-medium text-slate-600">Select a conversation</h4>
           </div>
         ) : (
-          <Chat userChats={data.userChats} />
+          <Chat chatid={chatid} />
         )
-      } */}
+      }
 
       <ConversationModal />
 

@@ -7,7 +7,6 @@ import { LoginStatusContext } from "../../../helpers/contexts";
 export default function ConversationModal() {
   const [createChat, { loading, error, data }] = useMutation(CREATE_CHAT);
   const { user } = useContext(LoginStatusContext);
-  console.log(user)
 
   let participantsInput;
   let chatNameInput;

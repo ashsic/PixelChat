@@ -102,7 +102,7 @@ export default function NavBar() {
       <div
       className="w-20 lg:w-56 2xl:w-80 max-h-full min-h-screen">
         <nav className="fixed flex flex-col h-screen p-3 w-20 lg:w-56 2xl:w-80
-        border-r border-slate-300">
+        border-r border-slate-400">
           <h1 className="text-2xl p-3 mb-2 w-64">Website Name</h1>
           <ul className="flex flex-1 flex-col">
             {navItems.map((item) => { // need to refactor this out into a separate jsx file

@@ -1,18 +1,23 @@
 import { useContext } from "react";
 import Message from "./Message";
 import MessageForm from "./MessageForm";
-import { useParams } from "react-router-dom";
 import { LoginStatusContext } from "../../../helpers/contexts";
+import { useQuery } from "@apollo/client";
+import { USER_CHATS } from "../../../graphql/queries";
 
-export default function Chat({ userChats }) {
+export default function Chat({ chatid }) {
   const { user } = useContext(LoginStatusContext);
-  const { chatid } = useParams();
+  
+  const { loading, error, data } = useQuery(USER_CHATS, {
+    variables: { ids: [chatid] }
+  });
 
-  const thisChat = userChats.filter((chat) => {
-    return chat._id === chatid;
-  })
+  if (loading) return <p>loading...</p>
+  if (error) return <p>error</p>
 
-  let { name, messages } = thisChat[0];
+
+
+  let { name, messages } = data.userChats[0];
 
   if (name) {
     name = name.filter(n => {
@@ -21,10 +26,12 @@ export default function Chat({ userChats }) {
   }
 
   return (
-    <div className="flex flex-col flex-1 relative border-slate-300 border-l h-screen justify-between">
+    <div className="flex flex-col flex-1 relative border-slate-400 border-l h-screen justify-between">
       <div className="w-full">
-        <div className="border-slate-300 border-b h-16 flex items-center">
-          <h3 className="text-lg font-medium pl-8">{name}</h3>
+        <div className="border-slate-200 border-b pb-1">
+          <div className="h-16 flex items-center">
+            <h3 className="text-lg font-medium pl-8 ">{name}</h3>
+          </div>
         </div>
       </div>
 

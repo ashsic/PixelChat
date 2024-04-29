@@ -7,9 +7,9 @@ export default function Message(props) {
   const { user } = useContext(LoginStatusContext);
 
   const thisUsername = user.verifyJwt.username;
-  console.log(thisUsername)
+  // console.log(thisUsername)
 
-  console.log(message)
+  // console.log(message)
 
   return (
     <li 

@@ -22,9 +22,7 @@ async function userChats(parent, args, context) {
   // protectedAuth(context);
   //console.log(context);
   console.log(args)
-  const chats = await models.Chat.find(
-    { _id: { $in: args.ids } }
-  );
+  const chats = await models.Chat.findById(args.id);
   return chats;
 }
 

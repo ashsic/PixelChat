@@ -104,19 +104,22 @@ async function createChat(parent, args) {
 async function sendMessage(parent, args) {
   const id = args.chat;
   console.log(args)
-  await models.Chat.findByIdAndUpdate(id, {
+  const updatedChat = await models.Chat.findByIdAndUpdate(id, {
     $push: {
       messages: {
         sender: args.sender,
         text: args.text
       }
     }
-  });
+  }, { new: true, select: 'messages' });
+
+  console.log(updatedChat);
 
   pubsub.publish('MESSAGE_SENT' + id , {
     messageSent: {
       sender: args.sender,
-      text: args.text
+      text: args.text,
+      timestamp: Date.now()
     }
   });
   

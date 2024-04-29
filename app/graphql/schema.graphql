@@ -5,7 +5,7 @@ type Query {
 
   users: [User]
 
-  userChats(ids:[ID!]): [Chat]
+  userChats(id:ID!): Chat
 
   verifyJwt: User
 }

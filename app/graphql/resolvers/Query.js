@@ -20,23 +20,17 @@ async function users(parent, args, context) {
 
 async function userChats(parent, args, context) {
   // protectedAuth(context);
-  //console.log(context);
-  console.log(args)
+  console.log(args.id)
   const chats = await models.Chat.findById(args.id);
   return chats;
 }
 
 async function verifyJwt(parent, args, context) {
-  console.log('verifying jwt')
-  console.log(context.tokenPayload)
   try {
     const userId = protectedAuth(context);
-    console.log('auth good')
     const user = await models.User.findById(userId);
-    console.log('query good')
     return user;
   } catch (error) {
-    console.log('error')
     return { success: false, message: error.message };
   }
 }

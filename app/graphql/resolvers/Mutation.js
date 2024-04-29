@@ -9,8 +9,6 @@ import { pubsub } from "./pubsub.js";
 
 config();
 
-
-
 // Auth/user functions
 async function signUp(parent, args) {
   const password = await encryptPassword(args.password);
@@ -45,8 +43,6 @@ async function login(parent, args, { res }) {
     userId: user._id,
     exp: Math.floor(Date.now() / 1000) + (60*60) // 1 hour expiry
   }, process.env.SECRET_KEY);
-  
-  console.log('user logged in');
 
   // cookie settings for jwt
   const cookieOptions = {
@@ -65,8 +61,6 @@ async function login(parent, args, { res }) {
 
 async function logout(parent, args, context) {
   protectedAuth(context);
-  //console.log(context.res)
-  console.log('logging out...')
 
   const cookieOptions = {
     httpOnly: true,
@@ -78,9 +72,8 @@ async function logout(parent, args, context) {
   };
 
   const token = "logout";
-
   context.res.cookie('jwtPayload', token, cookieOptions);
-  console.log('logout successful...?')
+
   return token;
 };
 
@@ -92,7 +85,7 @@ async function createChat(parent, args) {
     name: args.name || args.participants 
   });
   await newChat.save();
-  console.log('chat created')
+
   await models.User.updateMany(
     { username: { $in: args.participants } },
     { $push: {chats: newChat._id } }
@@ -103,7 +96,7 @@ async function createChat(parent, args) {
 
 async function sendMessage(parent, args) {
   const id = args.chat;
-  console.log(args)
+
   const updatedChat = await models.Chat.findByIdAndUpdate(id, {
     $push: {
       messages: {
@@ -112,8 +105,6 @@ async function sendMessage(parent, args) {
       }
     }
   }, { new: true, select: 'messages' });
-
-  console.log(updatedChat);
 
   pubsub.publish('MESSAGE_SENT' + id , {
     messageSent: {

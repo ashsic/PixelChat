@@ -4,14 +4,18 @@ import { LOGIN } from '../../../graphql/mutations';
 import LoadingPage from '../loading/LoadingPage';
 import ErrorPage from '../error/ErrorPage';
 import GuestLogin from './GuestLogin';
+import { useState } from 'react';
 
 function Login() {
   const navigate = useNavigate();
+  const [errorDisplay, setErrorDisplay] = useState(null);
   
   const [login, { data, loading, error }] = useMutation(LOGIN, { onCompleted: () => navigate("/")});
 
-  if (loading) return <LoadingPage />;
-  if (error) return <ErrorPage />; //`Submission error! ${error.message}`;
+  //if (loading) return <LoadingPage />;
+  //if (error) return <ErrorPage />; //`Submission error! ${error.message}`;
+
+  
 
   let input1;
   let input2;
@@ -25,7 +29,7 @@ function Login() {
           </h1>
         </div>
 
-        <div className='border rounded-md shadow-lg  p-16 h-fit'>
+        <div className='border rounded-md shadow-lg p-16 h-fit'>
           <Form className='flex flex-col w-96'
             onSubmit={e => {
               e.preventDefault();
@@ -35,23 +39,24 @@ function Login() {
                   password: input2.value
                 }
               }).then((result) => {
-                console.log(result);
-                console.log('logged in === true')
+                setErrorDisplay("");
               }).catch((err) => {
-                console.error(err);
+                console.log(Object.values(err));
+                setErrorDisplay(err.message);
               });
 
               input1.value = '';
               input2.value = '';
             }}
           >
-            <div className='pb-4'>
+            <div className=''>
               <h2
               className="font-semibold text-2xl w-fit">
                 Sign in to your account
               </h2>
+              {<p className="h-6 mt-3 text-red-500">{errorDisplay}</p>}
             </div>
-            <div className='pt-3 pb-1'>
+            <div className='mt-2 pb-1'>
               <label
               className="text-sm font-semibold w-fit"
               htmlFor="email">
@@ -74,6 +79,7 @@ function Login() {
               </label>
             </div>
             <input 
+            type='password'
             id="password" 
             name="password" 
             className='border-2 h-10 rounded-md px-2'

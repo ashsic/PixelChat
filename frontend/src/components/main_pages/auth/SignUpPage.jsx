@@ -4,14 +4,16 @@ import { SIGNUP } from '../../../graphql/mutations';
 import LoadingPage from '../loading/LoadingPage';
 import ErrorPage from '../error/ErrorPage';
 import GuestLogin from './GuestLogin';
+import { useState } from 'react';
 
 export default function SignUpPage() {
   const navigate = useNavigate();
+  const [errorDisplay, setErrorDisplay] = useState(null);
   
   const [signUp, { data, loading, error }] = useMutation(SIGNUP, { onCompleted: () => navigate("/login")}); 
   
-  if (loading) return <LoadingPage />;
-  if (error) return <ErrorPage />; //`Submission error! ${error.message}`; - pass error message as props to error page?
+  //if (loading) return <LoadingPage />;
+  //if (error) return <ErrorPage />; //`Submission error! ${error.message}`; - pass error message as props to error page?
 
   let input1;
   let input2;
@@ -39,7 +41,7 @@ export default function SignUpPage() {
 
               if (spaceIdx === -1) {
                 firstName = fullName;
-                lastName = null;
+                lastName = "";
               } else {
                 firstName = fullName.slice(0, spaceIdx);
                 lastName = fullName.slice(spaceIdx + 1);
@@ -54,23 +56,27 @@ export default function SignUpPage() {
                   password: input4.value
                 }
               }).then((result) => {
-                console.log(result);
-                console.log('logged in === true')
+                setErrorDisplay("")
+                input1.value = '';
+                input2.value = '';
+                input3.value = '';
+                input4.value = '';
               }).catch((err) => {
-                console.error(err);
+                if (err.message.includes("E11000")) {
+                  if (err.message.includes("email")) setErrorDisplay("There is already an account associated with that email.");
+                  else setErrorDisplay("Username already in use.");
+                  return;
+                }
+                setErrorDisplay("Unknown error occurred.")
               });
-
-              input1.value = '';
-              input2.value = '';
-              input3.value = '';
-              input4.value = '';
             }}
           >
-            <div className='pb-4'>
+            <div className=''>
               <h2
               className="font-semibold text-2xl w-fit">
                 Sign up for an account
               </h2>
+              {<p className="h-6 mt-3 text-red-500">{errorDisplay}</p>}
             </div>
 
             <div className='pt-3 pb-1'>
@@ -143,7 +149,7 @@ export default function SignUpPage() {
             required
             minLength={8}
             maxLength={32}
-            // pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*?&]{8,}$"
+            type="password"
             id="password" 
             name="password" 
             className='border-2 h-10 rounded-md px-2'

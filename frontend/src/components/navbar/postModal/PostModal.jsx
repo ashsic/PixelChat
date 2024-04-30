@@ -2,6 +2,7 @@ import { useState } from "react";
 import ExitModalButton from "./ExitModalButton";
 import ImageCrop from "./ImageCrop";
 import ReactCrop, { makeAspectCrop } from "react-image-crop";
+import ImageUploadForm from "./ImageUploadForm";
 
 export default function PostModal() {
   const [crop, setCrop] = useState();
@@ -17,7 +18,7 @@ export default function PostModal() {
     if (!file) return;
 
     const reader = new FileReader();
-    reader.addEventListener("load", (event) => {
+    reader.addEventListener("load", () => {
       const imgUrl = reader.result?.toString() || "";
 
       document.querySelector("#uploadForm").style.display = "none";
@@ -75,66 +76,20 @@ export default function PostModal() {
 
         <div className="flex-grow flex align-middle justify-center h-full pb-10 w-full border-t border-slate-300">
 
-          {error && <p classname="text-red-500">{error}</p>}
+          {/* {error && <p classname="text-red-500">{error}</p>} */}
 
           {
             (
               imgSrc
             ) ? (
-              <div id="imageContainer" className="relative flex flex-col h-full overflow-hidden items-center justify-center">
-
-                <div className="w-full h-full my-auto flex-grow"></div>
-
-                <ReactCrop 
-                  className="flex h-full overflow-visible items-center justify-center my-auto"
-                  crop={crop}
-                  keepSelection
-                  minWidth={100}
-                  ruleOfThirds
-                  onChange={
-                    (pixelCrop) => setCrop(pixelCrop)
-                  }
-                >
-                  
-                  <img 
-                    id="userImage" 
-                    className="hidden h-full object-contain" 
-                    alt="User-uploaded image." 
-                    src={imgSrc}
-                    onLoad={onImgLoad} 
-                  />
-                  
-                </ReactCrop>
-
-                <div className="relative w-full h-full my-auto flex-grow">
-                  <div className="opacity-50 hover:opacity-100 flex absolute bottom-0 w-full bg-slate-200 justify-between">
-                    <div className="mx-6 mb-2 mt-3">
-                      <i className="material-icons text-3xl hover:animate-pulse hover:cursor-pointer">aspect_ratio</i>
-                    </div>
-                    <div className="mx-6 mb-2 mt-3">
-                      <i className="material-icons text-3xl hover:animate-pulse hover:cursor-pointer">check_circle_outline</i>
-                    </div>
-                  </div>
-                </div>
-
-              </div>
+              <ImageCrop 
+                imgSrc={imgSrc} 
+                setCrop={setCrop} 
+                crop={crop} 
+                onImgLoad={onImgLoad} 
+              />
             ) : (
-              <form
-              id="uploadForm"
-              action="/upload"
-              method="POST"
-              encType="multipart/form-data"
-              className="flex flex-col items-center justify-center">
-                <i className="material-icons text-9xl">image</i>
-                <span className="font-medium text-lg mb-2">Drag photos here from your desktop</span>
-                <span>- or -</span>
-                <label htmlFor="file"
-                className="hover:bg-cyan-400 cursor-pointer m-4 border
-                h-10 rounded-lg py-2 px-4 font-medium bg-cyan-300">
-                  Select from computer
-                </label>
-                <input type="file" id="file" name="file" className="hidden" onChange={handleFileUpload} />
-              </form>
+              <ImageUploadForm handleFileUpload={handleFileUpload} />
             )
           }
 

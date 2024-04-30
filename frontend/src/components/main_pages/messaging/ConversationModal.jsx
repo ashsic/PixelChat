@@ -102,7 +102,7 @@ export default function ConversationModal() {
               </div>
 
               <div>
-                <label className="" htmlFor="user">
+                <label className="" htmlFor="message">
                   Message:
                 </label>
                 <input
@@ -114,7 +114,7 @@ export default function ConversationModal() {
               </div>
 
               <div>
-                <label className="" htmlFor="message">
+                <label className="" htmlFor="chat_name">
                   Chat Name:
                 </label>
                 <input

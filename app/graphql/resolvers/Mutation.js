@@ -11,26 +11,30 @@ config();
 
 // Auth/user functions
 async function signUp(parent, args) {
-  const password = await encryptPassword(args.password);
-  const newUser = new models.User({
-    ...args,
-    password: password,
-    dob: new Date() //args.dob ? new Date(args.dob) : null
-  });
-  await newUser.save();
-  return newUser;
+  try {
+    const password = await encryptPassword(args.password);
+    const newUser = new models.User({
+      ...args,
+      password: password,
+      dob: new Date() //args.dob ? new Date(args.dob) : null
+    });
+    await newUser.save();
+    return newUser;
+  } catch (err) {
+    throw new Error(err);
+  }
 };
 
 async function login(parent, args, { res }) {
   
   const user = await models.User.findOne({ email: args.email });
   if (!user) {
-    throw new Error("User not found.");
+    throw new Error("Invalid username or password.");
   }
 
   const valid = await bcrypt.compare(args.password, user.password);
   if (!valid) {
-    throw new Error("Invalid password.");
+    throw new Error("Invalid username or password.");
   }
 
   await models.User.findOneAndUpdate(

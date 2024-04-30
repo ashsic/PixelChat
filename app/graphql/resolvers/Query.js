@@ -20,7 +20,6 @@ async function users(parent, args, context) {
 
 async function userChats(parent, args, context) {
   // protectedAuth(context);
-  console.log(args.id)
   const chats = await models.Chat.findById(args.id);
   return chats;
 }

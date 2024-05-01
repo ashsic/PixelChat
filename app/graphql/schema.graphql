@@ -1,16 +1,34 @@
+# GraphQL Schema
+
+# TODO: standardize id variable names, change userChats, implement resolvers
+
 scalar Date
 
 type Query {
+  # User queries:
+  # Get a user by id
   user(id:ID!): User
 
+  # Get all users
   users: [User]
 
+  # Get the user (self) making the request by their id in their JWT
+  verifyJwt: User
+
+  # Chat queries:
+  # Get a chat by its ID, formerly got all chats by user's ID
   userChats(id:ID!): Chat
 
-  verifyJwt: User
+  # Post Queries:
+  # Get all posts
+  posts: [Post]
+
+  # Get a post by its ID
+  post(id: ID!): Post
 }
 
 type Mutation {
+  # Auth/User mutations
   signUp(
     username: String!,
     email: String!,
@@ -23,8 +41,13 @@ type Mutation {
 
   login(email: String!, password: String!): User
 
-  logout: String # token
+  logout: String # token?
 
+  #updateUser(): User
+
+  deleteUser(username: String!): DeleteUserResponse!
+
+  # Chat mutations
   createChat(
     participants: [String!]!
     name: [String!]
@@ -39,14 +62,45 @@ type Mutation {
     timestamp: String
     hidden: Boolean
   ): Chat
+
+  # Deletes a chat for all users
+  deleteChat(chat: ID!): DeleteChatResponse!
+
+  # Removes a chat from one user's "chats" array
+  leaveChat(chat: ID!): LeaveChatResponse!
+
+  # Post mutations
+  createPost(
+    poster: String!
+    text: String
+    timestamp: String
+    image: String!
+  ): Post
+
+  deletePost(post: String!): DeletePostResponse!
+
+  # Comment on a post
+  addComment(
+    postId: String!
+    commenter: String!
+    text: String!
+    timestamp: String
+  ): Comment
 }
 
 type Subscription {
+  # Update a chat with a new message via its ID
   messageSent(id: ID!): Message
 
+  # not implemented yet
+  # When a user is included in a new chat, it renders in their "messages" tab
+  # May have to update User itself > user's chats array gets pushed to >
+  # that triggers the client to re-query user's Chats (userChats query)
   chatCreated(id: ID!): Chat
 }
 
+
+# Type defs for entities (gql types?)
 type User {
   _id: ID!
   username: String!
@@ -82,12 +136,12 @@ type Message {
 
 type Post {
   _id: ID!
-  poster: User!
+  poster: String!
   text: String!
   timestamp: String!
   likes: Int!
   comments: [Comment!]!
-  images: [String!]!
+  image: String!
 }
 
 type Comment {
@@ -95,18 +149,44 @@ type Comment {
   text: String!
   timestamp: String!
   likes: Int!
-  replies: [CommentReply!]!
+  #replies: [CommentReply!]!
 }
 
-type CommentReply {
-  comment: Comment!
-  replier: User!
-  text: String!
-  timestamp: String!
-  likes: Int!
-}
+# CommentReply not yet implemented
+
+# type CommentReply {
+#   comment: Comment!
+#   replier: User!
+#   text: String!
+#   timestamp: String!
+#   likes: Int!
+# }
 
 type AuthPayload {
   token: String
   user: User
+}
+
+type DeletePostResponse {
+  success: Boolean!
+  deletedPost: Post
+  errors: [String]
+}
+
+type DeleteUserResponse {
+  success: Boolean!
+  deletedUser: User
+  errors: [String]
+}
+
+type DeleteChatResponse {
+  success: Boolean!
+  deletedChat: Chat
+  errors: [String]
+}
+
+type LeaveChatResponse {
+  success: Boolean!
+  leftChat: Chat
+  errors: [String]
 }

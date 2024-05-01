@@ -8,7 +8,6 @@ const postSchema = new mongoose.Schema({
 
   text: {
     type: String,
-    required: true,
     validate: {
       validator: function(text) {
           return text.length > 0 && text.length < 1024;
@@ -54,41 +53,42 @@ const postSchema = new mongoose.Schema({
       required: true,
       default: 0
     },
-    replies: [{
-      replier: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User' 
-      },
-      text: {
-        type: String,
-        required: true,
-        validate: {
-          validator: function(text) {
-              return text.length > 0 && text.length < 512;
-          },
-          message: 'Comment must meet the length requirements.'
-        }
-      },
-      timestamp: {
-        type: Date,
-        default: Date.now
-      },
-      likes: {
-        type: Number,
-        required: true,
-        default: 0
-      },
-    }]
+    // replies: [{
+    //   replier: {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: 'User' 
+    //   },
+    //   text: {
+    //     type: String,
+    //     required: true,
+    //     validate: {
+    //       validator: function(text) {
+    //           return text.length > 0 && text.length < 512;
+    //       },
+    //       message: 'Comment must meet the length requirements.'
+    //     }
+    //   },
+    //   timestamp: {
+    //     type: Date,
+    //     default: Date.now
+    //   },
+    //   likes: {
+    //     type: Number,
+    //     required: true,
+    //     default: 0
+    //   },
+    // }]
   }],
 
-  images: {
-    type: [String],
-    validate: {
-      validator: function(arr) {
-          return arr.length <= 4;
-      },
-      message: 'Limit of 4 images to a post'
-    }
+  image: {
+    type: String,
+    required: true,
+    // validate: {
+    //   validator: function(arr) {
+    //       return arr.length <= 4;
+    //   },
+    //   message: 'Limit of 4 images to a post'
+    // }
   },
 }, { timestamps: true });
 

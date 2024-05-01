@@ -49,12 +49,13 @@ const server = new ApolloServer({
 
 await server.start();
 
-// Route w/ middleware
+// cors settings for dev - origin needs to be replaced with envvar in prod
 const corsOptions = {
   origin: 'http://localhost:5173',
   credentials: true 
 };
 
+// Routes w/ middleware - can refactor to app.use on all routes?
 app.use("/graphql", 
   cors(corsOptions), 
   express.json(), 

@@ -43,6 +43,8 @@ type Mutation {
 
 type Subscription {
   messageSent(id: ID!): Message
+
+  chatCreated(id: ID!): Chat
 }
 
 type User {

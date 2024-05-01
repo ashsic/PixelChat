@@ -26,100 +26,119 @@ async function signUp(parent, args) {
 };
 
 async function login(parent, args, { res }) {
-  
-  const user = await models.User.findOne({ email: args.email });
-  if (!user) {
-    throw new Error("Invalid username or password.");
+  try {
+    const user = await models.User.findOne({ email: args.email });
+    if (!user) {
+      throw new Error("Invalid username or password.");
+    }
+
+    const valid = await bcrypt.compare(args.password, user.password);
+    if (!valid) {
+      throw new Error("Invalid username or password.");
+    }
+
+    await models.User.findOneAndUpdate(
+      { _id: user._id },
+      { $set: { lastLogin: Date.now() } },
+      { new: true }
+    );
+
+    const token = jwt.sign({
+      userId: user._id,
+      exp: Math.floor(Date.now() / 1000) + (60*60) // 1 hour expiry
+    }, process.env.SECRET_KEY);
+
+    // cookie settings for jwt
+    const cookieOptions = {
+      httpOnly: true,
+      path: '/graphql',
+      domain: '.localhost',
+      expires: new Date(Math.floor(Date.now()) + (60*60*1000)),
+      sameSite: 'None',
+      secure: true
+    };
+
+    res.cookie('jwtPayload', token, cookieOptions);
+
+    return user;
+  } catch (err) {
+    throw new Error(err);
   }
-
-  const valid = await bcrypt.compare(args.password, user.password);
-  if (!valid) {
-    throw new Error("Invalid username or password.");
-  }
-
-  await models.User.findOneAndUpdate(
-    { _id: user._id },
-    { $set: { lastLogin: Date.now() } },
-    { new: true }
-  );
-
-  const token = jwt.sign({
-    userId: user._id,
-    exp: Math.floor(Date.now() / 1000) + (60*60) // 1 hour expiry
-  }, process.env.SECRET_KEY);
-
-  // cookie settings for jwt
-  const cookieOptions = {
-    httpOnly: true,
-    path: '/graphql',
-    domain: '.localhost',
-    expires: new Date(Math.floor(Date.now()) + (60*60*1000)),
-    sameSite: 'None',
-    secure: true
-  };
-
-  res.cookie('jwtPayload', token, cookieOptions);
-
-  return user;
 };
 
 async function logout(parent, args, context) {
   protectedAuth(context);
-
-  const cookieOptions = {
-    httpOnly: true,
-    path: '/graphql',
-    domain: '.localhost',
-    expires: new Date(0),
-    sameSite: 'None',
-    secure: true
-  };
-
-  const token = "logout";
-  context.res.cookie('jwtPayload', token, cookieOptions);
-
-  return token;
+  try {
+    const cookieOptions = {
+      httpOnly: true,
+      path: '/graphql',
+      domain: '.localhost',
+      expires: new Date(0),
+      sameSite: 'None',
+      secure: true
+    };
+  
+    const token = "logout";
+    context.res.cookie('jwtPayload', token, cookieOptions);
+    return token;
+  } catch (err) {
+    throw new Error(err);
+  }
 };
 
 // Chat functions
-
 async function createChat(parent, args) {
-  const newChat = new models.Chat({
-    ...args,
-    name: args.name || args.participants 
-  });
-  await newChat.save();
-
-  await models.User.updateMany(
-    { username: { $in: args.participants } },
-    { $push: {chats: newChat._id } }
-  );
+  protectedAuth(context);
+  try {
+    const newChat = new models.Chat({
+      ...args,
+      name: args.name || args.participants 
+    });
+    await newChat.save();
   
-  return newChat;
+    await models.User.updateMany(
+      { username: { $in: args.participants } },
+      { $push: {chats: newChat._id } }
+    );
+
+    // pubsub.publish('CHAT_CREATED' + id , {
+    //   chatCreated: {
+    //     participants: args.participants,
+    //     name: args.name,
+    //   }
+    // });
+
+    return newChat;
+  } catch (err) {
+    throw new Error(err);
+  }
 };
 
 async function sendMessage(parent, args) {
-  const id = args.chat;
+  protectedAuth(context);
+  try {
+    const chatId = args.chat;
 
-  const updatedChat = await models.Chat.findByIdAndUpdate(id, {
-    $push: {
-      messages: {
-        sender: args.sender,
-        text: args.text
+    const updatedChat = await models.Chat.findByIdAndUpdate(chatId, {
+      $push: {
+        messages: {
+          sender: args.sender,
+          text: args.text
+        }
       }
-    }
-  }, { new: true, select: 'messages' });
-
-  pubsub.publish('MESSAGE_SENT' + id , {
-    messageSent: {
-      sender: args.sender,
-      text: args.text,
-      timestamp: Date.now()
-    }
-  });
+    }, { new: true, select: 'messages' });
   
-  
-}
+    pubsub.publish('MESSAGE_SENT' + id , {
+      messageSent: {
+        sender: args.sender,
+        text: args.text,
+        timestamp: Date.now()
+      }
+    });
+  } catch (err) {
+    throw new Error(err);
+  }
+};
 
 export default {
   signUp,

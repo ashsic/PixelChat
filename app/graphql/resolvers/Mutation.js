@@ -87,7 +87,7 @@ async function logout(parent, args, context) {
 };
 
 // Chat functions
-async function createChat(parent, args) {
+async function createChat(parent, args, context) {
   protectedAuth(context);
   try {
     const newChat = new models.Chat({
@@ -97,16 +97,18 @@ async function createChat(parent, args) {
     await newChat.save();
   
     await models.User.updateMany(
-      { username: { $in: args.participants } },
+      { username: { $in: newChat.participants } },
       { $push: {chats: newChat._id } }
     );
 
-    // pubsub.publish('CHAT_CREATED' + id , {
-    //   chatCreated: {
-    //     participants: args.participants,
-    //     name: args.name,
-    //   }
-    // });
+    newChat.participants.forEach((participant) => {
+      console.log(participant)
+      pubsub.publish('CHAT_CREATED' + participant, {
+        chatCreated: {
+          _id: newChat._id
+        }
+      });
+    })
 
     return newChat;
   } catch (err) {
@@ -114,7 +116,7 @@ async function createChat(parent, args) {
   }
 };
 
-async function sendMessage(parent, args) {
+async function sendMessage(parent, args, context) {
   protectedAuth(context);
   try {
     const chatId = args.chat;
@@ -127,14 +129,18 @@ async function sendMessage(parent, args) {
         }
       }
     }, { new: true, select: 'messages' });
+
+    const newMessage = updatedChat.messages[updatedChat.messages.length - 1];
+    const { sender, text, timestamp } = newMessage;
   
-    pubsub.publish('MESSAGE_SENT' + id , {
+    pubsub.publish('MESSAGE_SENT' + chatId , {
       messageSent: {
-        sender: args.sender,
-        text: args.text,
-        timestamp: Date.now()
+        sender,
+        text,
+        timestamp,
       }
     });
+
   } catch (err) {
     throw new Error(err);
   }
@@ -145,5 +151,5 @@ export default {
   login,
   logout,
   createChat,
-  sendMessage
+  sendMessage,
 };

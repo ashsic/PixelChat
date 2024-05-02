@@ -92,10 +92,8 @@ type Subscription {
   # Update a chat with a new message via its ID
   messageSent(id: ID!): Message
 
-  # not implemented yet
-  # When a user is included in a new chat, it renders in their "messages" tab
-  # May have to update User itself > user's chats array gets pushed to >
-  # that triggers the client to re-query user's Chats (userChats query)
+  # When a user is included in a new chat, it renders
+  # instantly in their "messages" tab
   chatCreated(id: ID!): Chat
 }
 

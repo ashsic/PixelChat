@@ -39,7 +39,7 @@ export default function Chat({ chatid }) {
       
         {messages && messages.toReversed().map((message, i) => {
           return (
-            <Message key={i} message={message} />
+            <Message key={message.sender + message.timestamp + i} message={message} />
           );
         })}
       </ul>

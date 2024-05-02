@@ -16,7 +16,9 @@ export default function ConversationListItem({ conv }) {
   });
 
   if (loading) return <p>loading...</p>
-  if (error) return <p>error</p>
+  if (error) {
+    return <p>error</p>
+  } 
 
   return (
     <ConversationListItemWithData 

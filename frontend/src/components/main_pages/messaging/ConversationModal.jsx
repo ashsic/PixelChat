@@ -15,34 +15,16 @@ export default function ConversationModal() {
     e.preventDefault();
     let participants = participantsInput.value.split(" ");
     participants.push(user.verifyJwt.username);
-    createChat({
+    const result = createChat({
       variables: {
         participants: participants,
         name: (participants.length > 2) ? chatNameInput.value || participants : participants
       }
     })
+    console.log('res', result)
     participantsInput = "";
     chatNameInput = "";
-
   }
-
-  // e => {
-  //   e.preventDefault();
-  //   login({ 
-  //     variables: {
-  //       email: "use1r@example.com",
-  //       password: "test"
-  //     }
-  //   }).then((result) => {
-  //     console.log(result);
-  //     console.log('logged in === true')
-  //   }).catch((err) => {
-  //     console.error(err);
-  //   });
-  // }
-
-
-
 
   const closeModal = () => {
     const modal = document.querySelector("#conversationModal");

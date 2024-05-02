@@ -2,8 +2,11 @@ import { NavLink } from "react-router-dom";
 import LogOutButton from "./LogOutButton";
 import PostModal from "./postModal/PostModal";
 import NavBarItem from "./NavBarItem";
+import { useEffect } from "react";
 
-export default function NavBar() {
+export default function NavBar({ subscribeToNewChats }) {
+
+  useEffect(() => subscribeToNewChats(), []);
 
   const openPostModal = () => {
     const modal = document.querySelector("#postModal");

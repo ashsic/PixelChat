@@ -33,7 +33,6 @@ export default function Messages() {
     const modal = document.querySelector("#conversationModal");
     modal.style.display = "flex";
   }
-  // console.log(data)
 
   return (
     <div className="flex w-full">
@@ -42,8 +41,10 @@ export default function Messages() {
         <div className="w-64 md:w-96 max-h-screen fixed flex flex-col">
           <h1 className="text-2xl p-3 absolute mt-2.5 hidden md:block">Messages</h1>
           <div className="min-h-16 flex-row-reverse hidden md:flex pb-2 border-b border-slate-200">
-            <button className="mt-4 mr-5 h-11 rounded-md hover:bg-slate-200 active:bg-slate-300"
-            onClick={createChat}>
+            <button 
+              className="mt-4 mr-5 h-11 rounded-md hover:bg-slate-200 active:bg-slate-300"
+              onClick={createChat}
+            >
               <i className="material-icons px-2 text-3xl">
                 create
               </i>
@@ -56,9 +57,9 @@ export default function Messages() {
             ) ? (
               <div>No conversations</div>
             ) : (
-              chats.map((chat) => {
+              chats.map((chat, i) => {
                 return (
-                  <ConversationListItem key={ chat } conv={ chat } />
+                  <ConversationListItem key={ chat._id + String(i) } conv={ chat } />
                 );
               })
             )

@@ -6,8 +6,6 @@ import { SEND_MESSAGE } from "../../../graphql/mutations";
 
 // Message functionality
 
-
-
 export default function MessageForm() {
   const chatid = useParams();
   const { user } = useContext(LoginStatusContext);

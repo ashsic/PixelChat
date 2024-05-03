@@ -101,7 +101,7 @@ async function createChat(parent, args, context) {
 
       if (existingChat) return existingChat;
     };
-    
+
     const newChat = new models.Chat({
       ...args,
       name: args.name || args.participants 
@@ -157,6 +157,12 @@ async function sendMessage(parent, args, context) {
     throw new Error(err);
   }
 };
+
+// Post functions
+
+// async function createPost(parent, args, context) {
+//   protectedAuth(context);
+// }
 
 export default {
   signUp,

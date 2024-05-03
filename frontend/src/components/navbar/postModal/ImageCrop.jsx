@@ -39,8 +39,12 @@ export default function ImageCrop({ setCrop, imgSrc, onImgLoad, crop }) {
     canv.classList += "hidden";
   }
 
-  const onCreatePostClick = () => {
+  const onConfirmPostClick = () => {
     setIsCaptionOpen(true);
+  }
+
+  const submitPost = () => {
+
   }
 
   return (
@@ -49,31 +53,34 @@ export default function ImageCrop({ setCrop, imgSrc, onImgLoad, crop }) {
       {
         crop && 
         <>
-        {
-          isCropped &&
-          <div className="w-full h-full my-auto flex-grow"></div>
-        }
+          {
+            isCropped &&
+            <div className="w-full h-full my-auto flex-grow"></div>
+          }
 
-        <div className="flex h-full overflow-visible items-center justify-center my-auto">
-          <div className="flex h-full w-full items-center justify-center">
-            <canvas
-              id="croppedCanvas"
-              ref={croppedUrlRef}
-              className="hidden h-full object-contain w-full"
-            />
+          <div className="flex h-full overflow-visible items-center justify-center my-auto">
+            <div className="flex h-full w-full items-center justify-center">
+              <canvas
+                id="croppedCanvas"
+                ref={croppedUrlRef}
+                className="hidden h-full object-contain w-full"
+              />
+            </div>
           </div>
-        </div>
 
-        {
-          isCropped &&
-          <div className="w-full h-full my-auto flex-grow flex justify-center items-center relative">
+          {
+            isCropped &&
+            <form 
+              className="w-full h-full my-auto flex-grow flex justify-center items-center relative"
+              onSubmit={submitPost}
+            >
 
               {
                 isCaptionOpen &&
-                <div className="w-full flex justify-center z-20 absolute bottom-2">
+                <div className="w-full flex justify-center z-20 absolute bottom-2 mx-auto">
                   <div className="my-auto w-1/2 relative">
                     <input
-                     className="text-sm p-2 w-full rounded-lg border border-slate-900"
+                    className="text-sm p-2 w-full rounded-lg border border-slate-900"
                       type="text"
                       placeholder="Enter a caption..."
                     />
@@ -86,43 +93,35 @@ export default function ImageCrop({ setCrop, imgSrc, onImgLoad, crop }) {
                       Post
                     </button>
                   </div>
-                  
                 </div>
               }
 
-            <div className="opacity-25 hover:opacity-70 transition-all duration-300 flex absolute bottom-0 w-full bg-slate-300 justify-between">
-              <button 
-                className="mx-6 mb-2 mt-3 hover:cursor-pointer"
-                onClick={onBackButtonClick}
-              >
-                <i className="material-icons text-3xl hover:animate-pulse hover:cursor-pointer">
-                  arrow_back_ios
-                </i>
-              </button>
-              <button 
-                id="createPost"
-                className="mx-6 mb-2 mt-3 hover:cursor-pointer"
-                onClick={onCreatePostClick}
-              >
-                <i className="material-icons text-3xl hover:animate-pulse">
-                  check_circle_outline
-                </i>
-              </button>
-            </div>
-          </div>
-        }
+              <div className="opacity-25 hover:opacity-70 transition-all duration-300 flex absolute bottom-0 w-full bg-slate-300 justify-between">
+                <button 
+                  className="mx-6 mb-2 mt-3 hover:cursor-pointer"
+                  onClick={onBackButtonClick}
+                >
+                  <i className="material-icons text-3xl hover:animate-pulse hover:cursor-pointer">
+                    arrow_back_ios
+                  </i>
+                </button>
+                <button 
+                  id="createPost"
+                  className="mx-6 mb-2 mt-3 hover:cursor-pointer"
+                  onClick={onConfirmPostClick}
+                >
+                  <i className="material-icons text-3xl hover:animate-pulse">
+                    check_circle_outline
+                  </i>
+                </button>
+              </div>
+            </form>
+          }
         </>
       }
 
       {
-        // (
-        //   isCropped
-        // ) ? (
-        //   <></>
-        
-        // ) : (
-
-          !isCropped && (
+        !isCropped && (
           <>
             <div className="w-full h-full my-auto flex-grow"></div>
 

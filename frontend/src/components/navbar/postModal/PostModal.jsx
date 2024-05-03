@@ -2,7 +2,7 @@ import { useState } from "react";
 import ExitModalButton from "./ExitModalButton";
 import ImageCrop from "./ImageCrop";
 import ReactCrop, { makeAspectCrop } from "react-image-crop";
-import ImageUploadForm from "./ImageUploadForm";
+import ImageUploadInput from "./ImageUploadInput";
 
 export default function PostModal() {
   const [crop, setCrop] = useState();
@@ -89,7 +89,7 @@ export default function PostModal() {
                 onImgLoad={onImgLoad} 
               />
             ) : (
-              <ImageUploadForm handleFileUpload={handleFileUpload} />
+              <ImageUploadInput handleFileUpload={handleFileUpload} />
             )
           }
 

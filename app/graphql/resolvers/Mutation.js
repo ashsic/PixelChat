@@ -90,6 +90,18 @@ async function logout(parent, args, context) {
 async function createChat(parent, args, context) {
   protectedAuth(context);
   try {
+    // Only one DM per pair of users
+    if (args.participants.length == 2) {
+      const existingChat = await models.Chat.findOne({
+        participants: { 
+          $all: [args.participants[0], args.participants[1]], 
+          $size: 2 
+        }
+      });
+
+      if (existingChat) return existingChat;
+    };
+    
     const newChat = new models.Chat({
       ...args,
       name: args.name || args.participants 

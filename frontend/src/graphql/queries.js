@@ -32,3 +32,13 @@ export const USER_CHATS = gql`
     }
   }
 `;
+
+export const GET_POSTS = gql`
+  query {
+    posts {
+      poster
+      text
+      likes
+    }
+  }
+`;

@@ -13,6 +13,8 @@ export default function Messages() {
   const { user } = useContext(LoginStatusContext);
   const { _id, chats } = user.verifyJwt;
 
+  console.log(chats)
+
   // const { loading, error, data } = useQuery(USER_CHATS, {
   //   variables: { ids: chats }
   // });

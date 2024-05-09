@@ -1,4 +1,4 @@
-# <imgWorld>
+# imgWorld
 Testing my skills by making a full stack image sharing site with MERN/GraphQL.
 
 /app contains the backend API, written in Node.js with GraphQL.

@@ -1,5 +1,5 @@
 # ig-clone
-Testing my skills by making a full stack instagram clone with MERN/GraphQL.
+Testing my skills by making a full stack image sharing site with MERN/GraphQL.
 
 /app contains the backend API, written in Node.js with GraphQL.
 Express and Apollo Server are used for the backend routes
